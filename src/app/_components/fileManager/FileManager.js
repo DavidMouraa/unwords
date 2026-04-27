@@ -15,11 +15,11 @@ export default function FileManager() {
     <ContextMenu
       itemKeys={itemKeys}
     >
-      <div className="w-full h-full p-2 bg-[#1a1a1a] text-white">
+      <div className="w-full h-full p-2 bg-[#1a1a1a]">
         {rootItems.map((item) => (
           <RenderItems 
             key={item.id}
-            id={item.id}
+            itemId={item.id}
             items={items}
           />
         ))}

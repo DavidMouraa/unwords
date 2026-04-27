@@ -9,9 +9,7 @@ import "@xyflow/react/dist/style.css"
 import TextNode from "./nodes/TextNode"
 import ContextMenu from "../../contextMenu/ContextMenu"
 import useNodesStore from "@/store/useNodesStore"
-import buildNode from "@/app/_utils/buildNode"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
-import { useEffect } from "react"
 
 const nodeTypes = {
   text: TextNode,
@@ -21,12 +19,11 @@ export default function GraphEditor() {
   const { 
     nodes, 
     edges,
-    setNodes,
     onNodesChange,
     onEdgesChange,
     onConnect,
   } = useNodesStore()
-  const { clientPos, setClientPos } = useGraphEditorStore()
+  const { setClientPos } = useGraphEditorStore()
   const { screenToFlowPosition } = useReactFlow()
 
   const contextMenuItemKeys = ["createTextNode"]

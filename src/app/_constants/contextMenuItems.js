@@ -4,7 +4,7 @@ import buildItem from "../_utils/buildItem"
 import useFileManagerStore from "@/store/useFileManagerStore"
 
 const { setNodes } = useNodesStore.getState()
-const { setItems} = useFileManagerStore.getState()
+const { setItems } = useFileManagerStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createTextNode: {
@@ -37,7 +37,7 @@ const CONTEXT_MENU_ITEMS = {
     type: "default",
     action: (_, { itemId }) => {
       setItems((items) => {
-        const {[itemId]: discarded, ...newItems} = items
+        const {[itemId]: _, ...newItems} = items
         return newItems
       })
     }

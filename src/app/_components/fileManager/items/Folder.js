@@ -1,4 +1,4 @@
-import Item from "./Item";
+import Item from "./FileManagerItem";
 import { FaFolder } from "react-icons/fa6";
 import { FaFolderOpen } from "react-icons/fa6";
 

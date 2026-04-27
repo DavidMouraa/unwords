@@ -10,14 +10,14 @@ export default function Home() {
       <div className="[grid-area:file-manager]">
         <FileManager />
       </div>
-      <div className="[grid-area:tabbar">
+      <div className="[grid-area:tabbar]">
         <Tabbar />
       </div>
       <div className="[grid-area:editor]">
-        {/* <ReactFlowProvider>
+        <ReactFlowProvider>
           <GraphEditor />
-        </ReactFlowProvider> */}
-        <TextEditor />
+        </ReactFlowProvider>
+        {/* <TextEditor /> */}
       </div>
     </div>
   );

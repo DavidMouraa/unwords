@@ -1,22 +1,22 @@
 import ContextMenu from "../../contextMenu/ContextMenu";
-import Item from "./Item";
+import FileManagerItem from "./FileManagerItem";
 import useFileManagerStore from "@/store/useFileManagerStore";
 
-export default function File({ children, id }) {
+export default function File({ children, itemId }) {
   const { openFile } = useFileManagerStore()
 
   const itemKeys = ["deleteItem"]
 
   return (
     <ContextMenu
-      itemId={id}
+      itemId={itemId}
       itemKeys={itemKeys}
     >
-      <Item
-        onClick={() => openFile(id)}
+      <FileManagerItem
+        onClick={() => openFile(itemId)}
       >
         {children}
-      </Item>
+      </FileManagerItem>
     </ContextMenu>
   )
 }

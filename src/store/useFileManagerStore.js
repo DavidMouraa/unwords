@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const useFileManagerStore = create((set, get) => ({
   items: {},
-  openFiles: [],
+  openFilesId: [],
   activedFileId: null,
 
   setItems: (items) => set((state) => ({
@@ -10,17 +10,17 @@ const useFileManagerStore = create((set, get) => ({
   })),
   
   setOpenFiles: (files) => set((state) => ({
-    openFiles: typeof files === "function" ? files(state.openFiles) : files
+    openFilesId: typeof files === "function" ? files(state.openFilesId) : files
   })),
 
   openFile: (file) => set((state) => ({
-    openFiles: !state.openFiles.includes(file) ? [...state.openFiles, file] : state.openFiles,
+    openFilesId: !state.openFilesId.includes(file) ? [...state.openFilesId, file] : state.openFilesId,
     activedFileId: file,
   })),
 
   closeFile: (file) => set((state) => ({
-    openFiles: state.openFiles.filter((openFile) => openFile !== file),
-    activedFileId: state.activedFileId === file ? state.openFiles[state.openFiles.indexOf(file) - 1] || null : state.activedFileId,
+    openFilesId: state.openFilesId.filter((openFile) => openFile !== file),
+    activedFileId: state.activedFileId === file ? state.openFilesId[state.openFilesId.indexOf(file) - 1] || null : state.activedFileId,
   })),
 }))
 

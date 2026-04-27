@@ -4,15 +4,15 @@ import Tab from "./Tab"
 import useFileManagerStore from "@/store/useFileManagerStore"
 
 export default function Tabbar() {
-  const { items, openFiles } = useFileManagerStore()
+  const { items, openFilesId } = useFileManagerStore()
 
   return (
     <div className="flex w-full h-full bg-[#1a1a1a]">
-      {openFiles.map((file) => (
+      {openFilesId.map((fileId) => (
         <Tab 
-          key={file}
-          id={file}
-          data={items[file].data}
+          key={fileId}
+          itemId={fileId}
+          data={items[fileId].data}
         />
       ))}
     </div>

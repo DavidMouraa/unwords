@@ -2,13 +2,13 @@ import { IoDocumentText } from "react-icons/io5";
 import File from "./File";
 import useFileManagerStore from "@/store/useFileManagerStore";
 
-export default function TextFile({ id }) {
+export default function TextFile({ itemId }) {
   const { items } = useFileManagerStore()
-  const file = items[id]
+  const file = items[itemId]
 
   return (
     <File
-      id={id}
+      itemId={itemId}
     >
       <div className="flex items-center gap-1.5">
         <IoDocumentText />
