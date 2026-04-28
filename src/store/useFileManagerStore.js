@@ -24,15 +24,35 @@ const useFileManagerStore = create((set, get) => ({
     openFilesId: typeof files === "function" ? files(state.openFilesId) : files
   })),
 
-  openFile: (file) => set((state) => ({
-    openFilesId: !state.openFilesId.includes(file) ? [...state.openFilesId, file] : state.openFilesId,
-    activedFileId: file,
+  openFile: (fileId) => set((state) => ({
+    openFilesId: !state.openFilesId.includes(fileId) ? [...state.openFilesId, fileId] : state.openFilesId,
+    activedFileId: fileId,
   })),
 
-  closeFile: (file) => set((state) => ({
-    openFilesId: state.openFilesId.filter((openFile) => openFile !== file),
-    activedFileId: state.activedFileId === file ? (state.openFilesId[state.openFilesId.indexOf(file) - 1] || state.openFilesId[state.openFilesId.indexOf(file) + 1]) || null : state.activedFileId,
+  closeFile: (fileId) => set((state) => ({
+    openFilesId: state.openFilesId.filter((openFile) => openFile !== fileId),
+    activedFileId: state.activedFileId === fileId ? (state.openFilesId[state.openFilesId.indexOf(fileId) - 1] || state.openFilesId[state.openFilesId.indexOf(fileId) + 1]) || null : state.activedFileId,
   })),
+
+  deleteFile: (fileId) => {
+    const { [fileId]: _item, ...newItems } = get().items
+
+    get().closeFile(fileId)
+    get().setItems(newItems)
+  },
+
+  updateActiveItemContent: (newContent) => {
+    get().setItems((items) => ({
+      ...items,
+      [get().activedFileId]: {
+        ...items[get().activedFileId],
+        data: {
+          ...items[get().activedFileId].data,
+          content: newContent
+        }
+      }
+    }))
+  },
 }))
 
 export default useFileManagerStore

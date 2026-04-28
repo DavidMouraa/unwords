@@ -15,6 +15,7 @@ export default function File({ children, itemId }) {
       itemKeys={itemKeys}
     >
       <FileManagerItem
+        itemId={itemId}
         onClick={() => openFile(itemId)}
       >
         <div className="flex items-center gap-1.5">
