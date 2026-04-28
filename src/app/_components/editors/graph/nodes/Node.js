@@ -1,5 +1,5 @@
 import ContextMenu from "@/app/_components/contextMenu/ContextMenu"
-import Pin from "../pin"
+import Pin from "../Pin"
 
 export default function Node({ children, id, label, color }) {
   const contextMenuItemKeys = ["deleteNode"]

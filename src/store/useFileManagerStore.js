@@ -1,7 +1,18 @@
 import { create } from "zustand";
 
+const initialItems = {
+  item_1: {
+    id: "item_1",
+    type: "graph",
+    parentId: null,
+    data: {
+      label: "grapho"
+    }
+  }
+}
+
 const useFileManagerStore = create((set, get) => ({
-  items: {},
+  items: initialItems,
   openFilesId: [],
   activedFileId: null,
 
@@ -20,7 +31,7 @@ const useFileManagerStore = create((set, get) => ({
 
   closeFile: (file) => set((state) => ({
     openFilesId: state.openFilesId.filter((openFile) => openFile !== file),
-    activedFileId: state.activedFileId === file ? state.openFilesId[state.openFilesId.indexOf(file) - 1] || null : state.activedFileId,
+    activedFileId: state.activedFileId === file ? (state.openFilesId[state.openFilesId.indexOf(file) - 1] || state.openFilesId[state.openFilesId.indexOf(file) + 1]) || null : state.activedFileId,
   })),
 }))
 
