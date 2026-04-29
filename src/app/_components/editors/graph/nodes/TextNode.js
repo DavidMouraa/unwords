@@ -4,7 +4,7 @@ import { IoDocumentText } from "react-icons/io5";
 import useFileManagerStore from "@/store/useFileManagerStore";
 
 export default function TextNode({ selected, id, type }) {
-  const { items, activedFileId } = useFileManagerStore()
+  const { items, activedFileId, openFile } = useFileManagerStore()
   const nodeFileId = items[activedFileId].data.nodes[items[activedFileId].data.nodes.findIndex((node) => node.id === id)]?.data.fileId
   const nodeFile = items[nodeFileId]
 
@@ -16,12 +16,16 @@ export default function TextNode({ selected, id, type }) {
       label={"Texto"}
       color={"#1d46b8"}
     >
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-1 text-white hover:underline cursor-pointer">
+      <div className="flex flex-col justify-center gap-1 h-15">
+        <div className="flex items-center gap-1 w-21 text-white hover:underline cursor-pointer">
           <IoDocumentText />
           {nodeFile?.data.label || "Sem Arquivo"}
         </div>
-        <button className="flex justify-center w-full p-2 rounded-sm bg-white cursor-pointer">
+        <button 
+          className="flex justify-center w-full p-2 rounded-sm bg-white disabled:bg-[#c9c9c9] cursor-pointer"
+          onClick={() => openFile(nodeFileId)}
+          disabled={!nodeFileId}
+        >
           <MdEdit 
             className="text-black"
           />

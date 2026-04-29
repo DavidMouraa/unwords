@@ -19,7 +19,9 @@ export default function GraphEditor() {
   const { 
     setClientPos,
   } = useGraphEditorStore()
-  const { screenToFlowPosition } = useReactFlow()
+  const { 
+    screenToFlowPosition,
+  } = useReactFlow()
   const { 
     items, 
     activedFileId, 
@@ -27,6 +29,10 @@ export default function GraphEditor() {
     onEdgesChange,
     onConnect,
   } = useFileManagerStore()
+
+  const fitViewOptions = {
+    padding: 2,
+  }
   
   const activedFile = items[activedFileId]
   const contextMenuItemKeys = ["createTextNode"]
@@ -51,6 +57,7 @@ export default function GraphEditor() {
         onConnect={onConnect}
         onPaneContextMenu={onPaneContextMenu}
         nodeTypes={nodeTypes}
+        fitViewOptions={fitViewOptions}
         fitView
       >
         <Background 
