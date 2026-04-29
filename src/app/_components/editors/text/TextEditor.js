@@ -24,9 +24,9 @@ export default function TextEditor() {
   })
 
   return (
-    <div className="flex justify-center w-full h-full">
+    <div className="flex justify-center w-full h-full bg-[#1a1a1a]">
       <EditorContent 
-        className="max-w-200 w-full bg-[#f1f1f1]"
+        className="max-w-200 w-full border-x-2 bg-[#f1f1f1]"
         editor={editor} 
       />
     </div>

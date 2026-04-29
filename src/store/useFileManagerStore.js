@@ -1,3 +1,8 @@
+import { 
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
+} from "@xyflow/react";
 import { create } from "zustand";
 
 const initialItems = {
@@ -6,7 +11,9 @@ const initialItems = {
     type: "graph",
     parentId: null,
     data: {
-      label: "grapho"
+      label: "grapho",
+      nodes: [],
+      edges: [],
     }
   }
 }
@@ -19,10 +26,42 @@ const useFileManagerStore = create((set, get) => ({
   setItems: (items) => set((state) => ({
     items: typeof items === "function" ? items(state.items) : items
   })),
-  
+
   setOpenFiles: (files) => set((state) => ({
     openFilesId: typeof files === "function" ? files(state.openFilesId) : files
   })),
+
+  setFileNodes: (node) => {
+    const activedFileNodes = get().items[get().activedFileId].data.nodes
+
+    console.log(node)
+
+    get().setItems((items) => ({
+      ...items,
+      [get().activedFileId]: {
+        ...items[get().activedFileId],
+        data: {
+          ...items[get().activedFileId].data,
+          nodes: typeof node === "function" ? node(activedFileNodes) : [...activedFileNodes, node] 
+        }
+      }
+    }))
+  },
+
+  setFileEdges: (edge) => {
+    const activedFileEdges = get().items[get().activedFileId].data.nodes
+
+    get().setItems((items) => ({
+      ...items,
+      [get().activedFileId]: {
+        ...items[get().activedFileId],
+        data: {
+          ...items[get().activedFileId].data,
+          edges: typeof edge === "function" ? edge(activedFileEdges) : [...activedFileEdges, edge]
+        }
+      }
+    }))
+  },
 
   openFile: (fileId) => set((state) => ({
     openFilesId: !state.openFilesId.includes(fileId) ? [...state.openFilesId, fileId] : state.openFilesId,
@@ -53,6 +92,51 @@ const useFileManagerStore = create((set, get) => ({
       }
     }))
   },
+
+  onNodesChange: (change) => {
+    const activedFileNodes = get().items[get().activedFileId].data.nodes
+
+    get().setItems((items) => ({
+      ...items,
+      [get().activedFileId]: {
+        ...items[get().activedFileId],
+        data: {
+          ...items[get().activedFileId].data,
+          nodes: applyNodeChanges(change, activedFileNodes)
+        }
+      }
+    }))
+  },
+
+  onEdgesChange: (change) => {
+    const activedFileEdges = get().items[get().activedFileId].data.edges
+
+    get().setItems((items) => ({
+      ...items,
+      [get().activedFileId]: {
+        ...items[get().activedFileId],
+        data: {
+          ...items[get().activedFileId].data,
+          edges: applyEdgeChanges(change, activedFileEdges)
+        }
+      }
+    }))
+  },
+
+  onConnect: (params) => {
+    const activedFileEdges = get().items[get().activedFileId].data.edges
+
+    get().setItems((items) => ({
+      ...items,
+      [get().activedFileId]: {
+        ...items[get().activedFileId],
+        data: {
+          ...items[get().activedFileId].data,
+          edges: addEdge(params, activedFileEdges)
+        }
+      }
+    }))
+  }
 }))
 
 export default useFileManagerStore

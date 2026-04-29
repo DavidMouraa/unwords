@@ -8,8 +8,8 @@ import {
 import "@xyflow/react/dist/style.css"
 import TextNode from "./nodes/TextNode"
 import ContextMenu from "../../contextMenu/ContextMenu"
-import useNodesStore from "@/store/useNodesStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
+import useFileManagerStore from "@/store/useFileManagerStore"
 
 const nodeTypes = {
   text: TextNode,
@@ -17,15 +17,18 @@ const nodeTypes = {
 
 export default function GraphEditor() {
   const { 
-    nodes, 
-    edges,
+    setClientPos,
+  } = useGraphEditorStore()
+  const { screenToFlowPosition } = useReactFlow()
+  const { 
+    items, 
+    activedFileId, 
     onNodesChange,
     onEdgesChange,
     onConnect,
-  } = useNodesStore()
-  const { setClientPos } = useGraphEditorStore()
-  const { screenToFlowPosition } = useReactFlow()
-
+  } = useFileManagerStore()
+  
+  const activedFile = items[activedFileId]
   const contextMenuItemKeys = ["createTextNode"]
 
   function onPaneContextMenu(event) {
@@ -41,8 +44,8 @@ export default function GraphEditor() {
     >
       <ReactFlow
         className='bg-[#1a1a1a]! text-xs'
-        nodes={nodes}
-        edges={edges}
+        nodes={activedFile.data.nodes}
+        edges={activedFile.data.edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
