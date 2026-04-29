@@ -5,5 +5,8 @@ export default function buildNode(type, position) {
     id: uuidv4(),
     type,
     position,
+    data: {
+      fileId: null,
+    }
   }
 }

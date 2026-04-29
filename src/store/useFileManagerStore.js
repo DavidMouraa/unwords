@@ -22,19 +22,20 @@ const useFileManagerStore = create((set, get) => ({
   items: initialItems,
   openFilesId: [],
   activedFileId: null,
+  draggingItemId: null,
 
   setItems: (items) => set((state) => ({
-    items: typeof items === "function" ? items(state.items) : items
+    items: typeof items === "function" ? items(state.items) : items,
   })),
 
   setOpenFiles: (files) => set((state) => ({
-    openFilesId: typeof files === "function" ? files(state.openFilesId) : files
+    openFilesId: typeof files === "function" ? files(state.openFilesId) : files,
   })),
+
+  setDraggingItemId: (itemId) => set({ draggingItemId: itemId }),
 
   setFileNodes: (node) => {
     const activedFileNodes = get().items[get().activedFileId].data.nodes
-
-    console.log(node)
 
     get().setItems((items) => ({
       ...items,
@@ -43,6 +44,27 @@ const useFileManagerStore = create((set, get) => ({
         data: {
           ...items[get().activedFileId].data,
           nodes: typeof node === "function" ? node(activedFileNodes) : [...activedFileNodes, node] 
+        }
+      }
+    }))
+  },
+
+  setNodeFileId: (fileId, nodeId) => {
+    const activedFileId = get().activedFileId
+
+    get().setItems((items) => ({
+      ...items,
+      [activedFileId]: {
+        ...items[activedFileId],
+        data: {
+          ...items[activedFileId].data,
+          nodes: items[activedFileId].data.nodes.map((node) => node.id === nodeId
+            ? {
+              ...node,
+              data: { ...node.data, fileId }
+            } 
+            : node
+          )
         }
       }
     }))
