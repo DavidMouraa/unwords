@@ -4,6 +4,7 @@ import {
   applyNodeChanges,
 } from "@xyflow/react";
 import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
 
 const initialItems = {
   item_1: {
@@ -18,147 +19,96 @@ const initialItems = {
   }
 }
 
-const useFileManagerStore = create((set, get) => ({
+const useFileManagerStore = create(immer((set) => ({
   items: initialItems,
   openFilesId: [],
   activedFileId: null,
   draggingItemId: null,
 
-  setItems: (items) => set((state) => ({
-    items: typeof items === "function" ? items(state.items) : items,
-  })),
+  setItems: (items) => set((state) => {
+    state.items = typeof items === "function" ? items(state.items) : items
+  }),
 
-  setOpenFiles: (files) => set((state) => ({
-    openFilesId: typeof files === "function" ? files(state.openFilesId) : files,
-  })),
+  setOpenFiles: (files) => set((state) => {
+    state.openFilesId = typeof files === "function" ? files(state.openFilesId) : files
+  }),
 
-  setDraggingItemId: (itemId) => set({ draggingItemId: itemId }),
+  setDraggingItemId: (itemId) => set((state) => {
+    state.draggingItemId = itemId
+  }),
 
-  setFileNodes: (node) => {
-    const activedFileNodes = get().items[get().activedFileId].data.nodes
+  setFileNodes: (node) => set((state) => {
+    const activedFileId = state.activedFileId
+    const activedFileNodes = state.items[activedFileId].data.nodes
 
-    get().setItems((items) => ({
-      ...items,
-      [get().activedFileId]: {
-        ...items[get().activedFileId],
-        data: {
-          ...items[get().activedFileId].data,
-          nodes: typeof node === "function" ? node(activedFileNodes) : [...activedFileNodes, node] 
-        }
-      }
-    }))
-  },
+    state.items[activedFileId].data.nodes = typeof node === "function" ? node(activedFileNodes) : [...activedFileNodes, node]
+  }),
 
-  setNodeFileId: (fileId, nodeId) => {
-    const activedFileId = get().activedFileId
+  setNodeFileId: (fileId, nodeId) => set((state) => {
+    const activedFileId = state.activedFileId
+    const nodeIdIndex = state.items[activedFileId].data.nodes.findIndex((node) => node.id === nodeId)
 
-    get().setItems((items) => ({
-      ...items,
-      [activedFileId]: {
-        ...items[activedFileId],
-        data: {
-          ...items[activedFileId].data,
-          nodes: items[activedFileId].data.nodes.map((node) => node.id === nodeId
-            ? {
-              ...node,
-              data: { ...node.data, fileId }
-            } 
-            : node
-          )
-        }
-      }
-    }))
-  },
+    state.items[activedFileId].data.nodes[nodeIdIndex].fileId = fileId
+  }),
 
-  setFileEdges: (edge) => {
-    const activedFileEdges = get().items[get().activedFileId].data.nodes
+  setFileEdges: (edge) => set((state) => {
+    const activedFileId = state.activedFileId
+    const activedFileEdges = state.items[activedFileId].data.edges
 
-    get().setItems((items) => ({
-      ...items,
-      [get().activedFileId]: {
-        ...items[get().activedFileId],
-        data: {
-          ...items[get().activedFileId].data,
-          edges: typeof edge === "function" ? edge(activedFileEdges) : [...activedFileEdges, edge]
-        }
-      }
-    }))
-  },
+    state.items[activedFileId].data.edges = typeof edge ? edge(activedFileEdges) : [...activedFileEdges, edge]
+  }),
 
-  openFile: (fileId) => set((state) => ({
-    openFilesId: !state.openFilesId.includes(fileId) ? [...state.openFilesId, fileId] : state.openFilesId,
-    activedFileId: fileId,
-  })),
+  openFile: (fileId) => set((state) => {
+    const openFilesId = state.openFilesId
 
-  closeFile: (fileId) => set((state) => ({
-    openFilesId: state.openFilesId.filter((openFile) => openFile !== fileId),
-    activedFileId: state.activedFileId === fileId ? (state.openFilesId[state.openFilesId.indexOf(fileId) - 1] || state.openFilesId[state.openFilesId.indexOf(fileId) + 1]) || null : state.activedFileId,
-  })),
+    if (!openFilesId.includes(fileId)) {
+      state.openFilesId.push(fileId)
+    }
 
-  deleteFile: (fileId) => {
-    const { [fileId]: _item, ...newItems } = get().items
+    state.activedFileId = fileId
+  }),
 
-    get().closeFile(fileId)
-    get().setItems(newItems)
-  },
+  closeFile: (fileId) => set((state) => {
+    const openFilesId = state.openFilesId
+    const fileIdIndex = openFilesId.indexOf(fileId)
 
-  updateActiveItemContent: (newContent) => {
-    get().setItems((items) => ({
-      ...items,
-      [get().activedFileId]: {
-        ...items[get().activedFileId],
-        data: {
-          ...items[get().activedFileId].data,
-          content: newContent
-        }
-      }
-    }))
-  },
+    state.openFilesId = openFilesId.filter((openFileId) => openFileId !== fileId)
 
-  onNodesChange: (change) => {
-    const activedFileNodes = get().items[get().activedFileId].data.nodes
+    if (state.activedFileId === fileId) {
+      state.activedFileId = openFilesId[fileIdIndex + 1] || openFilesId[fileIdIndex - 1] || null
+    }
+  }),
 
-    get().setItems((items) => ({
-      ...items,
-      [get().activedFileId]: {
-        ...items[get().activedFileId],
-        data: {
-          ...items[get().activedFileId].data,
-          nodes: applyNodeChanges(change, activedFileNodes)
-        }
-      }
-    }))
-  },
+  deleteFile: (fileId) => set((state) => {
+    state.closeFile(fileId)
 
-  onEdgesChange: (change) => {
-    const activedFileEdges = get().items[get().activedFileId].data.edges
+    delete state.items[fileId]
+  }),
 
-    get().setItems((items) => ({
-      ...items,
-      [get().activedFileId]: {
-        ...items[get().activedFileId],
-        data: {
-          ...items[get().activedFileId].data,
-          edges: applyEdgeChanges(change, activedFileEdges)
-        }
-      }
-    }))
-  },
+  updadeActivedItemContent: (newContent) => set((state) => {
+    state.items[state.activedFileId].data.content = newContent
+  }),
 
-  onConnect: (params) => {
-    const activedFileEdges = get().items[get().activedFileId].data.edges
+  onNodesChange: (changes) => set((state) => {
+    const activedFileId = state.activedFileId
+    const activedFileNodes = state.items[activedFileId].data.nodes
 
-    get().setItems((items) => ({
-      ...items,
-      [get().activedFileId]: {
-        ...items[get().activedFileId],
-        data: {
-          ...items[get().activedFileId].data,
-          edges: addEdge(params, activedFileEdges)
-        }
-      }
-    }))
-  }
-}))
+    state.items[activedFileId].data.nodes = applyNodeChanges(changes, activedFileNodes)
+  }),
+
+  onEdgesChange: (changes) => set((state) => {
+    const activedFileId = state.activedFileId
+    const activedFileEdges = state.items[activedFileId].data.edges
+
+    state.items[activedFileId].data.edges = applyEdgeChanges(changes, activedFileEdges)
+  }),
+
+  onConnect: (params) => set((state) => {
+    const activedFileId = state.activedFileId
+    const activedFileEdges = state.items[activedFileId].data.edges
+
+    state.items[activedFileId].data.edges = addEdge(params, activedFileEdges)
+  })
+})))
 
 export default useFileManagerStore

@@ -37,7 +37,7 @@ export default function Node({ children, selected, id, type, label, color }) {
         >
           {label}
         </div>
-        <div className="relative flex items-center gap-1 p-1 bg-[#000000a8]">
+        <div className="relative flex items-center gap-1 p-1 bg-[#000000ea] backdrop-blur-xs">
           <div>
             <Pin 
               type="target"

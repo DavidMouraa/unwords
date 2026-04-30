@@ -23,7 +23,11 @@ export default function TextNode({ selected, id, type }) {
         </div>
         <button 
           className="flex justify-center w-full p-2 rounded-sm bg-white disabled:bg-[#c9c9c9] cursor-pointer"
-          onClick={() => openFile(nodeFileId)}
+          onClick={(event) => {
+            event.stopPropagation()
+
+            openFile(nodeFileId)
+          }}
           disabled={!nodeFileId}
         >
           <MdEdit 
