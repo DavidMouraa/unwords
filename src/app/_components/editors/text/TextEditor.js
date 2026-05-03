@@ -5,7 +5,7 @@ import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 
 export default function TextEditor() {
-  const { items, activedFileId, updateActiveItemContent } = useFileManagerStore()
+  const { items, activedFileId, updateActivedItemContent } = useFileManagerStore()
   
   const activeItem = items[activedFileId]
 
@@ -13,7 +13,7 @@ export default function TextEditor() {
     extensions: [StarterKit],
     content: activeItem.data.content,
     onUpdate: ({ editor }) => {
-      updateActiveItemContent(editor.getJSON())
+      updateActivedItemContent(editor.getJSON())
     },
     editorProps: {
       attributes: {
@@ -26,7 +26,7 @@ export default function TextEditor() {
   return (
     <div className="flex justify-center h-full bg-[#1a1a1a]">
       <EditorContent 
-        className="w-full bg-[#f1f1f1]"
+        className="max-w-200 w-full bg-[#f1f1f1]"
         editor={editor} 
       />
     </div>

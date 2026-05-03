@@ -1,6 +1,5 @@
 import Node from "./Node";
 import { MdEdit } from "react-icons/md";
-import { IoDocumentText } from "react-icons/io5";
 import useFileManagerStore from "@/store/useFileManagerStore";
 
 export default function TextNode({ selected, id, type }) {
@@ -18,7 +17,6 @@ export default function TextNode({ selected, id, type }) {
     >
       <div className="flex flex-col justify-center gap-1 h-15">
         <div className="flex items-center gap-1 w-21 text-white hover:underline cursor-pointer">
-          <IoDocumentText />
           {nodeFile?.data.label || "Sem Arquivo"}
         </div>
         <button 

@@ -15,7 +15,7 @@ export default function FileManager() {
     <ContextMenu
       itemKeys={itemKeys}
     >
-      <div className="w-full h-full p-2 bg-[#1a1a1a]">
+      <div className="w-full h-full p-2">
         {rootItems.map((item) => (
           <RenderItems 
             key={item.id}

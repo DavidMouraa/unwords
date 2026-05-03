@@ -1,6 +1,7 @@
 import ContextMenu from "../../contextMenu/ContextMenu";
 import FileManagerItem from "./FileManagerItem";
 import useFileManagerStore from "@/store/useFileManagerStore";
+import FILE_ICONS_MAP from "@/app/_constants/filesIconsMap";
 
 export default function File({ children, itemId }) {
   const { items } = useFileManagerStore()
@@ -8,6 +9,8 @@ export default function File({ children, itemId }) {
 
   const file = items[itemId]
   const itemKeys = ["deleteItem"]
+
+  const FileIcon = FILE_ICONS_MAP[file.type]
 
   return (
     <ContextMenu
@@ -19,7 +22,7 @@ export default function File({ children, itemId }) {
         onClick={() => openFile(itemId)}
       >
         <div className="flex items-center gap-1.5">
-          {children}
+          <FileIcon />
           {file.data.label}
         </div>
       </FileManagerItem>

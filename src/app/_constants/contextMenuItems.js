@@ -30,6 +30,15 @@ const CONTEXT_MENU_ITEMS = {
       setItems((items) => ({...items, [newFile.id]: newFile}))
     }
   },
+  createGraphFile: {
+    label: "Grapho",
+    type: "default",
+    action: () => {
+      const newFile = buildItem("graph", null)
+
+      setItems((items) => ({...items, [newFile.id]: newFile}))
+    }
+  },
   deleteItem: {
     label: "Deletar",
     type: "default",

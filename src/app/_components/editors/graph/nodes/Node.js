@@ -1,7 +1,8 @@
 import ContextMenu from "@/app/_components/contextMenu/ContextMenu"
-import Pin from "../Pin"
+import Pin from "../pins/Pin"
 import useFileManagerStore from "@/store/useFileManagerStore";
 import { FaFileCirclePlus } from "react-icons/fa6";
+import { IoDocumentText } from "react-icons/io5";
 
 
 export default function Node({ children, selected, id, type, label, color }) {
@@ -17,7 +18,7 @@ export default function Node({ children, selected, id, type, label, color }) {
   }
 
   function onDrop(event) {
-    event.preventDefault()
+    event.stopPropagation()
 
     setNodeFileId(draggingItemId, id)
   }
@@ -33,8 +34,9 @@ export default function Node({ children, selected, id, type, label, color }) {
       >
         <div 
           style={{ background: color }}
-          className="p-1 bg-white"
+          className="flex items-center gap-1 p-1 bg-white"
         >
+          <IoDocumentText />
           {label}
         </div>
         <div className="relative flex items-center gap-1 p-1 bg-[#000000ea] backdrop-blur-xs">

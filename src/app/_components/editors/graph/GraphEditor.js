@@ -7,16 +7,26 @@ import {
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
 import TextNode from "./nodes/TextNode"
+import StartNode from "./nodes/StartNode"
 import ContextMenu from "../../contextMenu/ContextMenu"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 import useFileManagerStore from "@/store/useFileManagerStore"
+import buildNode from "@/app/_utils/buildNode"
+import ConnectionLine from "./edges/ConnectionLine"
+import Edge from "./edges/Edge"
 
 const nodeTypes = {
+  start: StartNode,
   text: TextNode,
+}
+
+const edgeTypes = {
+  execute: Edge,
 }
 
 export default function GraphEditor() {
   const { 
+    clientPos,
     setClientPos,
   } = useGraphEditorStore()
   const { 
@@ -24,10 +34,13 @@ export default function GraphEditor() {
   } = useReactFlow()
   const { 
     items, 
-    activedFileId, 
+    activedFileId,
+    draggingItemId,
+    setFileNodes,
     onNodesChange,
     onEdgesChange,
     onConnect,
+    onReconnect,
   } = useFileManagerStore()
 
   const fitViewOptions = {
@@ -37,11 +50,32 @@ export default function GraphEditor() {
   const activedFile = items[activedFileId]
   const contextMenuItemKeys = ["createTextNode"]
 
-  function onPaneContextMenu(event) {
-    setClientPos(screenToFlowPosition({
+  function getClientPos(event) {
+    return screenToFlowPosition({
       x: event.clientX,
       y: event.clientY,
-    }))
+    })
+  }
+  
+  function onPaneContextMenu(event) {
+    setClientPos(getClientPos(event))
+  }
+
+  function onDragOver(event) {
+    event.preventDefault()
+
+    setClientPos(getClientPos(event))
+  }
+
+  function onDrop(event) {
+    event.stopPropagation()
+
+    const draggingItem = items[draggingItemId]
+    const newNode = buildNode(draggingItem.type, clientPos)
+
+    newNode.data.fileId = draggingItem.id
+
+    setFileNodes(newNode)
   }
 
   return (
@@ -49,14 +83,19 @@ export default function GraphEditor() {
       itemKeys={contextMenuItemKeys}
     >
       <ReactFlow
-        className='bg-[#1a1a1a]! text-xs'
+        className='text-xs'
         nodes={activedFile.data.nodes}
         edges={activedFile.data.edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onReconnect={onReconnect}
         onPaneContextMenu={onPaneContextMenu}
+        onDrop={onDrop}
+        onDragOver={onDragOver}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        connectionLineComponent={ConnectionLine}
         fitViewOptions={fitViewOptions}
         fitView
       >

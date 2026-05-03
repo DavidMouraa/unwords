@@ -7,7 +7,7 @@ export default function Tabbar() {
   const { items, openFilesId } = useFileManagerStore()
 
   return (
-    <div className="flex w-full h-full bg-[#1a1a1a]">
+    <div className="flex w-full h-full gap-0.5 bg-black">
       {openFilesId.map((fileId) => (
         <Tab 
           key={fileId}
