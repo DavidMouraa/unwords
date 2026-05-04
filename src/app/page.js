@@ -9,9 +9,9 @@ import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/Panel";
 
 export default function Home() {
-  const { items, activedFileId } = useFileManagerStore()
-  const activedFile = items[activedFileId]
-  const EditorComponent = EDITOR_MAP[activedFile?.type]
+  const { items, activeFileId } = useFileManagerStore()
+  const activeFile = items[activeFileId]
+  const EditorComponent = EDITOR_MAP[activeFile?.type]
 
   return (
     <div className="grid grid-cols-[250px_1fr] grid-rows-[35px_1fr] [grid-template-areas:'file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2">
@@ -22,10 +22,10 @@ export default function Home() {
         <Tabbar />
       </Panel>
       <Panel className="[grid-area:editor]">
-        {activedFile ? (
+        {activeFile ? (
           <ReactFlowProvider>
             <EditorComponent 
-              key={activedFile.id}
+              key={activeFile.id}
             />
           </ReactFlowProvider>
         ) : (

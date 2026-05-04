@@ -1,10 +1,13 @@
 import Node from "./Node";
 import { MdEdit } from "react-icons/md";
 import useFileManagerStore from "@/store/useFileManagerStore";
+import useGraphEditorStore from "@/store/useGraphEditorStore";
 
 export default function TextNode({ selected, id, type }) {
-  const { items, activedFileId, openFile } = useFileManagerStore()
-  const nodeFileId = items[activedFileId].data.nodes[items[activedFileId].data.nodes.findIndex((node) => node.id === id)]?.data.fileId
+  const { items, openFile } = useFileManagerStore()
+  const { nodes } = useGraphEditorStore()
+
+  const nodeFileId = nodes[nodes.findIndex((node) => node.id === id)]?.data.fileId
   const nodeFile = items[nodeFileId]
 
   return (
@@ -34,5 +37,5 @@ export default function TextNode({ selected, id, type }) {
         </button>
       </div>
     </Node>
-  );
+  )
 }

@@ -3,7 +3,11 @@
 import { 
   ReactFlow,
   Background,
-  useReactFlow
+  useReactFlow,
+  applyNodeChanges,
+  applyEdgeChanges,
+  addEdge,
+  reconnectEdge
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
 import TextNode from "./nodes/TextNode"
@@ -26,35 +30,45 @@ const edgeTypes = {
 
 export default function GraphEditor() {
   const { 
-    clientPos,
-    setClientPos,
+    nodes,
+    edges, 
+    clientPos, 
+    setNodes, 
+    setEdges, 
+    setClientPos 
   } = useGraphEditorStore()
-  const { 
-    screenToFlowPosition,
-  } = useReactFlow()
-  const { 
-    items, 
-    activedFileId,
-    draggingItemId,
-    setFileNodes,
-    onNodesChange,
-    onEdgesChange,
-    onConnect,
-    onReconnect,
-  } = useFileManagerStore()
+  const { screenToFlowPosition } = useReactFlow()
+  const { items, draggingItemId } = useFileManagerStore()
 
-  const fitViewOptions = {
-    padding: 2,
-  }
-  
-  const activedFile = items[activedFileId]
   const contextMenuItemKeys = ["createTextNode"]
 
+  const fitViewOptions = {
+    padding: 1,
+  }
+  
   function getClientPos(event) {
     return screenToFlowPosition({
       x: event.clientX,
       y: event.clientY,
     })
+  }
+
+  function onNodesChange(changes) {
+    setNodes((nodes) => applyNodeChanges(changes, nodes))
+  }
+
+  function onEdgesChange(changes) {
+    setEdges((edges) => applyEdgeChanges(changes, edges))
+  }
+
+  function onConnect(params) {
+    const newParams = {...params, type: "execute"}
+
+    setEdges((edges) => addEdge(newParams, edges))
+  }
+
+  function onReconnect(oldEdge, newConnection) {
+    setEdges((edges) => reconnectEdge(oldEdge, newConnection, edges))
   }
   
   function onPaneContextMenu(event) {
@@ -75,7 +89,7 @@ export default function GraphEditor() {
 
     newNode.data.fileId = draggingItem.id
 
-    setFileNodes(newNode)
+    setNodes(newNode)
   }
 
   return (
@@ -84,8 +98,8 @@ export default function GraphEditor() {
     >
       <ReactFlow
         className='text-xs'
-        nodes={activedFile.data.nodes}
-        edges={activedFile.data.edges}
+        nodes={nodes}
+        edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}

@@ -1,15 +1,17 @@
 import buildNode from "../_utils/buildNode"
 import buildItem from "../_utils/buildItem"
 import useFileManagerStore from "@/store/useFileManagerStore"
+import useGraphEditorStore from "@/store/useGraphEditorStore"
 
-const { setItems, setFileNodes, deleteFile } = useFileManagerStore.getState()
+const { setItems, deleteFile } = useFileManagerStore.getState()
+const { setNodes } = useGraphEditorStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createTextNode: {
     label: "Texto",
     type: "default",
     action: (_, { clientPos }) => {
-      setFileNodes(buildNode("text", clientPos))
+      setNodes(buildNode("text", clientPos))
     }
   },
   deleteNode: {
@@ -18,7 +20,7 @@ const CONTEXT_MENU_ITEMS = {
     action: (event, { nodeId }) => {
       event.stopPropagation()
 
-      setFileNodes((nodes) => nodes.filter((node) => nodeId !== node.id))
+      setNodes((nodes) => nodes.filter((node) => nodeId !== node.id))
     }
   },
   createTextFile: {

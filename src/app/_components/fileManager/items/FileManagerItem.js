@@ -1,9 +1,9 @@
 import useFileManagerStore from "@/store/useFileManagerStore"
 
 export default function FileManagerItem({ children, itemId, onClick }) {
-  const { activedFileId, setDraggingItemId } = useFileManagerStore()
+  const { activeFileId, setDraggingItemId } = useFileManagerStore()
 
-  const isActive = itemId === activedFileId
+  const isActive = itemId === activeFileId
 
   function onDragStart() {
     setDraggingItemId(itemId)

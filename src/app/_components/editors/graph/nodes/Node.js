@@ -3,10 +3,12 @@ import Pin from "../pins/Pin"
 import useFileManagerStore from "@/store/useFileManagerStore";
 import { FaFileCirclePlus } from "react-icons/fa6";
 import { IoDocumentText } from "react-icons/io5";
+import useGraphEditorStore from "@/store/useGraphEditorStore";
 
 
 export default function Node({ children, selected, id, type, label, color }) {
-  const { items, draggingItemId, setNodeFileId } = useFileManagerStore()
+  const { items, draggingItemId } = useFileManagerStore()
+  const { setNodeFileId } = useGraphEditorStore()
   
   const draggingItem = items[draggingItemId]
   const isDraggingItemSameType = draggingItem?.type === type
@@ -20,7 +22,7 @@ export default function Node({ children, selected, id, type, label, color }) {
   function onDrop(event) {
     event.stopPropagation()
 
-    setNodeFileId(draggingItemId, id)
+    setNodeFileId(id, draggingItemId)
   }
 
   return (
@@ -39,7 +41,7 @@ export default function Node({ children, selected, id, type, label, color }) {
           <IoDocumentText />
           {label}
         </div>
-        <div className="relative flex items-center gap-1 p-1 bg-[#000000ea] backdrop-blur-xs">
+        <div className="relative flex items-center gap-1 p-1 bg-[#000000c9] backdrop-blur-xs">
           <div>
             <Pin 
               type="target"

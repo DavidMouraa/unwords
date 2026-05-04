@@ -5,9 +5,9 @@ import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 
 export default function TextEditor() {
-  const { items, activedFileId, updateActivedItemContent } = useFileManagerStore()
+  const { items, activeFileId, updateActivedItemContent } = useFileManagerStore()
   
-  const activeItem = items[activedFileId]
+  const activeItem = items[activeFileId]
 
   const editor = useEditor({
     extensions: [StarterKit],

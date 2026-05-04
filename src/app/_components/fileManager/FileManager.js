@@ -17,11 +17,13 @@ export default function FileManager() {
     >
       <div className="w-full h-full p-2">
         {rootItems.map((item) => (
-          <RenderItems 
-            key={item.id}
-            itemId={item.id}
-            items={items}
-          />
+          item.id !== "main" && (
+            <RenderItems 
+              key={item.id}
+              itemId={item.id}
+              items={items}
+            />
+          )
         ))}
       </div>
     </ContextMenu>

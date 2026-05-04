@@ -3,7 +3,7 @@ import FileManagerItem from "./FileManagerItem";
 import useFileManagerStore from "@/store/useFileManagerStore";
 import FILE_ICONS_MAP from "@/app/_constants/filesIconsMap";
 
-export default function File({ children, itemId }) {
+export default function File({ itemId }) {
   const { items } = useFileManagerStore()
   const { openFile } = useFileManagerStore()
 

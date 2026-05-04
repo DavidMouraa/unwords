@@ -5,14 +5,14 @@ import FILE_ICONS_MAP from "@/app/_constants/filesIconsMap";
 export default function Tab({ itemId, data }) {
   const { 
     items,
-    activedFileId,
+    activeFileId,
     openFile,
     closeFile 
   } = useFileManagerStore()
 
   const file = items[itemId]
   const FileIcon = FILE_ICONS_MAP[file.type]
-  const isActived = itemId === activedFileId
+  const isActived = itemId === activeFileId
 
   return (
     <div 
@@ -23,13 +23,16 @@ export default function Tab({ itemId, data }) {
         <FileIcon />
         {data.label}
       </div>
-      <IoClose 
-        className={`invisible ${isActived && "visible"} group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg`}
+      <button
+        className={`invisible ${isActived && "visible"} disabled:invisible group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg cursor-pointer`}
         onClick={(event) => {
           event.stopPropagation()
           closeFile(itemId)
         }}
-      />
+        disabled={itemId === "main"}
+      >
+        <IoClose />
+      </button>
     </div>
   )
 }
