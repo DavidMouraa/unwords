@@ -60,7 +60,7 @@ export default function GraphEditor() {
   function onEdgesChange(changes) {
     setEdges((edges) => applyEdgeChanges(changes, edges))
   }
-
+  
   function onConnect(params) {
     const newParams = {...params, type: "execute"}
 
@@ -87,9 +87,13 @@ export default function GraphEditor() {
     const draggingItem = items[draggingItemId]
     const newNode = buildNode(draggingItem.type, clientPos)
 
-    newNode.data.fileId = draggingItem.id
-
-    setNodes(newNode)
+    setNodes({
+      ...newNode,
+      data: {
+        ...newNode.data,
+        fileId: draggingItem.id
+      },
+    })
   }
 
   return (

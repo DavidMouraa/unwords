@@ -21,7 +21,7 @@ export default function ContextMenu({ children, itemId, nodeId, itemKeys }) {
 
       <ContextMenuRadix.Portal>
         <ContextMenuRadix.Content
-          className="p-2 rounded-sm bg-[#070707] text-white"
+          className="p-2 rounded-sm bg-black text-white"
         >
           {itemKeys?.map((itemKey) => (
             <ContextMenuItem

@@ -5,10 +5,9 @@ import { FaFileCirclePlus } from "react-icons/fa6";
 import { IoDocumentText } from "react-icons/io5";
 import useGraphEditorStore from "@/store/useGraphEditorStore";
 
-
 export default function Node({ children, selected, id, type, label, color }) {
   const { items, draggingItemId } = useFileManagerStore()
-  const { setNodeFileId } = useGraphEditorStore()
+  const { nodes, setNodes, setNodeFileId } = useGraphEditorStore()
   
   const draggingItem = items[draggingItemId]
   const isDraggingItemSameType = draggingItem?.type === type

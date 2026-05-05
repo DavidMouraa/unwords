@@ -15,7 +15,7 @@ export default function FileManagerItem({ children, itemId, onClick }) {
 
   return (
     <div 
-      className={`p-1 rounded-sm hover:bg-[#0f0f0f] text-[#c9c9c9] hover:text-white ${isActive && "bg-[#0f0f0f]"} cursor-pointer`}
+      className={`p-1 rounded-sm hover:bg-primary-600 text-secondary-500 hover:text-white ${isActive && "bg-primary-600"} cursor-pointer`}
       draggable
       onClick={onClick}
       onDragStart={onDragStart}
