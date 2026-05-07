@@ -7,6 +7,7 @@ import useFileManagerStore from "@/store/useFileManagerStore";
 import EDITOR_MAP from "./_constants/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/Panel";
+import ControlMenu from "./_components/controlMenu/ControlMenu";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
@@ -14,7 +15,10 @@ export default function Home() {
   const EditorComponent = EDITOR_MAP[activeFile?.type]
 
   return (
-    <div className="grid grid-cols-[250px_1fr] grid-rows-[35px_1fr] [grid-template-areas:'file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2">
+    <div className="grid grid-cols-[250px_1fr] grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2">
+      <Panel className="[grid-area:control-menu]">
+        <ControlMenu />
+      </Panel>
       <Panel className="[grid-area:file-manager]">
         <FileManager />
       </Panel>
@@ -29,7 +33,7 @@ export default function Home() {
             />
           </ReactFlowProvider>
         ) : (
-          <div className="flex flex-col items-center justify-center w-full h-full bg-[#1a1a1a] text-[#c9c9c9] gap-5">
+          <div className="flex flex-col items-center justify-center w-full h-full bg-primary-500 text-secondary-500 gap-5">
             <FaFileCircleXmark className="size-50" />
             <div className="flex flex-col justify-center items-center">
               <p>Nenhum arquivo aberto!</p>

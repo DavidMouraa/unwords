@@ -11,31 +11,34 @@ import {
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
 import TextNode from "./nodes/TextNode"
-import StartNode from "./nodes/StartNode"
 import ContextMenu from "../../contextMenu/ContextMenu"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import buildNode from "@/app/_utils/buildNode"
 import ConnectionLine from "./edges/ConnectionLine"
 import Edge from "./edges/Edge"
+import StartNode from "./nodes/StartNode"
 
 const nodeTypes = {
-  start: StartNode,
   text: TextNode,
+  start: StartNode,
 }
 
 const edgeTypes = {
   execute: Edge,
+  start: Edge,
 }
 
 export default function GraphEditor() {
   const { 
     nodes,
     edges, 
+    startTargetId,
     clientPos, 
     setNodes, 
     setEdges, 
-    setClientPos 
+    setClientPos,
+    setStartNodePosition,
   } = useGraphEditorStore()
   const { screenToFlowPosition } = useReactFlow()
   const { items, draggingItemId } = useFileManagerStore()

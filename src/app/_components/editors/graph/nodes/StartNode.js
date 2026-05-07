@@ -1,54 +1,30 @@
-import { IoRocket } from "react-icons/io5";
-import InvisiblePin from "../pins/InvisiblePin";
-import useGraphEditorStore from "@/store/useGraphEditorStore";
-import { useEffect, useState } from "react";
 import buildEdge from "@/app/_utils/buildEdge";
+import useGraphEditorStore from "@/store/useGraphEditorStore";
+import { Handle } from "@xyflow/react";
+import { useEffect } from "react";
+import { IoRocket } from "react-icons/io5";
 
 export default function StartNode({ id }) {
-  const { nodes, edges, setNodes, setEdges } = useGraphEditorStore()
+  const { nodes, setEdges, setStartTargetId } = useGraphEditorStore()
 
-  const [targetNodeId, setTargetIdNode] = useState(null)
-
-  function setConnectionWithTarget() {
-    const targetNode = nodes[targetNodeId]
-
-    setNodes((nodes) => {
-      const newNodes = nodes?.map((node) => {
-        if (node.id === id) {
-          return {
-            ...node,
-            position: {
-              x: -50 + targetNode?.position.x,
-              y: 46 + targetNode?.position.y,
-            }
-          }
-        }
-
-        return node
-      })
-
-      return newNodes
-    })
+  function connectWithTarget(targetId) {
+    setEdges(buildEdge("start", id, targetId))
   }
-  
+
   useEffect(() => {
-    const targetExist = nodes.find((node) => node.id === targetNodeId?.node)
+    const currentTarget = nodes.find((node) => node.id !== id) || null
 
-    if (!targetExist) {
-      const newTargetNode = nodes.find((node) => node.id !== id) || null
-
-      setTargetIdNode(newTargetNode)
-
-      setEdges(buildEdge("execute", id, newTargetNode?.id))
+    if (currentTarget) {
+      setStartTargetId(currentTarget.id)
+      connectWithTarget(currentTarget.id)
     }
-  }, [nodes.length])
+  }, [nodes.length, setStartTargetId, connectWithTarget])
 
   return (
-    <div 
-      className="rounded-[50%] p-1 bg-[#ffffff] text-[#000000] text-lg"
-    >
+    <div className="flex justify-center items-center size-6 rounded-[50%] bg-white">
       <IoRocket />
-      <InvisiblePin 
+      <Handle 
+        className="border-none! bg-white!"
         type="source"
         position="right"
       />

@@ -2,37 +2,18 @@ import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
 
 const initialNodes = [
-  // {
-  //   id: "text",
-  //   type: "text",
-  //   position: { x: 50, y: 0 },
-  //   data: {
-  //     fileId: null,
-  //   },
-  // },
   {
     id: "start",
     type: "start",
-    draggable: false,
-    selectable: false,
-    position: { x: 0, y: 0 },
-  },
+    position: { x: 10, y: 0 }
+  }
 ]
-
-const initialEdges = [
-  // {
-  //   id: "start-text",
-  //   type: "execute",
-  //   selectable: false,
-  //   reconnectable: false,
-  //   source: "start",
-  //   target: "text",
-  // }
-]
+const initialEdges = []
 
 const useGraphEditorStore = create(immer((set) => ({
   nodes: initialNodes,
   edges: initialEdges,
+  startTargetId: null,
   clientPos: { x: 0, y: 0 },
   
   setNodes: (node) => set((state) => {
@@ -43,10 +24,32 @@ const useGraphEditorStore = create(immer((set) => ({
     state.edges = typeof edge === "function" ? edge(state.edges) : [...state.edges, edge]
   }),
 
-  setNodeFileId: (nodeId, fileId) => set((state) =>{
+  setNodeFileId: (nodeId, fileId) => set((state) => {
     const nodeIndex = state.nodes.findIndex((node) => node.id === nodeId)
 
     state.nodes[nodeIndex].data.fileId = fileId
+  }),
+
+  setStartTargetId: (targetId) => set((state) => {
+    state.startTargetId = typeof targetId === "function" ? targetId(state.startTargetId) : targetId
+  }),
+
+  setStartNodePosition: (targetPosition) => set((state) => {
+    const offSetX = 50
+    const offSetY = 12
+
+    state.nodes = state.nodes.map((node) => {
+      if (node.type === "start") {
+        return {
+          ...node,
+          position: {
+            x: targetPosition.x - offSetX,
+            y: targetPosition.y - offSetY,
+          }
+        }
+      }
+      return node
+    })
   }),
 
   setClientPos: (clientPos) => set((state) => {

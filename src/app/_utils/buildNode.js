@@ -8,6 +8,9 @@ export default function buildNode(type, position={ x: 0, y: 0 }) {
     id: uuidv4(),
     type,
     position,
-    ...template,
+    data: {
+      ...template,
+      role: null
+    },
   }
 }
