@@ -1,4 +1,4 @@
-import FILES_MAP from "@/app/_constants/filesMap"
+import FILES_MAP from "@/app/_constants/maps/filesMap"
 
 export default function RenderItems({ itemId, items }) {
   const item = items[itemId]

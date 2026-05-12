@@ -1,7 +1,7 @@
 import ContextMenu from "../../contextMenu/ContextMenu";
 import FileManagerItem from "./FileManagerItem";
 import useFileManagerStore from "@/store/useFileManagerStore";
-import FILE_ICONS_MAP from "@/app/_constants/filesIconsMap";
+import FILE_ICONS_MAP from "@/app/_constants/maps/filesIconsMap";
 
 export default function File({ itemId }) {
   const { items } = useFileManagerStore()

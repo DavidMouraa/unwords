@@ -4,7 +4,7 @@ import { Handle } from "@xyflow/react";
 import { useEffect } from "react";
 import { IoRocket } from "react-icons/io5";
 
-export default function StartNode({ id }) {
+export default function StartNode({ id, isConnectable }) {
   const { nodes, setEdges, setStartTargetId } = useGraphEditorStore()
 
   function connectWithTarget(targetId) {
@@ -27,6 +27,7 @@ export default function StartNode({ id }) {
         className="border-none! bg-white!"
         type="source"
         position="right"
+        isConnectable={isConnectable}
       />
     </div>
   )

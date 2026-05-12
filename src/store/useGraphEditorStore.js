@@ -5,7 +5,11 @@ const initialNodes = [
   {
     id: "start",
     type: "start",
-    position: { x: 10, y: 0 }
+    position: { x: 10, y: 0 },
+    draggable: false,
+    deletable: false,
+    connectable: false,
+    selectable: false,
   }
 ]
 const initialEdges = []

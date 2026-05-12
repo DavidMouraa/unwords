@@ -1,6 +1,8 @@
 const NODE_TEMPLATES = {
   text: {
-    fileId: null,
+    data: {
+      fileId: null,
+    }
   },
 }
 

@@ -4,7 +4,7 @@ import { ReactFlowProvider } from "@xyflow/react";
 import FileManager from "./_components/fileManager/FileManager";
 import Tabbar from "./_components/tabbar/Tabbar";
 import useFileManagerStore from "@/store/useFileManagerStore";
-import EDITOR_MAP from "./_constants/editorsMap";
+import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";

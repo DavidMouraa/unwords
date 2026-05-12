@@ -1,11 +1,28 @@
 import useGraphEditorStore from "@/store/useGraphEditorStore";
+import usePlayerStore from "@/store/usePlayerStore";
 import { FaPlay } from "react-icons/fa";
 
 export default function ControlMenu() {
   const { nodes, edges } = useGraphEditorStore()
+  const { setContent } = usePlayerStore()
 
   function playProject() {
-    // const startNode = 
+    const playerContent = nodes.map((node) => {
+      if (node.type !== "start") {
+        const edge = edges.find((edge) => edge.source === node.id)
+
+        return {
+          id: node.id,
+          type: node.type,
+          next: edge?.target || null,
+          data: {
+            fileId: node.data.fileId
+          }
+        }
+      }
+    })
+
+    setContent(playerContent)
   }
 
   return (

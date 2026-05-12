@@ -1,6 +1,6 @@
 import { IoClose } from "react-icons/io5";
 import useFileManagerStore from "@/store/useFileManagerStore";
-import FILE_ICONS_MAP from "@/app/_constants/filesIconsMap";
+import FILE_ICONS_MAP from "@/app/_constants/maps/filesIconsMap";
 
 export default function Tab({ itemId, data }) {
   const { 
@@ -24,7 +24,7 @@ export default function Tab({ itemId, data }) {
         {data.label}
       </div>
       <button
-        className={`invisible ${isActive && "visible"} disabled:invisible group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg cursor-pointer`}
+        className={`invisible ${isActive && "visible"} disabled:hidden group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg cursor-pointer`}
         onClick={(event) => {
           event.stopPropagation()
           closeFile(itemId)

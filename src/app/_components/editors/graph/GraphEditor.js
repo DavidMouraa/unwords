@@ -33,12 +33,10 @@ export default function GraphEditor() {
   const { 
     nodes,
     edges, 
-    startTargetId,
     clientPos, 
     setNodes, 
     setEdges, 
     setClientPos,
-    setStartNodePosition,
   } = useGraphEditorStore()
   const { screenToFlowPosition } = useReactFlow()
   const { items, draggingItemId } = useFileManagerStore()

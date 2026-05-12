@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid"
-import NODE_TEMPLATES from "../_constants/nodeTemplates"
+import NODE_TEMPLATES from "../_constants/templates/nodeTemplates"
 
 export default function buildNode(type, position={ x: 0, y: 0 }) {
   const template = NODE_TEMPLATES[type]
@@ -8,9 +8,9 @@ export default function buildNode(type, position={ x: 0, y: 0 }) {
     id: uuidv4(),
     type,
     position,
+    ...template.main,
     data: {
-      ...template,
-      role: null
+      ...template.data,
     },
   }
 }
