@@ -1,38 +1,45 @@
 import useGraphEditorStore from "@/store/useGraphEditorStore";
 import usePlayerStore from "@/store/usePlayerStore";
 import { FaPlay } from "react-icons/fa";
+import Modal from "../modal/Modal";
 
 export default function ControlMenu() {
   const { nodes, edges } = useGraphEditorStore()
   const { setContent } = usePlayerStore()
 
-  function playProject() {
-    const playerContent = nodes.map((node) => {
-      if (node.type !== "start") {
-        const edge = edges.find((edge) => edge.source === node.id)
+  function setPlayerContent() {
+    setContent(nodes.filter((node) => node.type !== "start").map((node) => {
+      const edge = edges.find((edge) => edge.source === node.id)
 
-        return {
-          id: node.id,
-          type: node.type,
-          next: edge?.target || null,
-          data: {
-            fileId: node.data.fileId
-          }
+      return {
+        id: node.id,
+        type: node.type,
+        next: edge?.target || null,
+        data: {
+          fileId: node.data.fileId,
         }
       }
-    })
+    }))
+  }
 
-    setContent(playerContent)
+  function onClick() {
+    setPlayerContent()
   }
 
   return (
     <div className="h-full flex justify-center items-center">
-      <button
-        className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
-        onClick={playProject}
+      <Modal
+        triggerClass="outline-none"
+        overlayClass="fixed top-0 left-0 flex justify-center items-center w-full h-full"
+        contentClass="w-150 h-150 p-5 rounded-sm outline-none bg-black"
       >
-        <FaPlay />
-      </button>
+        <div
+          className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
+          onClick={onClick}
+        >
+          <FaPlay />
+        </div>
+      </Modal>
     </div>
   )
 }
