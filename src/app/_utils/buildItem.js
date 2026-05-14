@@ -13,7 +13,7 @@ const buildItem = (type, parentId) => {
     parentId,
     data: {
       label: `${label} ${sameLabelTotal || ""}`,
-      content: "Olá, Mundo!",
+      content: {type: "doc", content: []},
     },
   }
 }

@@ -24,7 +24,9 @@ export default function Tab({ itemId, data }) {
         {data.label}
       </div>
       <button
-        className={`invisible ${isActive && "visible"} disabled:hidden group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg cursor-pointer`}
+        className={`invisible ${isActive && "visible"} disabled:hidde
+        
+        group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg cursor-pointer`}
         onClick={(event) => {
           event.stopPropagation()
           closeFile(itemId)
