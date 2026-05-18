@@ -26,7 +26,6 @@ export default function Modal({ children, title, description, overlayClass, cont
               <Dialog.Title>{title}</Dialog.Title>
               <Dialog.Description>{description}</Dialog.Description>
             </div>
-            
             <Player />
           </Dialog.Content>
         </Dialog.Overlay>

@@ -4,7 +4,6 @@ import TextSection from "./sections/TextSection"
 
 export default function Player() {
   const { content } = usePlayerStore()
-  const { items } = useFileManagerStore()
 
   return (
     <div className="text-white">
@@ -12,7 +11,6 @@ export default function Player() {
         <TextSection 
           key={section.id}
           section={section}
-          items={items}
         />
       ))}
     </div>

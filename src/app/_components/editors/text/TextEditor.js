@@ -1,34 +1,35 @@
 "use client"
 
 import useFileManagerStore from "@/store/useFileManagerStore"
-import { useEditor, EditorContent } from "@tiptap/react"
+import { EditorProvider } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
+import Toolbar from "./Toolbar"
 
 export default function TextEditor() {
   const { items, activeFileId, updateActiveItemContent } = useFileManagerStore()
   
   const activeItem = items[activeFileId]
 
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: activeItem.data.content,
-    onUpdate: ({ editor }) => {
-      updateActiveItemContent(editor.getJSON())
-    },
-    editorProps: {
-      attributes: {
-        class: "prose max-w-none w-full h-full p-5 text-black outline-none"
-      },
-    },
-    immediatelyRender: false,
-  })
+  function onUpdate({ editor }) {
+    updateActiveItemContent(editor.getJSON())
+  }
 
   return (
-    <div className="flex justify-center h-full bg-primary-500">
-      <EditorContent 
-        className="max-w-200 w-full bg-[#f1f1f1]"
-        editor={editor} 
-      />
+    <div className="flex justify-center bg-primary-500 h-full ">
+      <div className="text-editor relative flex flex-col gap-2 max-w-200 w-full h-full p-3 bg-secondary-500">
+        <EditorProvider
+          slotBefore={<Toolbar />}
+          extensions={[StarterKit]}
+          content={activeItem.data.content}
+          onUpdate={onUpdate}
+          editorProps={{
+            attributes: {
+              class: "prose max-w-none w-full h-full text-black outline-none overflow-y-auto"
+            },
+          }}
+          immediatelyRender={false}
+        />
+      </div>
     </div>
   )
 }
