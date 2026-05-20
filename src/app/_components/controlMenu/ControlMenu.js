@@ -3,6 +3,7 @@ import usePlayerStore from "@/store/usePlayerStore";
 import { FaPlay } from "react-icons/fa";
 import Modal from "../modal/Modal";
 import useFileManagerStore from "@/store/useFileManagerStore";
+import { useEffect } from "react";
 
 export default function ControlMenu() {
   const { nodes, edges } = useGraphEditorStore()
@@ -39,6 +40,10 @@ export default function ControlMenu() {
     setPlayerContent()
   }
 
+  useEffect(() => {
+    setPlayerContent()
+  }, [setPlayerContent])
+
   return (
     <div className="h-full flex justify-center items-center">
       <Modal
@@ -48,7 +53,7 @@ export default function ControlMenu() {
       >
         <div
           className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
-          onClick={onClick}
+          // onClick={onClick}
         >
           <FaPlay />
         </div>

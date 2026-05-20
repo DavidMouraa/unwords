@@ -8,8 +8,8 @@ export default function Player() {
   const [displayContent, setDisplayContent] = useState([content[0]])
 
   const handleKeyDown = (event) => {
-    if (event.key === "enter") {
-
+    if (event.key === "Enter" && displayContent.length < content.length) {
+      setDisplayContent((displayContent) => [...displayContent, content[displayContent.length]])
     }
   }
 

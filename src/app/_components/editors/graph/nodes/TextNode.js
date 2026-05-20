@@ -19,11 +19,11 @@ export default function TextNode({ selected, id, type }) {
       color={"#1d46b8"}
     >
       <div className="flex flex-col justify-center gap-1 h-15">
-        <div className="flex items-center gap-1 w-21 text-white hover:underline cursor-pointer">
+        <div className="flex items-center gap-1 w-21 text-white">
           {nodeFile?.data.label || "Sem Arquivo"}
         </div>
         <button 
-          className="flex justify-center w-full p-2 rounded-sm bg-white disabled:bg-[#c9c9c9] cursor-pointer"
+          className="flex justify-center w-full p-2 rounded-sm bg-white disabled:bg-secondary-500 cursor-pointer"
           onClick={(event) => {
             event.stopPropagation()
 

@@ -1,4 +1,4 @@
-export default function ToolbarButton({ children, editor, type, onClick, tick }) {
+export default function ToolbarButton({ children, editor, type, onClick }) {
   const isActive = editor.isActive(type)
   
   return (
