@@ -5,9 +5,8 @@ import { FaStrikethrough } from "react-icons/fa6";
 import ToolbarButton from "./ToolbarButton";
 import { useCurrentEditor } from "@tiptap/react";
 
-export default function Toolbar() {
+export default function Toolbar({ tick }) {
   const { editor } = useCurrentEditor()
-
 
   function toggleBold() {
     editor.chain().focus().toggleBold().run()
@@ -31,30 +30,34 @@ export default function Toolbar() {
         <ToolbarButton
           editor={editor}
           type="bold"
+          tick={tick}
           onClick={toggleBold}
-        >
+          >
           <FaBold />
         </ToolbarButton>
 
         <ToolbarButton
           editor={editor}
           type="italic"
+          tick={tick}
           onClick={toggleItalic}
-        >
+          >
           <FaItalic />
         </ToolbarButton>
 
         <ToolbarButton
           editor={editor}
           type="underline"
+          tick={tick}
           onClick={toggleUnderline}
-        >
+          >
           <FaUnderline />
         </ToolbarButton>
 
         <ToolbarButton
           editor={editor}
           type="strike"
+          tick={tick}
           onClick={toggleStrike}
         >
           <FaStrikethrough />

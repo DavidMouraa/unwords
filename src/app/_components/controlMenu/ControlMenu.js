@@ -44,7 +44,7 @@ export default function ControlMenu() {
       <Modal
         triggerClass="outline-none"
         overlayClass="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50"
-        contentClass="max-w-180 max-h-200 size-full p-5 rounded-sm outline-none bg-black"
+        contentClass="max-w-180 max-h-200 size-full rounded-sm outline-none"
       >
         <div
           className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
