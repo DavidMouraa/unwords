@@ -3,19 +3,19 @@ import TextSection from "./sections/TextSection"
 import { useState } from "react"
 
 export default function Player() {
-  const { content } = usePlayerStore()
+  const { playerContent } = usePlayerStore()
 
-  const [displayContent, setDisplayContent] = useState([content[0]])
+  const [displayContent, setDisplayContent] = useState([playerContent[0]])
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter" && displayContent.length < content.length) {
-      setDisplayContent((displayContent) => [...displayContent, content[displayContent.length]])
+    if (event.key === "Enter" && displayContent.length < playerContent.length) {
+      setDisplayContent((displayContent) => [...displayContent, playerContent[displayContent.length]])
     }
   }
 
   return (
     <div 
-      className="w-full h-full bg-black text-white"
+      className="w-full h-full p-5 bg-black text-white outline-none"
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >

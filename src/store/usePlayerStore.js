@@ -2,10 +2,10 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 const usePlayerStore = create(immer((set) => ({
-  content: null,
+  playerContent: null,
 
-  setContent: (content) => set((state) => {
-    state.content = typeof content === "function" ? content(state.content) : content
+  setPlayerContent: (content) => set((state) => {
+    state.playerContent = typeof content === "function" ? content(state.playerContent) : content
   })
 })))
 

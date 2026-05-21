@@ -65,7 +65,7 @@ export default function GraphEditor() {
   function onConnect(params) {
     const newParams = {...params, type: "execute"}
 
-    setEdges(addEdge(newParams, edges))
+    setEdges((edges) => addEdge(newParams, edges))
   }
 
   function onReconnect(oldEdge, newConnection) {

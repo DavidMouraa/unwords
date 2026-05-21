@@ -7,10 +7,10 @@ import { useEffect } from "react";
 
 export default function ControlMenu() {
   const { nodes, edges } = useGraphEditorStore()
-  const { setContent } = usePlayerStore()
+  const { setPlayerContent } = usePlayerStore()
   const { items } = useFileManagerStore()
 
-  function setPlayerContent() {
+  function updatePlayerContent() {
     const connectedNodesId = []
 
     edges.forEach((edge) => {
@@ -19,8 +19,8 @@ export default function ControlMenu() {
       }
       !connectedNodesId.includes(edge.target) && connectedNodesId.push(edge.target)
     })
-
-    setContent(connectedNodesId.map((nodeId) => {
+    
+    setPlayerContent(connectedNodesId.map((nodeId) => {
       const node = nodes.find((node) => node.id === nodeId)
       const edge = edges.find((edge) => edge.source === nodeId) || null
       const content = items[node.data.fileId]?.data.content || null
@@ -36,13 +36,9 @@ export default function ControlMenu() {
     }))
   }
 
-  function onClick() {
-    setPlayerContent()
-  }
-
   useEffect(() => {
-    setPlayerContent()
-  }, [setPlayerContent])
+    updatePlayerContent()
+  }, [updatePlayerContent])
 
   return (
     <div className="h-full flex justify-center items-center">
@@ -53,7 +49,6 @@ export default function ControlMenu() {
       >
         <div
           className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
-          // onClick={onClick}
         >
           <FaPlay />
         </div>
