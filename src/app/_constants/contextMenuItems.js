@@ -4,7 +4,7 @@ import useFileManagerStore from "@/store/useFileManagerStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 
 const { setItems, deleteFile } = useFileManagerStore.getState()
-const { setNodes } = useGraphEditorStore.getState()
+const { setNodes, setEdges } = useGraphEditorStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createTextNode: {
@@ -21,6 +21,7 @@ const CONTEXT_MENU_ITEMS = {
       event.stopPropagation()
 
       setNodes((nodes) => nodes.filter((node) => nodeId !== node.id))
+      setEdges((edges) => edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId))
     }
   },
   createTextFile: {
