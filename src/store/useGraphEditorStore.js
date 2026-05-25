@@ -59,6 +59,22 @@ const useGraphEditorStore = create(immer((set) => ({
   setClientPos: (clientPos) => set((state) => {
     state.clientPos = typeof clientPos === "function" ? clientPos(state.clientPos) : clientPos
   }),
+
+  removeNodeFileId: (fileId) => set((state) => {
+    state.nodes = state.nodes.map((node) => {
+      if (node.type !== "start" && node.data.fileId === fileId) {
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            fileId: null
+          }
+        }
+      }
+
+      return node
+    })
+  })
 })))
 
 export default useGraphEditorStore

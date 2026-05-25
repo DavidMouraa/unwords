@@ -28,6 +28,7 @@ const useFileManagerStore = create(immer((set) => ({
   openFilesId: ["main"], 
   activeFileId: null,
   draggingItemId: null,
+  renamingItemId: null,
 
   setItems: (items) => set((state) => {
     state.items = typeof items === "function" ? items(state.items) : items
@@ -38,7 +39,15 @@ const useFileManagerStore = create(immer((set) => ({
   }),
 
   setDraggingItemId: (itemId) => set((state) => {
-    state.draggingItemId = itemId
+    state.draggingItemId = typeof itemId === "function" ? itemId(state.draggingItemId) : itemId
+  }),
+
+  setRenamingItemId: (itemId) => set((state) => {
+    state.renamingItemId = typeof itemId === "function" ? itemId(state.renamingItemId) : itemId
+  }),
+
+  setFileName: (newName) => set((state) => {
+    if (newName) state.items[state.renamingItemId].data.label = newName
   }),
 
   openFile: (fileId) => set((state) => {

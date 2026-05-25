@@ -3,8 +3,16 @@ import buildItem from "../_utils/buildItem"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 
-const { setItems, deleteFile } = useFileManagerStore.getState()
-const { setNodes, setEdges } = useGraphEditorStore.getState()
+const { 
+  setItems,
+  setRenamingItemId, 
+  deleteFile,
+} = useFileManagerStore.getState()
+const { 
+  setNodes, 
+  setEdges,
+  removeNodeFileId
+} = useGraphEditorStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createTextNode: {
@@ -42,11 +50,20 @@ const CONTEXT_MENU_ITEMS = {
       setItems((items) => ({...items, [newFile.id]: newFile}))
     }
   },
+  renameItem: {
+    label: "Renomear",
+    type: "default",
+    action: (event, { itemId }) => {
+      event.stopPropagation()
+      setRenamingItemId(itemId)
+    }
+  },
   deleteItem: {
     label: "Deletar",
     type: "default",
     action: (_, { itemId }) => {
       deleteFile(itemId)
+      removeNodeFileId(itemId)
     }
   }
 }

@@ -15,7 +15,7 @@ export default function FileManager() {
     <ContextMenu
       itemKeys={itemKeys}
     >
-      <div className="w-full h-full p-2">
+      <div className="relative w-full h-full p-2">
         {rootItems.map((item) => (
           item.id !== "main" && (
             <RenderItems 

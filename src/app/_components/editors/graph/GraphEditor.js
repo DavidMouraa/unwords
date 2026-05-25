@@ -18,6 +18,8 @@ import buildNode from "@/app/_utils/buildNode"
 import ConnectionLine from "./edges/ConnectionLine"
 import Edge from "./edges/Edge"
 import StartNode from "./nodes/StartNode"
+import { useEffect } from "react"
+import { v4 as uuidv4 } from "uuid"
 
 const nodeTypes = {
   text: TextNode,
@@ -63,9 +65,18 @@ export default function GraphEditor() {
   }
   
   function onConnect(params) {
-    const newParams = {...params, type: "execute"}
+    const newParams = {...params, id: uuidv4(), type: "execute"}
 
-    setEdges((edges) => addEdge(newParams, edges))
+    if (params.target !== params.source) {
+      setEdges((edges) => {
+        const noDuplicateEdges = edges.filter((edge) => 
+          !(edge.source === params.source && edge.sourceHandle === params.sourceHandle) && 
+          !(edge.target === params.target && edge.targetHandle === params.targetHandle)
+        )
+  
+        return addEdge(newParams, noDuplicateEdges)
+      })
+    }
   }
 
   function onReconnect(oldEdge, newConnection) {

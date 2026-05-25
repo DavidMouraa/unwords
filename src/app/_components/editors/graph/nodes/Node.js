@@ -5,12 +5,13 @@ import { FaFileCirclePlus } from "react-icons/fa6"
 import { IoDocumentText } from "react-icons/io5"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 
-export default function Node({ children, selected, id, type, label, color }) {
+export default function Node({ children, selected, id, type, data, label, color }) {
   const { items, draggingItemId } = useFileManagerStore()
-  const { setNodeFileId } = useGraphEditorStore()
+  const { startTargetId, setNodeFileId } = useGraphEditorStore()
 
   const draggingItem = items[draggingItemId]
   const isDraggingItemSameType = draggingItem?.type === type
+  const isStartTargetId = startTargetId === id
 
   const contextMenuItemKeys = ["deleteNode"]
 
@@ -42,20 +43,28 @@ export default function Node({ children, selected, id, type, label, color }) {
         </div>
         <div className="flex items-center gap-1 p-1 bg-[#000000c9] backdrop-blur-xs">
           <div>
-            <Pin 
-              nodeId={id}
-              type="target"
-              position="left"
-            />
+            {data.inputs.map((input) => (
+              <Pin 
+                key={input.id}
+                id={input.id}
+                type={input.type}
+                position="left"
+                isConnectable={!isStartTargetId}
+              />
+            ))}
           </div>
 
           {children}
 
           <div>
-            <Pin 
-              type="source"
-              position="right"
-            />
+            {data.outputs.map((output) => (
+              <Pin 
+                key={output.id}
+                id={output.id}
+                type={output.type}
+                position="right"
+              />
+            ))}
           </div>
 
           <div 

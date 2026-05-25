@@ -5,10 +5,12 @@ import { useEffect } from "react";
 import { IoRocket } from "react-icons/io5";
 
 export default function StartNode({ id, isConnectable }) {
-  const { nodes, setEdges, setStartTargetId } = useGraphEditorStore()
+  const { nodes, edges, setEdges, setStartTargetId } = useGraphEditorStore()
 
   function connectWithTarget(targetId) {
-    setEdges(buildEdge("start", id, targetId))
+    const isConnected = edges.some(edge => edge.type === "start")
+
+    if (!isConnected) setEdges(buildEdge("start", id, targetId))
   }
 
   useEffect(() => {

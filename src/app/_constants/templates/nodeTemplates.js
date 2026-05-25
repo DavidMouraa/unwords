@@ -2,7 +2,19 @@ const NODE_TEMPLATES = {
   text: {
     data: {
       fileId: null,
-    }
+    },
+    inputs: [
+      {
+        id: null,
+        type: "target",
+      }
+    ],
+    outputs: [
+      {
+        id: null,
+        type: "source",
+      }
+    ],
   },
 }
 
