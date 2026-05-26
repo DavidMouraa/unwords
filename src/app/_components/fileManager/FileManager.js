@@ -9,7 +9,7 @@ export default function FileManager() {
 
   const rootItems = Object.values(items).filter((item) => item.parentId === null)
 
-  const itemKeys = ["createTextFile"]
+  const itemKeys = ["createFolder", "createTextFile"]
 
   return (
     <ContextMenu

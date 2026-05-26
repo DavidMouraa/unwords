@@ -26,6 +26,7 @@ const closeFile = (state, fileId) => {
 const useFileManagerStore = create(immer((set) => ({
   items: initialItems,
   openFilesId: ["main"], 
+  openFoldersId: [],
   activeFileId: null,
   draggingItemId: null,
   renamingItemId: null,

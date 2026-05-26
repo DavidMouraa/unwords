@@ -12,10 +12,9 @@ export default function File({ itemId }) {
 
   return (
     <FileManagerItem
-      itemId={itemId}
-      label={file.data.label}
+      item={file}
       Icon={FileIcon}
-      openFile={() => openFile(itemId)}
+      action={() => openFile(itemId)}
     >
       {file.data.label}
     </FileManagerItem>

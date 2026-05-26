@@ -1,8 +1,8 @@
-import FILES_MAP from "@/app/_constants/maps/filesMap"
+import ITEMS_MAP from "@/app/_constants/maps/itemsMap"
 
 export default function RenderItems({ itemId, items }) {
   const item = items[itemId]
-  const FileComponent = FILES_MAP[item.type]
+  const FileComponent = ITEMS_MAP[item.type]
 
   return (
     <FileComponent 

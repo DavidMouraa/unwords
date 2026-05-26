@@ -8,28 +8,17 @@ import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/Panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
-import { useState } from "react";
-import { Resizable } from "react-resizable";
 import "react-resizable/css/styles.css"
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
 
-  const [leftColumnWidth, setLeftColumnWidth] = useState(250)
-
   const activeFile = items[activeFileId]
   const EditorComponent = EDITOR_MAP[activeFile?.type]
 
-  function onResize(event, { size }) {
-    setLeftColumnWidth(size.width)
-  }
-
   return (
     <div 
-      style={{
-        gridTemplateColumns: `${leftColumnWidth}px 1fr`
-      }}
-      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2"
+      className="grid grid-cols-[250px_1fr] grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2"
     >
       <Panel className="[grid-area:control-menu]">
         <ControlMenu />

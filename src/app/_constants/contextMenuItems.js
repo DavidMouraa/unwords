@@ -32,20 +32,20 @@ const CONTEXT_MENU_ITEMS = {
       setEdges((edges) => edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId))
     }
   },
+  createFolder: {
+    label: "Nova Pasta",
+    type: "default",
+    action: (_, { itemId }) => {
+      const newFolder = buildItem("folder", itemId || null)
+
+      setItems((items) => ({...items, [newFolder.id]: newFolder}))
+    }
+  },
   createTextFile: {
     label: "Texto",
     type: "default",
-    action: () => {
-      const newFile = buildItem("text", null)
-
-      setItems((items) => ({...items, [newFile.id]: newFile}))
-    }
-  },
-  createGraphFile: {
-    label: "Grapho",
-    type: "default",
-    action: () => {
-      const newFile = buildItem("graph", null)
+    action: (_, { itemId }) => {
+      const newFile = buildItem("text", itemId || null)
 
       setItems((items) => ({...items, [newFile.id]: newFile}))
     }
