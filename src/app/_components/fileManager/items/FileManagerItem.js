@@ -2,10 +2,12 @@ import useFileManagerStore from "@/store/useFileManagerStore"
 import ContextMenu from "../../contextMenu/ContextMenu"
 import { useCallback, useEffect, useRef } from "react"
 
-export default function FileManagerItem({ children, item, Icon, action, extraItemKeys=[] }) {
+export default function FileManagerItem({ children, item, layer, Icon, action, extraItemKeys=[] }) {
   const { 
     activeFileId, 
     renamingItemId,
+    draggingItemId,
+    setItemParentId,
     setDraggingItemId, 
     setRenamingItemId,
     setFileName,
@@ -16,7 +18,8 @@ export default function FileManagerItem({ children, item, Icon, action, extraIte
   const isActive = item.id === activeFileId
   const isRenaming = item.id === renamingItemId
 
-  const itemKeys = [...extraItemKeys, "renameItem", "deleteItem"]
+  const itemKeys = [...extraItemKeys, "renameItem"]
+  const indentGuides = Array.from({ length: layer })
 
   const saveItemName = useCallback(() => {
     if (inputRef.current) {
@@ -25,8 +28,20 @@ export default function FileManagerItem({ children, item, Icon, action, extraIte
     setRenamingItemId(null)
   }, [setFileName, setRenamingItemId])
 
-  function onDragStart() {
+  function onDragStart(event) {
+    event.stopPropagation()
+
     setDraggingItemId(item.id)
+  }
+
+  function onDragOver(event) {
+    event.preventDefault()
+  }
+
+  function onDrop(event) {
+    event.stopPropagation()
+
+    item.type === "folder" ? setItemParentId(draggingItemId, item.id) : setItemParentId(draggingItemId, item.parentId)
   }
 
   function onDragEnd() {
@@ -67,23 +82,32 @@ export default function FileManagerItem({ children, item, Icon, action, extraIte
       itemKeys={itemKeys}
     >
       <div 
+        className="relative"
         draggable={!isRenaming}
         onClick={action}
         onDragStart={onDragStart}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
         onDragEnd={onDragEnd}
       >
-        <div 
-          className={`flex items-center gap-1.5 p-1 rounded-sm  text-secondary-500 hover:text-white cursor-pointer ${isActive || isRenaming ? "bg-primary-400 hover:bg-primary-400 text-white" : "hover:bg-primary-600"}`}
+        <div
+          className={`flex items-center gap-1.5 rounded-sm  text-secondary-500 hover:text-white cursor-pointer ${isActive || isRenaming ? "bg-primary-400 hover:bg-primary-400 text-white" : "hover:bg-primary-600"}`}
         >
+          {indentGuides.map((_, index) => (
+            <div 
+              key={index}
+              className={`h-7 border-l border-primary-300 shrink-0 ${index !== 0 ? "w-1 ml-1" : "border-none"}`}
+            />
+          ))}
           <Icon
-            className="w-5"
+            className="min-w-5"
           />
           {isRenaming ? (
             <input
               ref={inputRef}
               className="w-full px-1 rounded-sm outline-none bg-primary-600 "
               type="text"
-              defaultValue={item.id}
+              defaultValue={item.data.label}
               onKeyDown={onKeyDown}
               onClick={(event) => event.stopPropagation()}
             />
@@ -94,9 +118,7 @@ export default function FileManagerItem({ children, item, Icon, action, extraIte
           )}
         </div>
 
-        {item.type === "folder" && (
-          children
-        )}
+        {item.type === "folder" && children}
       </div>
     </ContextMenu>
   )

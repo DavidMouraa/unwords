@@ -3,29 +3,33 @@ import FileManagerItem from "./FileManagerItem"
 import { FaFolder } from "react-icons/fa";
 import RenderItems from "../RenderItems";
 
-export default function Folder({ itemId }) {
+export default function Folder({ itemId, layer }) {
   const { items, openFoldersId } = useFileManagerStore()
 
   const folder = items[itemId]
-  const folderItemKeys = ["createFolder", "createTextFile"]
+  const folderItemKeys = ["createFolder", "createTextFile", "deleteFolder"]
 
   const childItems = Object.values(items).filter((item) => item.parentId === itemId)
 
   return (
     <FileManagerItem
       item={folder}
+      layer={layer}
       Icon={FaFolder}
       action={() => {}}
       extraItemKeys={folderItemKeys}
     >
-      <div className={`ml-3`}>
-        {childItems.map((item) => (
-          <RenderItems 
+      <div className="relative">
+        {childItems.map((item, index) => (
+          <div 
             key={item.id}
-            itemId={item.id}
-            items={items}
-            childItems={childItems}
-          />
+          >
+            <RenderItems
+              itemId={item.id}
+              items={items}
+              layer={layer + 1}
+            />
+          </div>
         ))}
       </div>
     </FileManagerItem>

@@ -23,6 +23,47 @@ const closeFile = (state, fileId) => {
   }
 }
 
+const deleteItem = (state, fileId) => {
+  Object.values(state.items).forEach((item) => {
+    if (item.type === "graph") {
+      item.data.nodes.forEach((node) => {      
+        if (node.data.fileId === fileId) {
+          node.data.fileId = null
+        }
+      })
+    }
+  })
+
+  closeFile(state, fileId)
+
+  delete state.items[fileId]
+}
+
+const deleteFolder = (state, folderId) => {
+  Object.values(state.items).forEach((item) => {
+    if (item.parentId === folderId) {
+      item.type === "folder" ? deleteFolder(state, item.id) : deleteItem(state, item.id)
+    }
+  })
+
+  deleteItem(state, folderId)
+}
+
+const sortItems = (items) => {
+  let folders = {}
+  let files = {}
+
+  for (const key in items) {
+    const item = items[key]
+
+    if (item.type === "folder") folders = {...folders, [key]: item}
+    else files = {...files, [key]: item}
+  }
+
+
+  return {...folders, ...files}
+}
+
 const useFileManagerStore = create(immer((set) => ({
   items: initialItems,
   openFilesId: ["main"], 
@@ -32,7 +73,11 @@ const useFileManagerStore = create(immer((set) => ({
   renamingItemId: null,
 
   setItems: (items) => set((state) => {
-    state.items = typeof items === "function" ? items(state.items) : items
+    state.items = sortItems(typeof items === "function" ? items(state.items) : items)
+  }),
+
+  setItemParentId: (itemId, parentId) => set((state) =>{
+    state.items[itemId].parentId = parentId
   }),
 
   setOpenFiles: (files) => set((state) => {
@@ -63,25 +108,13 @@ const useFileManagerStore = create(immer((set) => ({
 
   closeFile: (fileId) => set((state) => closeFile(state, fileId)),
 
-  deleteFile: (fileId) => set((state) => {
-    Object.values(state.items).forEach((item) => {
-      if (item.type === "graph") {
-        item.data.nodes.forEach((node) => {      
-          if (node.data.fileId === fileId) {
-            node.data.fileId = null
-          }
-        })
-      }
-    })
+  deleteItem: (fileId) => set((state) => deleteItem(state, fileId)),
 
-    closeFile(state, fileId)
-
-    delete state.items[fileId]
-  }),
+  deleteFolder: (folderId) => set((state) => deleteFolder(state, folderId)),
 
   updateActiveItemContent: (newContent) => set((state) => {
     state.items[state.activeFileId].data.content = newContent
-  })
+  }),
 })))
 
 export default useFileManagerStore

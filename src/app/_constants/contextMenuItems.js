@@ -6,7 +6,8 @@ import useGraphEditorStore from "@/store/useGraphEditorStore"
 const { 
   setItems,
   setRenamingItemId, 
-  deleteFile,
+  deleteItem,
+  deleteFolder,
 } = useFileManagerStore.getState()
 const { 
   setNodes, 
@@ -58,12 +59,19 @@ const CONTEXT_MENU_ITEMS = {
       setRenamingItemId(itemId)
     }
   },
-  deleteItem: {
+  deleteFile: {
     label: "Deletar",
     type: "default",
     action: (_, { itemId }) => {
-      deleteFile(itemId)
+      deleteItem(itemId)
       removeNodeFileId(itemId)
+    }
+  },
+  deleteFolder: {
+    label: "Deletar",
+    type: "default",
+    action: (_, { itemId }) => {
+      deleteFolder(itemId)
     }
   }
 }
