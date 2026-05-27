@@ -26,7 +26,7 @@ export default function Tab({ itemId, data }) {
       <button
         className={`invisible ${isActive && "visible"} disabled:hidden
         
-        group-hover:visible rounded-sm hover:bg-[#3b3b3b] text-lg cursor-pointer`}
+        group-hover:visible rounded-sm hover:bg-primary-300 text-lg cursor-pointer`}
         onClick={(event) => {
           event.stopPropagation()
           closeFile(itemId)

@@ -14,6 +14,22 @@ const initialItems = {
   }
 }
 
+const openFolder = (state, folderId) => {
+  let currentFolderId = folderId
+
+  console.log(folderId)
+
+  while (currentFolderId) {
+    const folder = state.items[currentFolderId]
+
+    if (!state.openFoldersId.includes(currentFolderId)) {
+      state.openFoldersId.push(folder.id)
+    }
+
+    currentFolderId = folder.parentId
+  }
+}
+
 const closeFile = (state, fileId) => {
   const fileIdIndex = state.openFilesId.indexOf(fileId)
   state.openFilesId = state.openFilesId.filter((openFileId) => openFileId !== fileId)
@@ -24,16 +40,6 @@ const closeFile = (state, fileId) => {
 }
 
 const deleteItem = (state, fileId) => {
-  Object.values(state.items).forEach((item) => {
-    if (item.type === "graph") {
-      item.data.nodes.forEach((node) => {      
-        if (node.data.fileId === fileId) {
-          node.data.fileId = null
-        }
-      })
-    }
-  })
-
   closeFile(state, fileId)
 
   delete state.items[fileId]
@@ -76,12 +82,8 @@ const useFileManagerStore = create(immer((set) => ({
     state.items = sortItems(typeof items === "function" ? items(state.items) : items)
   }),
 
-  setItemParentId: (itemId, parentId) => set((state) =>{
+  setItemParentId: (itemId, parentId) => set((state) => {
     state.items[itemId].parentId = parentId
-  }),
-
-  setOpenFiles: (files) => set((state) => {
-    state.openFilesId = typeof files === "function" ? files(state.openFilesId) : files
   }),
 
   setDraggingItemId: (itemId) => set((state) => {
@@ -97,16 +99,23 @@ const useFileManagerStore = create(immer((set) => ({
   }),
 
   openFile: (fileId) => set((state) => {
-    const openFilesId = state.openFilesId
+    const folderId = state.items[fileId].parentId
 
-    if (!openFilesId.includes(fileId)) {
+    if (!state.openFilesId.includes(fileId)) {
       state.openFilesId.push(fileId)
     }
 
+    openFolder(state, folderId)
     state.activeFileId = fileId
   }),
 
+  openFolder: (folderId) => set((state) => openFolder(state, folderId)),
+
   closeFile: (fileId) => set((state) => closeFile(state, fileId)),
+
+  closeFolder: (folderId) => set((state) => {
+    state.openFoldersId = state.openFoldersId.filter((folder) => folder !== folderId)
+  }),
 
   deleteItem: (fileId) => set((state) => deleteItem(state, fileId)),
 

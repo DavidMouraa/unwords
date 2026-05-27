@@ -3,8 +3,7 @@ import useFileManagerStore from "@/store/useFileManagerStore";
 import FILE_ICONS_MAP from "@/app/_constants/maps/filesIconsMap";
 
 export default function File({ itemId, layer }) {
-  const { items } = useFileManagerStore()
-  const { openFile } = useFileManagerStore()
+  const { items, openFile } = useFileManagerStore()
 
   const file = items[itemId]
 
@@ -12,12 +11,18 @@ export default function File({ itemId, layer }) {
 
   const itemKeys = ["renameItem", "deleteFile"]
 
+  function action(event) {
+    event.stopPropagation()
+
+    openFile(itemId)
+  }
+
   return (
     <FileManagerItem
       item={file}
       layer={layer}
       Icon={FileIcon}
-      action={() => openFile(itemId)}
+      action={action}
       itemKeys={itemKeys}
     >
       {file.data.label}

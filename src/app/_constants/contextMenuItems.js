@@ -6,6 +6,7 @@ import useGraphEditorStore from "@/store/useGraphEditorStore"
 const { 
   setItems,
   setRenamingItemId, 
+  openFolder,
   deleteItem,
   deleteFolder,
 } = useFileManagerStore.getState()
@@ -39,6 +40,7 @@ const CONTEXT_MENU_ITEMS = {
     action: (_, { itemId }) => {
       const newFolder = buildItem("folder", itemId || null)
 
+      openFolder(itemId)
       setItems((items) => ({...items, [newFolder.id]: newFolder}))
     }
   },
@@ -53,6 +55,7 @@ const CONTEXT_MENU_ITEMS = {
     action: (_, { itemId }) => {
       const newFile = buildItem("text", itemId || null)
 
+      openFolder(itemId)
       setItems((items) => ({...items, [newFile.id]: newFile}))
     }
   },

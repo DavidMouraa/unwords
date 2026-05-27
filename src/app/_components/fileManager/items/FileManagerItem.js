@@ -11,6 +11,7 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
     setDraggingItemId, 
     setRenamingItemId,
     setFileName,
+    openFolder,
   } = useFileManagerStore()
 
   const inputRef = useRef(null)
@@ -40,7 +41,10 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
   function onDrop(event) {
     event.stopPropagation()
 
-    item.type === "folder" ? setItemParentId(draggingItemId, item.id) : setItemParentId(draggingItemId, item.parentId)
+    if (draggingItemId !== item.id) {
+      openFolder(item.id)
+      item.type === "folder" ? setItemParentId(draggingItemId, item.id) : setItemParentId(draggingItemId, item.parentId)
+    }
   }
 
   function onDragEnd() {
@@ -81,7 +85,7 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
       itemKeys={itemKeys}
     >
       <div 
-        className="relative text-sm"
+        className="relative"
         draggable={!isRenaming}
         onClick={action}
         onDragStart={onDragStart}
