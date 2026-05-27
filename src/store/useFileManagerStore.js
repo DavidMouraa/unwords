@@ -7,7 +7,7 @@ const initialItems = {
     type: "graph",
     parentId: null,
     data: {
-      label: "grapho",
+      label: "Grapho",
       nodes: [],
       edges: [],
     }

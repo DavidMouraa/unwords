@@ -18,7 +18,6 @@ import buildNode from "@/app/_utils/buildNode"
 import ConnectionLine from "./edges/ConnectionLine"
 import Edge from "./edges/Edge"
 import StartNode from "./nodes/StartNode"
-import { useEffect } from "react"
 import { v4 as uuidv4 } from "uuid"
 
 const nodeTypes = {

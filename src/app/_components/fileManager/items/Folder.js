@@ -7,7 +7,7 @@ export default function Folder({ itemId, layer }) {
   const { items, openFoldersId } = useFileManagerStore()
 
   const folder = items[itemId]
-  const folderItemKeys = ["createFolder", "createTextFile", "deleteFolder"]
+  const itemKeys = ["createFolder", "createFile", "renameItem", "deleteFolder"]
 
   const childItems = Object.values(items).filter((item) => item.parentId === itemId)
 
@@ -17,7 +17,7 @@ export default function Folder({ itemId, layer }) {
       layer={layer}
       Icon={FaFolder}
       action={() => {}}
-      extraItemKeys={folderItemKeys}
+      itemKeys={itemKeys}
     >
       <div className="relative">
         {childItems.map((item, index) => (

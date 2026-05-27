@@ -15,7 +15,7 @@ export default function FileManager() {
   
   const layer = 1
 
-  const itemKeys = ["createFolder", "createTextFile"]
+  const itemKeys = ["createFolder", "createFile"]
 
   function onDragOver(event) {
     event.preventDefault()

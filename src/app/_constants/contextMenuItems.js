@@ -42,6 +42,11 @@ const CONTEXT_MENU_ITEMS = {
       setItems((items) => ({...items, [newFolder.id]: newFolder}))
     }
   },
+  createFile: {
+    label: "Novo Arquivo",
+    type: "submenu",
+    subItemsKeys: ["createTextFile"],
+  },
   createTextFile: {
     label: "Texto",
     type: "default",

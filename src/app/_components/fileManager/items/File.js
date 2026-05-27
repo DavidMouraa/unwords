@@ -10,7 +10,7 @@ export default function File({ itemId, layer }) {
 
   const FileIcon = FILE_ICONS_MAP[file.type]
 
-  const extraItemKeys = ["deleteFile"]
+  const itemKeys = ["renameItem", "deleteFile"]
 
   return (
     <FileManagerItem
@@ -18,7 +18,7 @@ export default function File({ itemId, layer }) {
       layer={layer}
       Icon={FileIcon}
       action={() => openFile(itemId)}
-      extraItemKeys={extraItemKeys}
+      itemKeys={itemKeys}
     >
       {file.data.label}
     </FileManagerItem>

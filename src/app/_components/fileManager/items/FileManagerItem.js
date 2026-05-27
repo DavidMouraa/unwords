@@ -2,7 +2,7 @@ import useFileManagerStore from "@/store/useFileManagerStore"
 import ContextMenu from "../../contextMenu/ContextMenu"
 import { useCallback, useEffect, useRef } from "react"
 
-export default function FileManagerItem({ children, item, layer, Icon, action, extraItemKeys=[] }) {
+export default function FileManagerItem({ children, item, layer, Icon, action, itemKeys }) {
   const { 
     activeFileId, 
     renamingItemId,
@@ -18,7 +18,6 @@ export default function FileManagerItem({ children, item, layer, Icon, action, e
   const isActive = item.id === activeFileId
   const isRenaming = item.id === renamingItemId
 
-  const itemKeys = [...extraItemKeys, "renameItem"]
   const indentGuides = Array.from({ length: layer })
 
   const saveItemName = useCallback(() => {
@@ -82,7 +81,7 @@ export default function FileManagerItem({ children, item, layer, Icon, action, e
       itemKeys={itemKeys}
     >
       <div 
-        className="relative"
+        className="relative text-sm"
         draggable={!isRenaming}
         onClick={action}
         onDragStart={onDragStart}
@@ -91,7 +90,7 @@ export default function FileManagerItem({ children, item, layer, Icon, action, e
         onDragEnd={onDragEnd}
       >
         <div
-          className={`flex items-center gap-1.5 rounded-sm  text-secondary-500 hover:text-white cursor-pointer ${isActive || isRenaming ? "bg-primary-400 hover:bg-primary-400 text-white" : "hover:bg-primary-600"}`}
+          className={`flex items-center gap-1 rounded-sm  text-secondary-500 hover:text-white cursor-pointer ${isActive || isRenaming ? "bg-primary-400 hover:bg-primary-400 text-white" : "hover:bg-primary-600"}`}
         >
           {indentGuides.map((_, index) => (
             <div 
