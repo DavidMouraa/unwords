@@ -4,7 +4,7 @@ import CONTEXT_MENU_ITEMS from "@/app/_constants/contextMenuItems"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 import RenderItems from "./items/RenderItems"
 
-export default function ContextMenu({ children, itemId, nodeId, itemKeys }) {
+export default function ContextMenu({ children, itemId, nodeId, itemKeys, onOpenChange }) {
   const { clientPos } = useGraphEditorStore()
 
   const menuClass = "p-1 rounded-sm bg-black text-white text-sm border border-primary-500"
@@ -17,8 +17,12 @@ export default function ContextMenu({ children, itemId, nodeId, itemKeys }) {
   }
 
   return (
-    <ContextMenuRadix.Root>
-      <ContextMenuRadix.Trigger>
+    <ContextMenuRadix.Root
+      onOpenChange={onOpenChange}
+    >
+      <ContextMenuRadix.Trigger
+        className="group"
+      >
         {children}
       </ContextMenuRadix.Trigger>
 

@@ -37,7 +37,8 @@ const CONTEXT_MENU_ITEMS = {
   createFolder: {
     label: "Nova Pasta",
     type: "default",
-    action: (_, { itemId }) => {
+    action: (event, { itemId }) => {
+      event.stopPropagation()
       const newFolder = buildItem("folder", itemId || null)
 
       openFolder(itemId)
@@ -52,7 +53,9 @@ const CONTEXT_MENU_ITEMS = {
   createTextFile: {
     label: "Texto",
     type: "default",
-    action: (_, { itemId }) => {
+    action: (event, { itemId }) => {
+      event.stopPropagation()
+
       const newFile = buildItem("text", itemId || null)
 
       openFolder(itemId)
@@ -70,7 +73,8 @@ const CONTEXT_MENU_ITEMS = {
   deleteFile: {
     label: "Deletar",
     type: "default",
-    action: (_, { itemId }) => {
+    action: (event, { itemId }) => {
+      event.stopPropagation()
       deleteItem(itemId)
       removeNodeFileId(itemId)
     }
@@ -78,7 +82,8 @@ const CONTEXT_MENU_ITEMS = {
   deleteFolder: {
     label: "Deletar",
     type: "default",
-    action: (_, { itemId }) => {
+    action: (event, { itemId }) => {
+      event.stopPropagation()
       deleteFolder(itemId)
     }
   }

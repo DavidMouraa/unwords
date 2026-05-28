@@ -1,9 +1,10 @@
 import useFileManagerStore from "@/store/useFileManagerStore"
 import ContextMenu from "../../contextMenu/ContextMenu"
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 export default function FileManagerItem({ children, item, layer, Icon, action, itemKeys }) {
   const { 
+    items,
     activeFileId, 
     renamingItemId,
     draggingItemId,
@@ -14,9 +15,10 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
     openFolder,
   } = useFileManagerStore()
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const inputRef = useRef(null)
 
-  const isActive = item.id === activeFileId
+  const isActiveFile = item.id === activeFileId
   const isRenaming = item.id === renamingItemId
 
   const indentGuides = Array.from({ length: layer })
@@ -83,9 +85,9 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
     <ContextMenu
       itemId={item.id}
       itemKeys={itemKeys}
+      onOpenChange={setIsMenuOpen}
     >
       <div 
-        className="relative"
         draggable={!isRenaming}
         onClick={action}
         onDragStart={onDragStart}
@@ -94,12 +96,20 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
         onDragEnd={onDragEnd}
       >
         <div
-          className={`flex items-center gap-1 rounded-sm  text-secondary-500 hover:text-white cursor-pointer ${isActive || isRenaming ? "bg-primary-400 hover:bg-primary-400 text-white" : "hover:bg-primary-600"}`}
+          className={`group flex items-center gap-1 h-7 pr-1 rounded-sm text-secondary-500 hover:text-white cursor-pointer border 
+            ${
+              isMenuOpen ? "border-primary-400" : "border-transparent"
+            }
+            ${
+              isActiveFile || isRenaming ? 
+              "bg-primary-400 hover:bg-primary-400 text-white" :
+              "hover:bg-primary-600"}`
+            }
         >
           {indentGuides.map((_, index) => (
             <div 
               key={index}
-              className={`h-7 border-l border-primary-300 shrink-0 ${index !== 0 ? "w-1 ml-1" : "border-none"}`}
+              className={`h-7 border-l shrink-0 border-primary-300 ${index !== 0 ? "w-1 ml-1" : "border-none"}`}
             />
           ))}
           <Icon

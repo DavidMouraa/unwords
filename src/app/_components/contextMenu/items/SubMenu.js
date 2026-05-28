@@ -12,7 +12,7 @@ export default function SubMenu({ item, context, menuClass, itemClass }) {
         className={`flex items-center gap-2 ${itemClass}`}
       >
         {item.label}
-        <FaChevronRight />
+        <FaChevronRight className="text-secondary-500" />
       </ContextMenuRadix.SubTrigger>
 
       <ContextMenuRadix.Portal>

@@ -24,7 +24,6 @@ export default function Folder({ itemId, layer }) {
     event.stopPropagation()
 
     !isOpen ? openFolder(itemId) : closeFolder(itemId)
-    
   }
 
   return (
@@ -35,7 +34,7 @@ export default function Folder({ itemId, layer }) {
       action={toggleFolder}
       itemKeys={itemKeys}
     >
-      <div className="relative">
+      <div>
         {isOpen && childItems.map((item) => (
           <div 
             key={item.id}
