@@ -3,6 +3,7 @@
 import useFileManagerStore from "@/store/useFileManagerStore"
 import RenderItems from "./RenderItems"
 import ContextMenu from "../contextMenu/ContextMenu"
+import ActionMenu from "./actionMenu/ActionMenu"
 
 export default function FileManager() {
   const { 
@@ -31,6 +32,7 @@ export default function FileManager() {
     <ContextMenu
       itemKeys={itemKeys}
     >
+      <ActionMenu />
       <div 
         className="relative w-full h-full p-2"
         onDragOver={onDragOver}

@@ -2,7 +2,7 @@ import useFileManagerStore from "@/store/useFileManagerStore"
 import ContextMenu from "../../contextMenu/ContextMenu"
 import { useCallback, useEffect, useRef, useState } from "react"
 
-export default function FileManagerItem({ children, item, layer, Icon, action, itemKeys }) {
+export default function FileManagerItem({ children, item, layer, Icon, onClick, itemKeys }) {
   const { 
     items,
     activeFileId, 
@@ -89,7 +89,7 @@ export default function FileManagerItem({ children, item, layer, Icon, action, i
     >
       <div 
         draggable={!isRenaming}
-        onClick={action}
+        onClick={onClick}
         onDragStart={onDragStart}
         onDragOver={onDragOver}
         onDrop={onDrop}

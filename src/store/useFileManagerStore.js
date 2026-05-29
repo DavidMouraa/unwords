@@ -72,6 +72,7 @@ const useFileManagerStore = create(immer((set) => ({
   items: initialItems,
   openFilesId: ["main"], 
   openFoldersId: [],
+  selectedFolder: null,
   activeFileId: null,
   draggingItemId: null,
   renamingItemId: null,

@@ -31,7 +31,7 @@ export default function Folder({ itemId, layer }) {
       item={folder}
       layer={layer}
       Icon={Icon}
-      action={toggleFolder}
+      onClick={toggleFolder}
       itemKeys={itemKeys}
     >
       <div>

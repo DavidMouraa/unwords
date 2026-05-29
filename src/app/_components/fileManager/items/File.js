@@ -22,7 +22,7 @@ export default function File({ itemId, layer }) {
       item={file}
       layer={layer}
       Icon={FileIcon}
-      action={action}
+      onClick={action}
       itemKeys={itemKeys}
     >
       {file.data.label}
