@@ -1,14 +1,23 @@
 import useGraphEditorStore from "@/store/useGraphEditorStore";
 import usePlayerStore from "@/store/usePlayerStore";
 import { FaPlay } from "react-icons/fa";
-import Modal from "../modal/Modal";
 import useFileManagerStore from "@/store/useFileManagerStore";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ControlMenu() {
   const { nodes, edges } = useGraphEditorStore()
-  const { setPlayerContent } = usePlayerStore()
+  const { playerContent, setPlayerContent } = usePlayerStore()
   const { items } = useFileManagerStore()
+
+  const button = useRef()
+  const router = useRouter()
+
+  const hasContent = !playerContent?.length
+
+  function openPlayer() {
+    router.push("/player")
+  }
 
   function updatePlayerContent() {
     const connectedNodesId = []
@@ -42,17 +51,14 @@ export default function ControlMenu() {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <Modal
-        triggerClass="outline-none"
-        overlayClass="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-black/50"
-        contentClass="max-w-180 max-h-200 size-full rounded-sm outline-none"
+      <button
+        ref={button}
+        className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
+        onClick={openPlayer}
+        disabled={hasContent}
       >
-        <div
-          className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
-        >
-          <FaPlay />
-        </div>
-      </Modal>
+        <FaPlay />
+      </button>
     </div>
   )
 }

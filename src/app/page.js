@@ -6,7 +6,7 @@ import Tabbar from "./_components/tabbar/Tabbar";
 import useFileManagerStore from "@/store/useFileManagerStore";
 import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
-import Panel from "./_components/Panels/Panel";
+import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
 import "react-resizable/css/styles.css"
 

@@ -10,8 +10,6 @@ export default function TextNode({ selected, id, type, data }) {
   const nodeFileId = nodes[nodes.findIndex((node) => node.id === id)]?.data.fileId
   const nodeFile = items[nodeFileId]
 
-  console.log(nodeFileId)
-
   return (
     <Node
       selected={selected}

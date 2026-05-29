@@ -17,8 +17,6 @@ const initialItems = {
 const openFolder = (state, folderId) => {
   let currentFolderId = folderId
 
-  console.log(folderId)
-
   while (currentFolderId) {
     const folder = state.items[currentFolderId]
 
