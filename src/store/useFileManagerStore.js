@@ -97,6 +97,10 @@ const useFileManagerStore = create(immer((set) => ({
     if (newName) state.items[state.renamingItemId].data.label = newName
   }),
 
+  setSelectedFolder: (folderId) => set((state) => {
+    state.selectedFolder = folderId
+  }),
+
   openFile: (fileId) => set((state) => {
     const folderId = state.items[fileId].parentId
 

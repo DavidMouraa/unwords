@@ -9,6 +9,7 @@ export default function FileManager() {
   const { 
     items,
     draggingItemId,
+    setSelectedFolder,
     setItemParentId,
   } = useFileManagerStore()
 
@@ -17,6 +18,10 @@ export default function FileManager() {
   const layer = 1
 
   const itemKeys = ["createFolder", "createFile"]
+
+  function onClick() {
+    setSelectedFolder(null)
+  }
 
   function onDragOver(event) {
     event.preventDefault()
@@ -33,8 +38,10 @@ export default function FileManager() {
       itemKeys={itemKeys}
     >
       <ActionMenu />
+      
       <div 
         className="relative w-full h-full p-2"
+        onClick={onClick}
         onDragOver={onDragOver}
         onDrop={onDrop}
       >

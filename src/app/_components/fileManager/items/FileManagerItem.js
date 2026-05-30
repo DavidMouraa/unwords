@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react"
 
 export default function FileManagerItem({ children, item, layer, Icon, onClick, itemKeys }) {
   const { 
-    items,
     activeFileId, 
     renamingItemId,
     draggingItemId,
+    setSelectedFolder,
     setItemParentId,
     setDraggingItemId, 
     setRenamingItemId,
@@ -29,6 +29,12 @@ export default function FileManagerItem({ children, item, layer, Icon, onClick, 
     }
     setRenamingItemId(null)
   }, [setFileName, setRenamingItemId])
+
+  function onClickExtra(event) {
+    item.type === "folder" ? setSelectedFolder(item.id) : setSelectedFolder(item.parentId)
+
+    onClick(event)
+  }
 
   function onDragStart(event) {
     event.stopPropagation()
@@ -89,7 +95,7 @@ export default function FileManagerItem({ children, item, layer, Icon, onClick, 
     >
       <div 
         draggable={!isRenaming}
-        onClick={onClick}
+        onClick={onClickExtra}
         onDragStart={onDragStart}
         onDragOver={onDragOver}
         onDrop={onDrop}
@@ -103,8 +109,9 @@ export default function FileManagerItem({ children, item, layer, Icon, onClick, 
             ${
               isActiveFile || isRenaming ? 
               "bg-primary-400 hover:bg-primary-400 text-white" :
-              "hover:bg-primary-600"}`
-            }
+              "hover:bg-primary-600"
+            }`
+          }
         >
           {indentGuides.map((_, index) => (
             <div 
