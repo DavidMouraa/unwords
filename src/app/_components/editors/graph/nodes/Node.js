@@ -2,10 +2,9 @@ import ContextMenu from "@/app/_components/contextMenu/ContextMenu"
 import Pin from "../pins/Pin"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import { FaFileCirclePlus } from "react-icons/fa6"
-import { IoDocumentText } from "react-icons/io5"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 
-export default function Node({ children, selected, id, type, data, label, color }) {
+export default function Node({ children, selected, id, type, data, label, color, Icon }) {
   const { items, draggingItemId } = useFileManagerStore()
   const { startTargetId, setNodeFileId } = useGraphEditorStore()
 
@@ -38,10 +37,10 @@ export default function Node({ children, selected, id, type, data, label, color 
           style={{ background: color }}
           className="flex items-center gap-1 p-1 bg-white"
         >
-          <IoDocumentText />
+          <Icon />
           {label}
         </div>
-        <div className="flex items-center gap-1 p-1 bg-[#000000c9] backdrop-blur-xs">
+        <div className="flex justify-between items-center gap-1 p-1 bg-[#000000c9] backdrop-blur-xs">
           <div>
             {data.inputs.map((input) => (
               <Pin 

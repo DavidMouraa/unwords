@@ -16,6 +16,24 @@ const NODE_TEMPLATES = {
       }
     ],
   },
+  choice: {
+    data: {
+      fileId: null,
+      choices: [],
+    },
+    inputs: [
+      {
+        id: null,
+        type: "target"
+      },
+    ],
+    outputs: [
+      {
+        id: null,
+        type: "source",
+      }
+    ],
+  }
 }
 
 export default NODE_TEMPLATES

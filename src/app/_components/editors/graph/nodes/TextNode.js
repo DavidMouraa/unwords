@@ -2,6 +2,7 @@ import Node from "./Node";
 import { MdEdit } from "react-icons/md";
 import useFileManagerStore from "@/store/useFileManagerStore";
 import useGraphEditorStore from "@/store/useGraphEditorStore";
+import { IoDocumentText } from "react-icons/io5"
 
 export default function TextNode({ selected, id, type, data }) {
   const { items, openFile } = useFileManagerStore()
@@ -18,6 +19,7 @@ export default function TextNode({ selected, id, type, data }) {
       data={data}
       label={"Texto"}
       color={"#1d46b8"}
+      Icon={IoDocumentText}
     >
       <div className="flex flex-col justify-center gap-1 h-15">
         <div className="flex items-center gap-1 w-20 text-white">

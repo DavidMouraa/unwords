@@ -19,10 +19,12 @@ import ConnectionLine from "./edges/ConnectionLine"
 import Edge from "./edges/Edge"
 import StartNode from "./nodes/StartNode"
 import { v4 as uuidv4 } from "uuid"
+import ChoiceNode from "./nodes/ChoiceNode"
 
 const nodeTypes = {
   text: TextNode,
   start: StartNode,
+  choice: ChoiceNode,
 }
 
 const edgeTypes = {
@@ -42,7 +44,7 @@ export default function GraphEditor() {
   const { screenToFlowPosition } = useReactFlow()
   const { items, draggingItemId } = useFileManagerStore()
 
-  const contextMenuItemKeys = ["createTextNode"]
+  const contextMenuItemKeys = ["createNode"]
 
   const fitViewOptions = {
     padding: 1,

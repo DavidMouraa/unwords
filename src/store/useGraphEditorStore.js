@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { immer } from "zustand/middleware/immer"
+import { v4 as uuidv4 } from "uuid"
 
 const initialNodes = [
   {
@@ -58,6 +59,15 @@ const useGraphEditorStore = create(immer((set) => ({
 
   setClientPos: (clientPos) => set((state) => {
     state.clientPos = typeof clientPos === "function" ? clientPos(state.clientPos) : clientPos
+  }),
+
+  addNodeChoice: (nodeId, label) => set((state) => {
+    const nodeIndex = state.nodes.findIndex((node) => node.id === nodeId)
+
+    state.nodes[nodeIndex].data.choices = [...state.nodes[nodeIndex].data.choices, {
+      id: uuidv4(),
+      label,
+    }]
   }),
 
   removeNodeFileId: (fileId) => set((state) => {

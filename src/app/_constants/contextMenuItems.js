@@ -17,11 +17,23 @@ const {
 } = useGraphEditorStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
+  createNode: {
+    label: "Nodes",
+    type: "submenu",
+    subItemsKeys: ["createTextNode", "createChoiceNode"]
+  },
   createTextNode: {
     label: "Texto",
     type: "default",
     action: (_, { clientPos }) => {
       setNodes(buildNode("text", clientPos))
+    }
+  },
+  createChoiceNode: {
+    label: "Escolha",
+    type: "default",
+    action: (_, { clientPos }) => {
+      setNodes(buildNode("choice", clientPos))
     }
   },
   deleteNode: {
