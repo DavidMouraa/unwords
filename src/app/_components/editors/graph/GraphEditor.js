@@ -19,7 +19,7 @@ import ConnectionLine from "./edges/ConnectionLine"
 import Edge from "./edges/Edge"
 import StartNode from "./nodes/StartNode"
 import { v4 as uuidv4 } from "uuid"
-import ChoiceNode from "./nodes/ChoiceNode"
+import ChoiceNode from "./nodes/choiceNode/ChoiceNode"
 
 const nodeTypes = {
   text: TextNode,
@@ -47,7 +47,7 @@ export default function GraphEditor() {
   const contextMenuItemKeys = ["createNode"]
 
   const fitViewOptions = {
-    padding: 1,
+    padding: 15,
   }
   
   function getClientPos(event) {

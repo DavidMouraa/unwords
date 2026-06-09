@@ -21,7 +21,7 @@ export default function ActionMenu() {
 
   return (
     <div className="flex justify-center pt-2 py-1">
-      <div className="flex text-white text-lg">
+      <div className="flex gap-0.5 text-white text-lg">
         <Button
           onClick={createFile}
         >

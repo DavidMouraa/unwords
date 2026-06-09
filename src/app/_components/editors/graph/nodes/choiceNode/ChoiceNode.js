@@ -1,18 +1,34 @@
 import useGraphEditorStore from "@/store/useGraphEditorStore";
-import Node from "./Node"
+import Node from "../Node"
 import { FaCodeFork } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
-import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Choice from "./Choice";
 
 export default function ChoiceNode({ id, selected, type, data }) {
   const { addNodeChoice } = useGraphEditorStore()
 
+  const choiceRef = useRef([])
+
   const [renamingChoiceId, setRenamingChoiceId] = useState(null)
 
   function createChoice() {
-    addNodeChoice(id, "escolha 1")
+    addNodeChoice(id, "Escolha")
   }
+
+  useEffect(() => {
+    function onClick(event) {
+      const hasChoiceChild = choiceRef.current.some((choice) => choice.contains(event.target))
+
+      if (!hasChoiceChild) {
+        setRenamingChoiceId(null)
+      }
+    }
+
+    window.addEventListener("click", onClick, true)
+
+    return () => window.removeEventListener("click", onClick, true)
+  }, [])
 
   return (
     <Node
@@ -28,27 +44,16 @@ export default function ChoiceNode({ id, selected, type, data }) {
         <div 
           className="flex flex-col gap-1"
         >
-          {data.choices.map((choice) => (
-            <div 
-              key={uuidv4()}
-              className="flex justify-center rounded-sm p-1 bg-primary-500 cursor-pointer"
-              onClick={() => setRenamingChoiceId(choice.id)}
-            >
-              {renamingChoiceId !== choice.id ? (
-                <label className="w-full truncate">
-                  {choice.label}
-                </label>
-              ) : (
-                <input
-                  className="w-full px-1 bg-primary-600 outline-none rounded-sm"
-                  type="text"
-                  defaultValue={choice.label}
-                  autoFocus
-                >
-                  
-                </input>
-              )}
-            </div>
+          {data.choices.map((choice, index) => (
+            <Choice 
+              key={choice.id}
+              ref={choiceRef}
+              index={index}
+              nodeId={id}
+              choice={choice}
+              renamingChoiceId={renamingChoiceId}
+              setRenamingChoiceId={setRenamingChoiceId}
+            />
           ))}
         </div>
         <button 
