@@ -18,7 +18,6 @@ const NODE_TEMPLATES = {
   },
   choice: {
     data: {
-      fileId: null,
       choices: [],
     },
     inputs: [

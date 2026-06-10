@@ -10,7 +10,8 @@ export default function Node({ children, selected, id, type, data, label, color,
 
   const draggingItem = items[draggingItemId]
   const isDraggingItemSameType = draggingItem?.type === type
-  const isStartTargetId = startTargetId === id
+  const isStartTargetId = startTargetId === id 
+  const hasDinamicOutputs = ["choice"].some((nodeType) => nodeType === type)
 
   const contextMenuItemKeys = ["deleteNode"]
 
@@ -55,16 +56,18 @@ export default function Node({ children, selected, id, type, data, label, color,
 
           {children}
 
-          <div>
-            {data.outputs.map((output) => (
-              <Pin 
-                key={output.id}
-                id={output.id}
-                type={output.type}
-                position="right"
-              />
-            ))}
-          </div>
+          {!hasDinamicOutputs && (
+            <div>
+              {data.outputs.map((output) => (
+                <Pin 
+                  key={output.id}
+                  id={output.id}
+                  type={output.type}
+                  position="right"
+                />
+              ))}
+            </div>
+          )}
 
           <div 
             className={`${isDraggingItemSameType ? "absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full gap-1.5 rounded-sm bg-[#000000f3] text-[0.6rem]" : "hidden"}`}
