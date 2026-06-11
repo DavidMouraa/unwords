@@ -11,7 +11,7 @@ export default function Player() {
 
   return (
     <div 
-      className="w-screen h-screen p-2 bg-black border text-white outline-none"
+      className="flex flex-col w-screen h-screen p-2 bg-black text-white outline-none"
     >
       <div 
         className="flex justify-between"
