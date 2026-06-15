@@ -14,9 +14,7 @@ export default function FileManager() {
   } = useFileManagerStore()
 
   const rootItems = Object.values(items).filter((item) => item.parentId === null)
-  
   const layer = 1
-
   const itemKeys = ["createFolder", "createFile"]
 
   function onClick() {

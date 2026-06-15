@@ -27,6 +27,7 @@ export default function StartNode({ id, isConnectable }) {
       <IoRocket />
       <Handle 
         className="border-none! bg-white!"
+        id={"handle-start"}
         type="source"
         position="right"
         isConnectable={isConnectable}
