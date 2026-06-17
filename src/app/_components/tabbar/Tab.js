@@ -21,11 +21,10 @@ export default function Tab({ itemId, data }) {
     >
       <div className="flex items-center gap-1">
         <FileIcon />
-        {data.label}
+        <span className="w-full truncate">{data.label}</span>
       </div>
       <button
         className={`invisible ${isActive && "visible"} disabled:hidden
-        
         group-hover:visible rounded-sm hover:bg-primary-300 text-lg cursor-pointer`}
         onClick={(event) => {
           event.stopPropagation()

@@ -13,6 +13,8 @@
   --color-primary-600: #0f0f0f;
 
   --color-secondary-500: #c9c9c9;
+
+  --color-danger: #c43a3a;
 }
 
 @layer utilities {
@@ -27,4 +29,9 @@
 
 .text-editor > div:not([class]) {
   display: contents;
+
+}
+
+.f {
+  color: #c43a3a;
 }

@@ -70,6 +70,13 @@ const useGraphEditorStore = create(immer((set) => ({
     }]
   }),
 
+  removeNodeChoice: (nodeId, choiceId) => set((state) => {
+    const nodeIndex = state.nodes.findIndex((node) => node.id === nodeId)
+    const choices = state.nodes[nodeIndex].data.choices
+
+    state.nodes[nodeIndex].data.choices = choices.filter((choice) => choice.id !== choiceId)
+  }),
+
   renameNodeChoice: (nodeId, choiceId, newName) => set((state) => {
     const nodeIndex = state.nodes.findIndex((node) => node.id === nodeId)
     const choiceIndex = state.nodes[nodeIndex].data.choices.findIndex((choice) => choice.id === choiceId)
