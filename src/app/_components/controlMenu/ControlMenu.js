@@ -26,14 +26,23 @@ export default function ControlMenu() {
 
         Array.isArray(sections) ? newContent.push(...sections) : newContent.push(sections)
       })
+
+      // console.log(newContent)
+
+      return newContent
     })
+  }
+
+  function onClick() {
+    updatePlayerContent()
+    openPlayer()
   }
 
   return (
     <div className="h-full flex justify-center items-center">
       <button
         className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
-        onClick={updatePlayerContent}
+        onClick={onClick}
       >
         <FaPlay />
       </button>

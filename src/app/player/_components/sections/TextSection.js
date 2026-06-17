@@ -8,8 +8,8 @@ export default function TextSection({ section }) {
   ])
 
   return (
-    <section dangerouslySetInnerHTML={{ __html: text }}>
+    <div dangerouslySetInnerHTML={{ __html: text }}>
       
-    </section>
+    </div>
   )
 }
