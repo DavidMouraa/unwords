@@ -21,7 +21,7 @@ export default function Tab({ itemId, data }) {
     >
       <div className="flex items-center gap-1">
         <FileIcon />
-        <span className="w-full truncate">{data.label}</span>
+        <span>{data.label}</span>
       </div>
       <button
         className={`invisible ${isActive && "visible"} disabled:hidden

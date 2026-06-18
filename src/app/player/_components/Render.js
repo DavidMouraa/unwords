@@ -10,7 +10,9 @@ export default function Render() {
 
   useEffect(() => {
     function advanceToNextSection() {
-      if (nextSectionId) {
+      const nextSectionDisplayed = playerContentDisplayed.find((section) => section.id === nextSectionId)
+      
+      if (nextSectionId && !nextSectionDisplayed) {
         const nextSection = playerContent.find((section) => section.id === nextSectionId)
         
         setPlayerContentDisplayed((contentDisplayed) => [...contentDisplayed, nextSection])
@@ -20,10 +22,10 @@ export default function Render() {
     window.addEventListener("click", advanceToNextSection)
 
     return () => window.removeEventListener("click", advanceToNextSection)
-  }, [nextSectionId])
+  }, [nextSectionId, playerContentDisplayed])
 
   return (
-    <div className="flex flex-col gap-2 max-w-200 w-full">
+    <div className="flex flex-col gap-5 max-w-200 w-full text-secondary-500">
       {playerContentDisplayed.map((section) => (
         <RenderSections 
           key={section.id} 
