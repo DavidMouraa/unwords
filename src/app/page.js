@@ -8,27 +8,37 @@ import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
-import "react-resizable/css/styles.css"
+import ResizablePanel from "./_components/panels/ResizablePanel";
+import { useState } from "react";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
+
+  const [sidebarsWidth, setSidebarsWidth] = useState({
+    leftSidebar: 300,
+    rightSidebar: 300,
+  })
 
   const activeFile = items[activeFileId]
   const EditorComponent = EDITOR_MAP[activeFile?.type]
 
   return (
     <div 
-      className="grid grid-cols-[250px_1fr] grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2"
+      style={{
+        gridTemplateColumns: `${sidebarsWidth.leftSidebar}px 1fr`
+      }}
+      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2"
     >
       <Panel className="[grid-area:control-menu]">
         <ControlMenu />
       </Panel>
 
-      <Panel
+      <ResizablePanel
+        setSidebarsWidth={setSidebarsWidth}
         className="[grid-area:file-manager]"
       >
         <FileManager />
-      </Panel>
+      </ResizablePanel>
 
       <Panel className="[grid-area:tabbar] overflow-x-auto no-scrollbar">
         <Tabbar />

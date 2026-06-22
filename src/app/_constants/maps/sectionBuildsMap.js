@@ -14,7 +14,7 @@ const SECTION_BUILDS_MAP = {
       type: "text",
       next: nextSectionId,
       data: {
-        content: items[node.data.fileId].data.content
+        content: items[node.data.fileId]?.data.content || null
       }
     }
 
@@ -28,6 +28,7 @@ const SECTION_BUILDS_MAP = {
 
     const section = {
       id: node.id,
+      type: "choice",
       choices: nodeEdges.map((edge) => {
         const choice = nodeChoices.find((choice) => choice.id === edge.sourceHandle)
         
@@ -37,7 +38,6 @@ const SECTION_BUILDS_MAP = {
           next: edge.target,
         }
       }),
-      type: "choice",
     }
     
     return section

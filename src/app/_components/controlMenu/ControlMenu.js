@@ -16,14 +16,14 @@ export default function ControlMenu() {
 
   function updatePlayerContent() {
     setPlayerContent(() => {
-      const newContent = []
+      let newContent = {}
 
       edges.forEach((edge) => {
         const node = nodes.find((node) => node.id === edge.target)
         const builder = SECTION_BUILDS_MAP[node.type]
-        const sections = builder(node)
+        const section = builder(node)
 
-        Array.isArray(sections) ? newContent.push(...sections) : newContent.push(sections)
+        newContent = {...newContent, [section.id]: section}
       })
 
       return newContent

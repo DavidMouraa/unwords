@@ -5,7 +5,8 @@ import RenderSections from "./sections/RenderSections"
 export default function Render() {
   const { playerContent } = usePlayerStore()
 
-  const [playerContentDisplayed, setPlayerContentDisplayed] = useState([playerContent[0]])
+  const firstSection = Object.values(playerContent)[0]
+  const [playerContentDisplayed, setPlayerContentDisplayed] = useState([firstSection])
   const [nextSectionId, setNextSectionId] = useState(null)
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function Render() {
       const nextSectionDisplayed = playerContentDisplayed.find((section) => section.id === nextSectionId)
       
       if (nextSectionId && !nextSectionDisplayed) {
-        const nextSection = playerContent.find((section) => section.id === nextSectionId)
+        const nextSection = playerContent[nextSectionId]
         
         setPlayerContentDisplayed((contentDisplayed) => [...contentDisplayed, nextSection])
       }

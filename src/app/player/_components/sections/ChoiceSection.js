@@ -3,9 +3,9 @@ import { useState } from "react"
 export default function ChoiceSection({ section, setNextSectionId }) {
   const [isActived, setIsActived] = useState(true)
 
-  function onClick(event, nextSectionId) {
+  function onClick(nextSectionId) {
     if (isActived) {
-      setNextSectionId(nextSectionId || null)
+      setNextSectionId(nextSectionId)
       setIsActived(false)
     }
   }

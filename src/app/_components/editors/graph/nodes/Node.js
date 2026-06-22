@@ -32,7 +32,7 @@ export default function Node({ children, selected, id, type, data, label, color,
     >
       <div 
         style={{ borderColor: `${selected ? color : "black"}` }}
-        className={`rounded-sm border overflow-clip shadow-[0px_0px_10px_1px_#00000066] text-white`}
+        className={`rounded-sm border-2 overflow-clip shadow-[0px_0px_10px_1px_#00000066] text-white`}
       >
         <div 
           style={{ background: color }}

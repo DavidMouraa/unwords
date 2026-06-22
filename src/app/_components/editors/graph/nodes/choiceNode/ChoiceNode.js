@@ -2,13 +2,11 @@ import useGraphEditorStore from "@/store/useGraphEditorStore";
 import Node from "../Node"
 import { FaCodeFork } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Choice from "./Choice";
 
 export default function ChoiceNode({ id, selected, type, data }) {
   const { addNodeChoice } = useGraphEditorStore()
-
-  const choiceRef = useRef([])
 
   const [renamingChoiceId, setRenamingChoiceId] = useState(null)
 
@@ -17,12 +15,8 @@ export default function ChoiceNode({ id, selected, type, data }) {
   }
 
   useEffect(() => {
-    function onClick(event) {
-      const hasChoiceChild = choiceRef.current.some((choice) => choice.contains(event.target))
-
-      if (!hasChoiceChild) {
-        setRenamingChoiceId(null)
-      }
+    function onClick() {
+      setRenamingChoiceId(null)
     }
 
     window.addEventListener("click", onClick, true)
@@ -47,7 +41,6 @@ export default function ChoiceNode({ id, selected, type, data }) {
           {data.choices.map((choice, index) => (
             <Choice 
               key={choice.id}
-              ref={choiceRef}
               index={index}
               nodeId={id}
               choice={choice}

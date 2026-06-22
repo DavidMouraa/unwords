@@ -3,20 +3,19 @@ import Pin from "../../pins/Pin"
 import { FaMinus } from "react-icons/fa";
 
 
-export default function Choice({ ref, index, nodeId, choice, renamingChoiceId, setRenamingChoiceId }) {
+export default function Choice({ nodeId, choice, renamingChoiceId, setRenamingChoiceId }) {
   const { removeNodeChoice, renameNodeChoice } = useGraphEditorStore()
 
   function onChange(event) {
     renameNodeChoice(nodeId, choice.id, event.target.value)
   }
 
-  function deleteChoice(event) {
+  function deleteChoice() {
     removeNodeChoice(nodeId, choice.id)
   }
 
   return (
     <div 
-      ref={(element) => ref.current[index] = element}
       className="flex justify-"
       onClick={() => setRenamingChoiceId(choice.id)}
     >
