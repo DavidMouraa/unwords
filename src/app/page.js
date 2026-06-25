@@ -15,8 +15,8 @@ export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
 
   const [sidebarsWidth, setSidebarsWidth] = useState({
-    leftSidebar: 300,
-    rightSidebar: 300,
+    leftSidebar: 200,
+    rightSidebar: 200,
   })
 
   const activeFile = items[activeFileId]
@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div 
       style={{
-        gridTemplateColumns: `${sidebarsWidth.leftSidebar}px 1fr`
+        gridTemplateColumns: `200px 1fr`
       }}
       className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2"
     >
@@ -33,12 +33,9 @@ export default function Home() {
         <ControlMenu />
       </Panel>
 
-      <ResizablePanel
-        setSidebarsWidth={setSidebarsWidth}
-        className="[grid-area:file-manager]"
-      >
+      <Panel className="[grid-area:file-manager]">
         <FileManager />
-      </ResizablePanel>
+      </Panel>
 
       <Panel className="[grid-area:tabbar] overflow-x-auto no-scrollbar">
         <Tabbar />

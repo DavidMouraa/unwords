@@ -5,16 +5,16 @@ import { BiSolidFolderPlus } from "react-icons/bi";
 import buildItem from "@/app/_utils/buildItem";
 
 export default function ActionMenu() {
-  const { selectedFolder, items, setItems } = useFileManagerStore()
+  const { currentFolderId, items, setItems } = useFileManagerStore()
 
   function createFolder() {
-    const newFolder = buildItem("folder", items[selectedFolder]?.id || null)
+    const newFolder = buildItem("folder", items[currentFolderId]?.id || null)
 
     setItems((items) => ({...items, [newFolder.id]: newFolder}))
   }
 
   function createFile() {
-    const newFolder = buildItem("text", items[selectedFolder]?.id || null)
+    const newFolder = buildItem("text", items[currentFolderId]?.id || null)
 
     setItems((items) => ({...items, [newFolder.id]: newFolder}))
   }

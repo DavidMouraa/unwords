@@ -17,9 +17,11 @@ export default function SubMenu({ item, context, menuClass, itemClass }) {
 
       <ContextMenuRadix.Portal>
         <ContextMenuRadix.SubContent
+        sideOffset={4}
+        alignOffset={-5}
           className={menuClass}
         >
-          {item.subItemsKeys.map((subItemKey, index) => (
+          {item.subItemsKeys.map((subItemKey) => (
             <RenderItems 
               key={uuidv4()}
               item={CONTEXT_MENU_ITEMS[subItemKey]}

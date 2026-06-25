@@ -7,13 +7,14 @@ const initialItems = {
     type: "graph",
     parentId: null,
     data: {
-      label: "Grapho",
+      label: "Canvas",
       nodes: [],
       edges: [],
     }
   }
 }
 
+// Funções
 const openFolder = (state, folderId) => {
   let currentFolderId = folderId
 
@@ -68,11 +69,12 @@ const sortItems = (items) => {
   return {...folders, ...files}
 }
 
+// Store
 const useFileManagerStore = create(immer((set) => ({
   items: initialItems,
   openFilesId: ["main"], 
   openFoldersId: [],
-  selectedFolder: null,
+  currentFolderId: null,
   activeFileId: null,
   draggingItemId: null,
   renamingItemId: null,
@@ -97,8 +99,8 @@ const useFileManagerStore = create(immer((set) => ({
     if (newName) state.items[state.renamingItemId].data.label = newName
   }),
 
-  setSelectedFolder: (folderId) => set((state) => {
-    state.selectedFolder = folderId
+  setCurrentFolderId: (folderId) => set((state) => {
+    state.currentFolderId = folderId
   }),
 
   openFile: (fileId) => set((state) => {

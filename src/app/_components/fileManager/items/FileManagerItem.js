@@ -7,7 +7,7 @@ export default function FileManagerItem({ children, item, layer, Icon, onClick, 
     activeFileId, 
     renamingItemId,
     draggingItemId,
-    setSelectedFolder,
+    setCurrentFolderId,
     setItemParentId,
     setDraggingItemId, 
     setRenamingItemId,
@@ -31,7 +31,9 @@ export default function FileManagerItem({ children, item, layer, Icon, onClick, 
   }, [setFileName, setRenamingItemId])
 
   function onClickExtra(event) {
-    item.type === "folder" ? setSelectedFolder(item.id) : setSelectedFolder(item.parentId)
+    item.type === "folder" ? setCurrentFolderId(item.id) : setCurrentFolderId(item.parentId)
+
+    console.log(item)
 
     onClick(event)
   }

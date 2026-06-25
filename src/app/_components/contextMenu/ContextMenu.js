@@ -7,7 +7,7 @@ import RenderItems from "./items/RenderItems"
 export default function ContextMenu({ children, itemId, nodeId, itemKeys, onOpenChange }) {
   const { clientPos } = useGraphEditorStore()
 
-  const menuClass = "p-1 rounded-sm bg-black text-white text-sm border border-primary-500"
+  const menuClass = "p-1 rounded-sm bg-black text-white text-xs border border-primary-500"
   const itemClass = "p-1 rounded-sm outline-none hover:bg-primary-600 cursor-pointer"
 
   const context = {

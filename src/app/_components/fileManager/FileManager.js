@@ -35,25 +35,28 @@ export default function FileManager() {
     <ContextMenu
       itemKeys={itemKeys}
     >
-      <ActionMenu />
-      
-      <div 
-        className="relative w-full h-full p-2"
-        onClick={onClick}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-      >
-        {rootItems.map((item) => (
-          item.id !== "main" && (
-            <RenderItems 
-              key={item.id}
-              itemId={item.id}
-              items={items}
-              layer={layer}
-            />
-          )
-        ))}
+      <div className="flex flex-col h-full">
+        <ActionMenu />
+
+        <div 
+          className="relative h-full p-2"
+          onClick={onClick}
+          onDragOver={onDragOver}
+          onDrop={onDrop}
+        >
+          {rootItems.map((item) => (
+            item.id !== "main" && (
+              <RenderItems 
+                key={item.id}
+                itemId={item.id}
+                items={items}
+                layer={layer}
+              />
+            )
+          ))}
+        </div>
       </div>
+      
     </ContextMenu>
   )
 }

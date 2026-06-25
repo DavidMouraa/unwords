@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import Panel from "./Panel";
 
-export default function ResizablePanel({ children, className, setSidebarsWidth }) {
+export default function ResizablePanel({ children, className, resizePosition, setSidebarsWidth }) {
   const [isDragging, setIsDragging] = useState(false)
 
   const isResizing = useRef(false)
@@ -21,7 +21,11 @@ export default function ResizablePanel({ children, className, setSidebarsWidth }
     const newWidth = event.clientX
 
     if (newWidth > 150 && newWidth < 600) {
-      setSidebarsWidth((sidebarsWidth) => ({...sidebarsWidth, leftSidebar: newWidth}))
+      setSidebarsWidth((sidebarsWidth) => {
+        const sidebarsWidthKey = resizePosition === "left" ? "leftSidebar" : "rightSidebar"
+
+        return {...sidebarsWidth, [sidebarsWidthKey]: newWidth}
+      })
     }
   }
 
@@ -39,7 +43,7 @@ export default function ResizablePanel({ children, className, setSidebarsWidth }
     >
       <div
         onMouseDown={startResize}
-        className={`z-1 absolute top-0 -right-1 w-1 h-full rounded-sm hover:bg-secondary-500 ${isDragging && "bg-secondary-500"} cursor-ew-resize`}
+        className={`z-1 ${resizePosition === "right" ? "-right-1" : "-left-1"} absolute top-0 w-1 h-full rounded-sm hover:bg-secondary-500 ${isDragging && "bg-secondary-500"} cursor-ew-resize`}
       ></div>
 
       {children}
