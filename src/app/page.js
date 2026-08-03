@@ -1,23 +1,17 @@
 "use client"
 
 import { ReactFlowProvider } from "@xyflow/react";
-import FileManager from "./_components/fileManager/FileManager";
 import Tabbar from "./_components/tabbar/Tabbar";
 import useFileManagerStore from "@/store/useFileManagerStore";
 import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
-import ResizablePanel from "./_components/panels/ResizablePanel";
-import { useState } from "react";
+import PrimarySidebar from "./_components/primarySidebar/PrimarySidebar";
+import SecondarySidebar from "./_components/secondarySidebar/SecondarySidebar";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
-
-  const [sidebarsWidth, setSidebarsWidth] = useState({
-    leftSidebar: 200,
-    rightSidebar: 200,
-  })
 
   const activeFile = items[activeFileId]
   const EditorComponent = EDITOR_MAP[activeFile?.type]
@@ -25,23 +19,27 @@ export default function Home() {
   return (
     <div 
       style={{
-        gridTemplateColumns: `200px 1fr`
+        gridTemplateColumns: `200px 1fr 200px`
       }}
-      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''file-manager_tabbar''file-manager_editor'] gap-0.5 w-screen h-screen border-2"
+      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu_control-menu''primary-sidebar_tabbar_config-panel''primary-sidebar_editor_config-panel'] gap-0.5 w-screen h-screen border-2"
     >
       <Panel className="[grid-area:control-menu]">
         <ControlMenu />
       </Panel>
 
-      <Panel className="[grid-area:file-manager]">
-        <FileManager />
+      <Panel className="[grid-area:primary-sidebar]">
+        <PrimarySidebar />
+      </Panel>
+
+      <Panel className="[grid-area:config-panel]">
+        <SecondarySidebar />
       </Panel>
 
       <Panel className="[grid-area:tabbar] overflow-x-auto no-scrollbar">
         <Tabbar />
       </Panel>
 
-      <Panel className="[grid-area:editor]">
+      <Panel className="[grid-area:editor] min-h-0">
         {activeFile ? (
           <ReactFlowProvider>
             <EditorComponent 

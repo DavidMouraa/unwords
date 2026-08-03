@@ -2,6 +2,8 @@ import buildNode from "../_utils/buildNode"
 import buildItem from "../_utils/buildItem"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
+import buildVariable from "../_utils/buildVariable"
+import useVariableManagerStore from "@/store/useVariableManagerStore"
 
 const { 
   setItems,
@@ -15,6 +17,9 @@ const {
   setEdges,
   removeNodeFileId
 } = useGraphEditorStore.getState()
+const {
+  addVariable,
+} = useVariableManagerStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createNode: {
@@ -97,6 +102,29 @@ const CONTEXT_MENU_ITEMS = {
     action: (event, { itemId }) => {
       event.stopPropagation()
       deleteFolder(itemId)
+    }
+  },
+  createVariable: {
+    label: "Nova Variável",
+    type: "submenu",
+    subItemsKeys: ["createStringVariable", "createNumberVariable"],
+  },
+  createStringVariable: {
+    label: "String",
+    type: "default",
+    action: () => {
+      const variable = buildVariable("string")
+
+      addVariable(variable)
+    }
+  },
+  createNumberVariable: {
+    label: "Number",
+    type:"default",
+    action: () => {
+      const variable = buildVariable("number")
+
+      addVariable(variable)
     }
   }
 }

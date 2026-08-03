@@ -21,7 +21,8 @@ export default function ContextMenu({ children, itemId, nodeId, itemKeys, onOpen
       onOpenChange={onOpenChange}
     >
       <ContextMenuRadix.Trigger
-        className="group"
+        asChild
+        className="group block"
       >
         {children}
       </ContextMenuRadix.Trigger>

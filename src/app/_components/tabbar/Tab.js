@@ -21,16 +21,15 @@ export default function Tab({ itemId, data }) {
     >
       <div className="flex items-center gap-1">
         <FileIcon />
-        <span>{data.label}</span>
+        <span className="text-nowrap">{data.label}</span>
       </div>
       <button
-        className={`invisible ${isActive && "visible"} disabled:hidden
+        className={`invisible ${isActive && "visible"}
         group-hover:visible rounded-sm hover:bg-primary-300 text-lg cursor-pointer`}
         onClick={(event) => {
           event.stopPropagation()
           closeFile(itemId)
         }}
-        disabled={itemId === "main"}
       >
         <IoClose />
       </button>

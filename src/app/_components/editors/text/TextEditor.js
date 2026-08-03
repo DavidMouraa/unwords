@@ -3,44 +3,40 @@
 import useFileManagerStore from "@/store/useFileManagerStore"
 import { EditorProvider } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
-import Toolbar from "./Toolbar"
-import { useState } from "react"
+import Subscript from "@tiptap/extension-subscript"
+import Superscript from "@tiptap/extension-superscript"
+import { TextStyle, FontSize } from "@tiptap/extension-text-style"
+import ToolBar from "./toolBar/ToolBar"
+
 
 export default function TextEditor() {
   const { items, activeFileId, updateActiveItemContent } = useFileManagerStore()
 
-  const [tick, setTick] = useState(0)
-  
-  const activeItem = items[activeFileId]
+  const activeFile = items[activeFileId]
 
-  function onUpdate({ editor }) {
-    setTick(tick + 1)
-
+  function handleUpdate({ editor }) {
     updateActiveItemContent(editor.getJSON())
   }
 
-  function onSelectionUpdate() {
-    setTick(tick + 1)
-  }
-
   return (
-    <div className="flex justify-center bg-primary-500 h-full ">
-      <div className="text-editor relative flex flex-col gap-2 max-w-200 w-full h-full p-3 bg-secondary-500">
+    <div className="size-full">
+      <div className="flex flex-col items-center gap-3 w-full h-full p-3 tiptap-wrapper">
         <EditorProvider
-          slotBefore={
-            <Toolbar 
-              tick={tick}
-            />
-          }
-          extensions={[StarterKit]}
-          content={activeItem.data.content}
-          onUpdate={onUpdate}
-          onSelectionUpdate={onSelectionUpdate}
+          extensions={[
+            StarterKit, 
+            Subscript, 
+            Superscript, 
+            TextStyle,
+            FontSize,
+          ]}
+          content={activeFile.data.content}
+          onUpdate={handleUpdate}
           editorProps={{
             attributes: {
-              class: "prose max-w-none w-full h-full text-black outline-none overflow-y-auto"
-            },
+              class: "prose prose-invert max-w-200 w-full h-full rounded-sm p-4 outline-none shadow-normal overflow-y-auto bg-primary-400"
+            }
           }}
+          slotBefore={<ToolBar />}
           immediatelyRender={false}
         />
       </div>
