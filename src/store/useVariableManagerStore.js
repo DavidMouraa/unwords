@@ -25,7 +25,11 @@ const useVariableManagerStore = create(immer((set) => ({
 
   addVariable: (variable) => set((state) => {
     state.variables = {...state.variables, [variable.id]: variable}
-  })
+  }),
+
+  renameVariable: (variableId, newLabel) => set((state) => {
+    state.variables[variableId].data.label = newLabel
+  }),
 })))
 
 export default useVariableManagerStore
