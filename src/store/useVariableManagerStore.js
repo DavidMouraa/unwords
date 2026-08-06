@@ -1,5 +1,6 @@
 import { immer } from "zustand/middleware/immer";
 import { create } from "zustand";
+import buildVariable from "@/app/_utils/buildVariable";
 
 const initialVariables = {
   "string": {
@@ -30,6 +31,10 @@ const useVariableManagerStore = create(immer((set) => ({
   renameVariable: (variableId, newLabel) => set((state) => {
     state.variables[variableId].data.label = newLabel
   }),
+
+  changeVariableType: (variableId, newType) => set((state) => {
+    state.variables[variableId].type = newType
+  })
 })))
 
 export default useVariableManagerStore

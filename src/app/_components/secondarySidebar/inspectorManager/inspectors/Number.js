@@ -1,16 +1,14 @@
-import Input from "../../inputs/Input"
-import VariableInspector from "./VariableInspector"
+import Input from "../InspectorsFields/Input";
+import VariableInspector from "./VariableInspector";
 
 export default function Number({ item }) {
   return (
     <VariableInspector
       item={item}
     >
-      <Input
-        itemId={item.id}
-        label={"Valor"}
+      <Input 
+        label={"Valor Inicial"}
         defaultValue={item.data.value}
-        action={() => {}}
       />
     </VariableInspector>
   )

@@ -1,9 +1,8 @@
 import Section from "../Section"
 import useFileManagerStore from "@/store/useFileManagerStore"
-import ContextMenu from "@/app/_components/contextMenu/ContextMenu"
-import RenderItems from "./RenderItems"
+import RenderItems from "./Items/RenderItems"
 
-export default function FileManager({ currentSection, setCurrentSection }) {
+export default function FileManager() {
   const { 
     items,
     setItemParentId,
@@ -31,28 +30,22 @@ export default function FileManager({ currentSection, setCurrentSection }) {
   return (
     <Section
       title={"Projeto"}
-      sectionTitle={"file-manager"}
-      currentSection={currentSection}
-      setCurrentSection={setCurrentSection}
+      contextMenuOptionsKeys={contextMenuOptionsKeys}
     >
-      <ContextMenu
-        itemKeys={contextMenuOptionsKeys}
+      <div 
+        className="h-full"
+        onClick={onClick}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
       >
-        <div 
-          className="h-full"
-          onClick={onClick}
-          onDragOver={onDragOver}
-          onDrop={onDrop}
-        >
-          {rootItems.map((item) => (
-            <RenderItems
-              key={item.id}
-              item={item}
-              layer={0}
-            />
-          ))}
-        </div>
-      </ContextMenu>
+        {rootItems.map((item) => (
+          <RenderItems
+            key={item.id}
+            item={item}
+            layer={0}
+          />
+        ))}
+      </div>
     </Section>
   )
 }

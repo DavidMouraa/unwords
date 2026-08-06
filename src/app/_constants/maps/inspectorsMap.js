@@ -1,11 +1,11 @@
-import String from "@/app/_components/secondarySidebar/InspectorManager/inspectors/variables/String"
-import Number from "@/app/_components/secondarySidebar/InspectorManager/inspectors/variables/Number"
+import Number from "@/app/_components/secondarySidebar/inspectorManager/inspectors/Number"
+import String from "@/app/_components/secondarySidebar/inspectorManager/inspectors/String"
 
-const INSPECTOR_MAP = {
+const INSPECTORS_MAP = {
   variable: {
     string: String,
-    number: Number,
+    number: Number
   }
 }
 
-export default INSPECTOR_MAP
+export default INSPECTORS_MAP

@@ -3,7 +3,7 @@ import Section from "../Section";
 import useVariableManagerStore from "@/store/useVariableManagerStore";
 import RenderItems from "./items/RenderItems";
 
-export default function VariableManager({ currentSection, setCurrentSection }) {
+export default function VariableManager() {
   const { variables } = useVariableManagerStore()
 
   const contextMenuOptionsKeys = ["createVariable"]
@@ -11,14 +11,8 @@ export default function VariableManager({ currentSection, setCurrentSection }) {
   return (
     <Section
       title={"Variaveis"}
-      sectionTitle={"variable-manager"}
-      currentSection={currentSection}
-      setCurrentSection={setCurrentSection}
+      contextMenuOptionsKeys={contextMenuOptionsKeys}
     >
-      <ContextMenu
-        itemKeys={contextMenuOptionsKeys}
-        
-      >
         <div
           className="h-full"
         >
@@ -29,7 +23,6 @@ export default function VariableManager({ currentSection, setCurrentSection }) {
             />
           ))}
         </div>
-      </ContextMenu>
     </Section>
   )
 }

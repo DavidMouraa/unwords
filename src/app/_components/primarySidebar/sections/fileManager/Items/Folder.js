@@ -3,7 +3,7 @@ import Item from "./Item";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import useFileManagerStore from "@/store/useFileManagerStore";
-import RenderItems from "../RenderItems";
+import RenderItems from "./RenderItems";
 
 export default function Folder({ item, layer }) {
   const { 
