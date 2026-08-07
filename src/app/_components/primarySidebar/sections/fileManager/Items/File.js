@@ -7,7 +7,7 @@ export default function File({ item, layer }) {
 
   const Icon = FILE_ICONS_MAP[item.type]
 
-  const contextMenuOptionsKeys = ["deleteFile"]
+  const contextMenuOptionsKeys = ["renameItem", "deleteFile"]
 
   function handleClick() {
     openFile(item.id)

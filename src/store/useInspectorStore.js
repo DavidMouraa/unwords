@@ -4,6 +4,7 @@ import { immer } from "zustand/middleware/immer";
 const useInspectorStore = create(immer((set) => ({
   inspectedId: null,
   inspectedType: null,
+  renamingItem: null,
 
   setInspectionItem: (type, itemId) => set((state) => {
     state.inspectedId = itemId

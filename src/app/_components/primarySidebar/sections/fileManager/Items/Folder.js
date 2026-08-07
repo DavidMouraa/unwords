@@ -16,7 +16,7 @@ export default function Folder({ item, layer }) {
   const isOpen = openFoldersId.includes(item.id)
   const Icon = isOpen ? FaChevronDown : FaChevronRight
 
-  const contextMenuOptionsKeys = ["createFolder", "createFile", "deleteFolder"]
+  const contextMenuOptionsKeys = ["createFolder", "createFile", "deleteFolder", "renameItem"]
 
   const childItems = Object.values(items).filter((childItem) => childItem.parentId === item.id)
 

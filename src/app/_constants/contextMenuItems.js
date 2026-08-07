@@ -4,10 +4,10 @@ import useFileManagerStore from "@/store/useFileManagerStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 import buildVariable from "../_utils/buildVariable"
 import useVariableManagerStore from "@/store/useVariableManagerStore"
+import usePrimarySidebarStore from "@/store/usePrimarySidebar"
 
 const { 
   setItems,
-  setRenamingItemId, 
   openFolder,
   deleteItem,
   deleteFolder,
@@ -20,6 +20,9 @@ const {
 const {
   addVariable,
 } = useVariableManagerStore.getState()
+const {
+  setRenamingItemId,
+} = usePrimarySidebarStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createNode: {
@@ -51,6 +54,15 @@ const CONTEXT_MENU_ITEMS = {
       setEdges((edges) => edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId))
     }
   },
+  renameItem: {
+    label: "Renomear",
+    type: "default",
+    action: (event, { itemId }) => {
+      event.stopPropagation()
+
+      setRenamingItemId(itemId)
+    }
+  },
   createFolder: {
     label: "Nova Pasta",
     type: "default",
@@ -77,14 +89,6 @@ const CONTEXT_MENU_ITEMS = {
 
       openFolder(itemId)
       setItems((items) => ({...items, [newFile.id]: newFile}))
-    }
-  },
-  renameItem: {
-    label: "Renomear",
-    type: "default",
-    action: (event, { itemId }) => {
-      event.stopPropagation()
-      setRenamingItemId(itemId)
     }
   },
   deleteFile: {

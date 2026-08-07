@@ -15,6 +15,7 @@ export default function Item({
       activeFileId, 
       draggingItemId,
       openFolder,
+      renameItem,
       setDraggingItemId, 
       setItemParentId,
     } = useFileManagerStore()
@@ -60,6 +61,7 @@ export default function Item({
         onDrop={onDrop}
         onDragEnd={onDragEnd}
         layer={layer}
+        renameItem={renameItem}
       />
 
       {item.type === "folder" && children}

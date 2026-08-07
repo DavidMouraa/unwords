@@ -1,4 +1,6 @@
+import usePrimarySidebarStore from "@/store/usePrimarySidebar"
 import ContextMenu from "../../contextMenu/ContextMenu"
+import { useEffect, useRef } from "react"
 
 export default function Item({ 
   className,
@@ -12,8 +14,30 @@ export default function Item({
   onDrop,
   onDragEnd,
   layer,
+  renameItem,
 }) {
+  const { renamingItemId, setRenamingItem } = usePrimarySidebarStore()
+
+  const inputRef = useRef(null)
+
+  const isRenaming = renamingItemId === item.id
+
   const indentGuides = Array.from({ length: layer })
+
+  useEffect(() => {
+    function handleClick(event) {
+      if (!inputRef.current?.contains(event)) {
+        renameItem(item.id, inputRef.current?.value)
+        setRenamingItem(null)
+      }
+    }
+
+    window.addEventListener("click", handleClick)
+
+    return () => {
+      window.removeEventListener("click", handleClick)
+    }
+  }, [])
 
   return (
     <ContextMenu
@@ -21,7 +45,7 @@ export default function Item({
       itemKeys={contextMenuOptionsKeys}
     >
       <div 
-        className={`flex h-7 p-2 hover:bg-primary-600 ${className} hover:text-white cursor-pointer`}
+        className={`flex h-7 p-2 ${!isRenaming ? "hover:bg-primary-600" : "bg-primary-400"} ${className} hover:text-white cursor-pointer`}
         draggable={draggable}
         onClick={onClick}
         onDragStart={onDragStart}
@@ -38,11 +62,19 @@ export default function Item({
         <div className="flex items-center gap-1 w-full">
           <Icon />
 
-          <span 
-            className="w-full truncate"
-          >
-            {item.label}
-          </span>
+          {isRenaming ? (
+            <input 
+              ref={inputRef}
+              className="px-1 rounded-sm outline-0 bg-primary-600"
+              type="text" 
+            />
+          ) : (
+            <span 
+              className="w-full truncate"
+            >
+              {item.label}
+            </span>
+          )}
         </div>
       </div>
     </ContextMenu>
