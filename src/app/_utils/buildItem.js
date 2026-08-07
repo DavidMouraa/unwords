@@ -13,8 +13,8 @@ const buildItem = (type, parentId) => {
     id: uuidv4(),
     type,
     parentId,
+    label: `${label} ${sameLabelTotal || ""}`,
     data: {
-      label: `${label} ${sameLabelTotal || ""}`,
       ...template.data,
     },
   }

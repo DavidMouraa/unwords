@@ -6,16 +6,16 @@ const initialVariables = {
   "string": {
     id: "string",
     type: "string",
+    label: "Cumprimento",
     data: {
-      label: "Cumprimento",
       value: "Olá, Mundo!",
     },
   },
   "number": {
     id: "number",
     type: "number",
+    label: "Tentativas",
     data: {
-      label: "Tentativas",
       value: 666,
     },
   },
@@ -29,11 +29,19 @@ const useVariableManagerStore = create(immer((set) => ({
   }),
 
   renameVariable: (variableId, newLabel) => set((state) => {
-    state.variables[variableId].data.label = newLabel
+    console.log(newLabel)
+    state.variables[variableId].label = newLabel
   }),
 
   changeVariableType: (variableId, newType) => set((state) => {
+    const newData = buildVariable(newType).data
+
     state.variables[variableId].type = newType
+    state.variables[variableId].data = newData
+  }),
+
+  changeVariableValue: (variableId, newValue) => set((state) => {
+    state.variables[variableId].data.value = newValue
   })
 })))
 

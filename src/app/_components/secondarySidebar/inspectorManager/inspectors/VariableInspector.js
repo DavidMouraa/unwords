@@ -1,14 +1,11 @@
-import { useEffect } from "react";
 import Input from "../InspectorsFields/Input";
 import Select from "../InspectorsFields/Select";
 import VARIABLE_TYPES_MAP from "@/app/_constants/maps/VariableTypesMap";
 import useVariableManagerStore from "@/store/useVariableManagerStore";
-import useInspectorStore from "@/store/useInspectorStore";
 
 export default function VariableInspector({ children, item }) {
   const { 
-    variables,
-    renameVariable,
+    renameVariable, 
     changeVariableType, 
   } = useVariableManagerStore()
 
@@ -18,15 +15,13 @@ export default function VariableInspector({ children, item }) {
 
   function typeSelectAction(newType) {
     changeVariableType(item.id, newType)
-
-    // console.log(variables[item.id].type)
   }
 
   return (
     <div className="flex flex-col gap-2 p-1 text-sm">
       <Input 
         label={"Nome"}
-        defaultValue={item.data.label}
+        defaultValue={item.label}
         action={nameInputAction}
       />
 

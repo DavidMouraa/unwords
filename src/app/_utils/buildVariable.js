@@ -7,8 +7,8 @@ export default function buildVariable(type) {
   return {
     id: uuidv4(),
     type,
+    label: "String",
     data: {
-      label: "String",
       ...template.data,
     }
   }

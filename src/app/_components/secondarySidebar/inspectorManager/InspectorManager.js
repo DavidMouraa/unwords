@@ -1,18 +1,23 @@
 import INSPECTORS_MAP from "@/app/_constants/maps/inspectorsMap"
 import useInspectorStore from "@/store/useInspectorStore"
-import { useEffect } from "react"
+import useVariableManagerStore from "@/store/useVariableManagerStore"
 
 export default function InspectorManager() {
-  const { inspectionItem } = useInspectorStore()
+  const { inspectedId, inspectedType } = useInspectorStore()
+  const { variables } = useVariableManagerStore()
 
-  if (!inspectionItem) return
+  const item = variables[inspectedId]
 
-  const Inspector = INSPECTORS_MAP[inspectionItem.type][inspectionItem.item.type]
+  if (!inspectedId || !item ) return null
+
+  const Inspector = INSPECTORS_MAP[inspectedType][item.type]
+
 
   return (
     <div>
       <Inspector 
-        item={inspectionItem.item}
+        key={item.id}
+        item={item}
       />
     </div>
   )

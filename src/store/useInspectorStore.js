@@ -2,10 +2,12 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 const useInspectorStore = create(immer((set) => ({
-  inspectionItem: null,
+  inspectedId: null,
+  inspectedType: null,
 
-  setInspectionItem: (type, item) => set((state) => {
-    state.inspectionItem = {type, item}
+  setInspectionItem: (type, itemId) => set((state) => {
+    state.inspectedId = itemId
+    state.inspectedType = type
   }),
 })))
 

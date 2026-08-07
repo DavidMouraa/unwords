@@ -21,7 +21,7 @@ export default function Item({
       itemKeys={contextMenuOptionsKeys}
     >
       <div 
-        className={`flex h-7 pl-2 hover:bg-primary-600 ${className} hover:text-white cursor-pointer`}
+        className={`flex h-7 p-2 hover:bg-primary-600 ${className} hover:text-white cursor-pointer`}
         draggable={draggable}
         onClick={onClick}
         onDragStart={onDragStart}
@@ -35,9 +35,14 @@ export default function Item({
             className={`h-full border-l w-2 ml-1 border-primary-300`}
           />
         ))}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 w-full">
           <Icon />
-          {item.data.label}
+
+          <span 
+            className="w-full truncate"
+          >
+            {item.label}
+          </span>
         </div>
       </div>
     </ContextMenu>

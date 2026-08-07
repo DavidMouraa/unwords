@@ -6,8 +6,8 @@ const initialItems = {
     id: "main",
     type: "graph",
     parentId: null,
+    label: "Canvas",
     data: {
-      label: "Canvas",
       nodes: [],
       edges: [],
     }

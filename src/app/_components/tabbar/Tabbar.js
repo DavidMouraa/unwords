@@ -11,8 +11,7 @@ export default function Tabbar() {
       {openFilesId.map((fileId) => (
         <Tab 
           key={fileId}
-          itemId={fileId}
-          data={items[fileId].data}
+          item={items[fileId]}
         />
       ))}
     </div>
