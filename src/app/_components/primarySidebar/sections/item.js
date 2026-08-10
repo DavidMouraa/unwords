@@ -16,7 +16,7 @@ export default function Item({
   layer,
   renameItem,
 }) {
-  const { renamingItemId, setRenamingItem } = usePrimarySidebarStore()
+  const { renamingItemId, setRenamingItemId } = usePrimarySidebarStore()
 
   const inputRef = useRef(null)
 
@@ -24,18 +24,34 @@ export default function Item({
 
   const indentGuides = Array.from({ length: layer })
 
-  useEffect(() => {
-    function handleClick(event) {
-      if (!inputRef.current?.contains(event)) {
-        renameItem(item.id, inputRef.current?.value)
-        setRenamingItem(null)
-      }
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      renameItem(item.id, event.target.value)
+      
+      setRenamingItemId(null)
     }
 
-    window.addEventListener("click", handleClick)
+  }
+
+  useEffect(() => {
+    if (isRenaming && inputRef.current) {
+      const timer = setTimeout(() => {
+        inputRef.current.select()
+      }, 0)
+
+      return () => clearTimeout(timer)
+    }
+  }, [isRenaming])
+
+  useEffect(() => {
+    function cancelRenaming(event) {
+      setRenamingItemId(null)
+    }
+
+    window.addEventListener("click", cancelRenaming)
 
     return () => {
-      window.removeEventListener("click", handleClick)
+      window.removeEventListener("click", cancelRenaming)
     }
   }, [])
 
@@ -60,17 +76,22 @@ export default function Item({
           />
         ))}
         <div className="flex items-center gap-1 w-full">
-          <Icon />
+          <Icon 
+            className="w-5"
+          />
 
           {isRenaming ? (
             <input 
               ref={inputRef}
-              className="px-1 rounded-sm outline-0 bg-primary-600"
-              type="text" 
+              className="w-full px-1 rounded-sm outline-0 bg-primary-600"
+              type="text"
+              defaultValue={item.label}
+              onClick={(event) => event.stopPropagation()}
+              onKeyDown={handleKeyDown}
             />
           ) : (
             <span 
-              className="w-full truncate"
+              className="truncate"
             >
               {item.label}
             </span>

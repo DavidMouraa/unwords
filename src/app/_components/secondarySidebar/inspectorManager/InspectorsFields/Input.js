@@ -8,21 +8,6 @@ export default function Input({ label, defaultValue, action }) {
     if (event.key === "Enter") action(event.target.value)
   }
 
-  function saveValue(event) {
-    if (!inputRef.current.contains(event.target)) {
-      action(inputRef.current.value)
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener("click", saveValue)
-    
-
-    return () => {
-      window.removeEventListener('click', saveValue)
-    }
-  }, [])
-
   return (
     <InspectorField
       label={label}
