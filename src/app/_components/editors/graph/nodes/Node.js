@@ -76,15 +76,17 @@ export default function Node({ children, selected, id, type, data, label, color,
             </div>
           )}
 
-          <div 
-            className={`${isDraggingItemSameType ? "absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full gap-1.5 rounded-sm bg-[#000000f3] text-[0.6rem]" : "hidden"}`}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-          >
-            <FaFileCirclePlus 
-              className="text-xl"
-            />
-          </div>
+          {isDraggingItemSameType && (
+            <div 
+              className={"absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full gap-1.5 rounded-sm bg-[#000000f3] text-[0.6rem]"}
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+            >
+              <FaFileCirclePlus 
+                className="text-xl"
+              />
+            </div>
+          )}
         </div>
       </div>
     </ContextMenu>

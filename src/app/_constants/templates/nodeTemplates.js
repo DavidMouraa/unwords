@@ -26,12 +26,19 @@ const NODE_TEMPLATES = {
         type: "target"
       },
     ],
-    outputs: [
+    outputs: [],
+  },
+  conditional: {
+    data: {
+      conditions: [],
+    },
+    inputs: [
       {
         id: null,
-        type: "source",
+        type: "target",
       }
     ],
+    outputs: [],
   }
 }
 

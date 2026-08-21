@@ -15,13 +15,15 @@ export default function Choice({ item }) {
       <label className="">
         Escolhas:
       </label>
-      {item.data.choices.map((choice) => (
-        <InputChoice
-          key={choice.id}
-          item={item}
-          choice={choice}
-        />
-      ))}
+      <div className="flex flex-col gap-1">
+        {item.data.choices.map((choice) => (
+          <InputChoice
+            key={choice.id}
+            item={item}
+            choice={choice}
+          />
+        ))}
+      </div>
       <button 
         className="flex justify-center w-full p-1 rounded-sm cursor-pointer bg-primary-400 hover:bg-primary-300"
         onClick={handleClick}

@@ -28,7 +28,7 @@ const CONTEXT_MENU_ITEMS = {
   createNode: {
     label: "Nodes",
     type: "submenu",
-    subItemsKeys: ["createTextNode", "createChoiceNode"]
+    subItemsKeys: ["createTextNode", "createChoiceNode", "createConditionalNode"]
   },
   createTextNode: {
     label: "Texto",
@@ -42,6 +42,13 @@ const CONTEXT_MENU_ITEMS = {
     type: "default",
     action: (_, { clientPos }) => {
       setNodes(buildNode("choice", clientPos))
+    }
+  },
+  createConditionalNode: {
+    label: "Condicional",
+    type: "default",
+    action: (_, { clientPos }) => {
+      setNodes(buildNode("conditional", clientPos))
     }
   },
   deleteNode: {

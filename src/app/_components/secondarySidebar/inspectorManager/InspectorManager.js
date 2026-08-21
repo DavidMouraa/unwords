@@ -21,6 +21,8 @@ export default function InspectorManager() {
     node: nodesObject,
   }[inspectedType][inspectedId]
 
+  if (!item) return null
+
   const Inspector = INSPECTORS_MAP[inspectedType][item.type]
 
   return (
