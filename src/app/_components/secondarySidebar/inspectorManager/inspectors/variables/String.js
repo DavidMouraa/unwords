@@ -1,5 +1,5 @@
-import TextArea from "../InspectorsFields/TextArea";
-import VariableInspector from "./VariableInspector";
+import TextArea from "../../InspectorsFields/TextArea";
+import VariableInspector from "../VariableInspector";
 import useVariableManagerStore from "@/store/useVariableManagerStore";
 
 export default function String({ item }) {

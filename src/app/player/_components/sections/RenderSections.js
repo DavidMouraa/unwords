@@ -1,4 +1,4 @@
-import SECTIONS_MAP from "../../_contants/maps/sectionsMap"
+import SECTIONS_MAP from "../../_constants/maps/sectionsMap"
 
 export default function RenderSections({ section, setNextSectionId }) {
   const SectionComponent = SECTIONS_MAP[section.type]

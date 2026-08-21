@@ -24,7 +24,7 @@ export default function TextNode({ selected, id, type, data }) {
       <div className="flex flex-col justify-center gap-1 h-15">
         <div className="flex items-center gap-1 w-20 text-white">
           <span className="truncate">
-            {nodeFile?.data.label || "Sem Arquivo"}
+            {nodeFile?.label || "Sem Arquivo"}
           </span>
         </div>
         <button 

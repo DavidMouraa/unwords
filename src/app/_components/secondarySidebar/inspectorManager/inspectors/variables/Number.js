@@ -1,6 +1,6 @@
 import useVariableManagerStore from "@/store/useVariableManagerStore";
-import Input from "../InspectorsFields/Input";
-import VariableInspector from "./VariableInspector";
+import Input from "../../InspectorsFields/Input";
+import VariableInspector from "../VariableInspector";
 
 export default function Number({ item }) {
   const { changeVariableValue } = useVariableManagerStore()

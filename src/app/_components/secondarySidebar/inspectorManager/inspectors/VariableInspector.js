@@ -2,6 +2,7 @@ import Input from "../InspectorsFields/Input";
 import Select from "../InspectorsFields/Select";
 import VARIABLE_TYPES_MAP from "@/app/_constants/maps/VariableTypesMap";
 import useVariableManagerStore from "@/store/useVariableManagerStore";
+import Inspector from "./Inspector";
 
 export default function VariableInspector({ children, item }) {
   const { 
@@ -18,7 +19,7 @@ export default function VariableInspector({ children, item }) {
   }
 
   return (
-    <div className="flex flex-col gap-2 p-1 text-sm">
+    <Inspector className="flex flex-col gap-2 p-1 text-sm">
       <Input 
         label={"Nome"}
         defaultValue={item.label}
@@ -41,6 +42,6 @@ export default function VariableInspector({ children, item }) {
       </Select>
 
       {children}
-    </div>
+    </Inspector>
   )
 }

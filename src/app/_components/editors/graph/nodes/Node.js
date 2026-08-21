@@ -3,10 +3,12 @@ import Pin from "../pins/Pin"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import { FaFileCirclePlus } from "react-icons/fa6"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
+import useInspectorStore from "@/store/useInspectorStore"
 
 export default function Node({ children, selected, id, type, data, label, color, Icon }) {
   const { items, draggingItemId } = useFileManagerStore()
   const { startTargetId, setNodeFileId } = useGraphEditorStore()
+  const { setInspectionItem } = useInspectorStore()
 
   const draggingItem = items[draggingItemId]
   const isDraggingItemSameType = draggingItem?.type === type
@@ -15,11 +17,15 @@ export default function Node({ children, selected, id, type, data, label, color,
 
   const contextMenuItemKeys = ["deleteNode"]
 
-  function onDragOver(event) {
+  function handleClick() {
+    setInspectionItem("node", id)
+  }
+
+  function handleDragOver(event) {
     event.preventDefault()
   }
 
-  function onDrop(event) {
+  function handleDrop(event) {
     event.stopPropagation()
 
     setNodeFileId(id, draggingItemId)
@@ -31,6 +37,7 @@ export default function Node({ children, selected, id, type, data, label, color,
       itemKeys={contextMenuItemKeys}
     >
       <div 
+        onClick={handleClick}
         style={{ borderColor: `${selected ? color : "black"}` }}
         className={`rounded-sm border-2 overflow-clip shadow-[0px_0px_10px_1px_#00000066] text-white`}
       >
@@ -71,8 +78,8 @@ export default function Node({ children, selected, id, type, data, label, color,
 
           <div 
             className={`${isDraggingItemSameType ? "absolute top-0 left-0 flex flex-col justify-center items-center w-full h-full gap-1.5 rounded-sm bg-[#000000f3] text-[0.6rem]" : "hidden"}`}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
           >
             <FaFileCirclePlus 
               className="text-xl"
