@@ -1,6 +1,6 @@
 import FILE_ICONS_MAP from "@/app/_constants/maps/filesIconsMap"
-import Item from "./Item"
 import useFileManagerStore from "@/store/useFileManagerStore"
+import FileExplorerItem from "./FileExplorerItem"
 
 export default function File({ item, layer }) {
   const { openFile } = useFileManagerStore()
@@ -14,7 +14,7 @@ export default function File({ item, layer }) {
   }
 
   return (
-    <Item 
+    <FileExplorerItem
       item={item}
       layer={layer}
       Icon={Icon}

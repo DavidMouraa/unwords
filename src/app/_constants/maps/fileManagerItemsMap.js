@@ -1,6 +1,6 @@
-import TextFile from "@/app/_components/primarySidebar/sections/fileManager/Items/TextFile"
-import GraphFile from "@/app/_components/primarySidebar/sections/fileManager/Items/GraphFile"
-import Folder from "@/app/_components/primarySidebar/sections/fileManager/Items/Folder"
+import TextFile from "@/app/_components/fileExplorer/Items/TextFile"
+import GraphFile from "@/app/_components/fileExplorer/Items/GraphFile"
+import Folder from "@/app/_components/fileExplorer/Items/Folder"
 
 const FILE_MANAGER_ITEMS_MAP = {
   text: TextFile,

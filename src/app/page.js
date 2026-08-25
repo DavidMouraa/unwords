@@ -7,8 +7,7 @@ import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
-import PrimarySidebar from "./_components/primarySidebar/PrimarySidebar";
-import SecondarySidebar from "./_components/secondarySidebar/SecondarySidebar";
+import FileExplorer from "./_components/fileExplorer/FileExplorer";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
@@ -19,20 +18,16 @@ export default function Home() {
   return (
     <div 
       style={{
-        gridTemplateColumns: `200px 1fr 200px`
+        gridTemplateColumns: `200px 1fr`
       }}
-      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu_control-menu''primary-sidebar_tabbar_config-panel''primary-sidebar_editor_config-panel'] gap-0.5 w-screen h-screen border-2"
+      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''primary-sidebar_tabbar''primary-sidebar_editor'] gap-0.5 w-screen h-screen border-2"
     >
       <Panel className="[grid-area:control-menu]">
         <ControlMenu />
       </Panel>
 
       <Panel className="[grid-area:primary-sidebar]">
-        <PrimarySidebar />
-      </Panel>
-
-      <Panel className="[grid-area:config-panel]">
-        <SecondarySidebar />
+        <FileExplorer />
       </Panel>
 
       <Panel className="[grid-area:tabbar] overflow-x-auto no-scrollbar">

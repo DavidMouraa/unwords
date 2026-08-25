@@ -2,8 +2,6 @@ import buildNode from "../_utils/buildNode"
 import buildItem from "../_utils/buildItem"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
-import buildVariable from "../_utils/buildVariable"
-import useVariableManagerStore from "@/store/useVariableManagerStore"
 import usePrimarySidebarStore from "@/store/usePrimarySidebar"
 
 const { 
@@ -18,9 +16,6 @@ const {
   removeNodeFileId
 } = useGraphEditorStore.getState()
 const {
-  addVariable,
-} = useVariableManagerStore.getState()
-const {
   setRenamingItemId,
 } = usePrimarySidebarStore.getState()
 
@@ -28,7 +23,7 @@ const CONTEXT_MENU_ITEMS = {
   createNode: {
     label: "Nodes",
     type: "submenu",
-    subItemsKeys: ["createTextNode", "createChoiceNode", "createConditionalNode"]
+    subItemsKeys: ["createTextNode", "createChoiceNode"]
   },
   createTextNode: {
     label: "Texto",
@@ -42,13 +37,6 @@ const CONTEXT_MENU_ITEMS = {
     type: "default",
     action: (_, { clientPos }) => {
       setNodes(buildNode("choice", clientPos))
-    }
-  },
-  createConditionalNode: {
-    label: "Condicional",
-    type: "default",
-    action: (_, { clientPos }) => {
-      setNodes(buildNode("conditional", clientPos))
     }
   },
   deleteNode: {
@@ -115,29 +103,6 @@ const CONTEXT_MENU_ITEMS = {
       deleteFolder(itemId)
     }
   },
-  createVariable: {
-    label: "Nova Variável",
-    type: "submenu",
-    subItemsKeys: ["createStringVariable", "createNumberVariable"],
-  },
-  createStringVariable: {
-    label: "String",
-    type: "default",
-    action: () => {
-      const variable = buildVariable("string")
-
-      addVariable(variable)
-    }
-  },
-  createNumberVariable: {
-    label: "Number",
-    type:"default",
-    action: () => {
-      const variable = buildVariable("number")
-
-      addVariable(variable)
-    }
-  }
 }
 
 export default CONTEXT_MENU_ITEMS

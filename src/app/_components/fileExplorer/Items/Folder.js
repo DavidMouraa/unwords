@@ -1,9 +1,8 @@
-import { useState } from "react";
-import Item from "./Item";
 import { FaChevronDown } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import useFileManagerStore from "@/store/useFileManagerStore";
-import RenderItems from "./RenderItems";
+import FileExplorerItem from "./FileExplorerItem";
+import FileExplorerItemRenderer from "../FileExplorerItemRederer";
 
 export default function Folder({ item, layer }) {
   const { 
@@ -25,7 +24,7 @@ export default function Folder({ item, layer }) {
   }
 
   return (
-    <Item 
+    <FileExplorerItem
       item={item}
       layer={layer}
       Icon={Icon}
@@ -36,13 +35,13 @@ export default function Folder({ item, layer }) {
         className={`overflow-hidden ${!isOpen ? "h-0" : ""}`}
       >
         {childItems.map((childItem) => (
-          <RenderItems 
+          <FileExplorerItemRenderer
             key={childItem.id}
             item={childItem}
             layer={layer + 1}
           />
         ))}
       </div>
-    </Item>
+    </FileExplorerItem>
   )
 }

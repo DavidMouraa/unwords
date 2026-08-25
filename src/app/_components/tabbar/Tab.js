@@ -21,16 +21,19 @@ export default function Tab({ item }) {
         <FileIcon />
         <span className="text-nowrap">{item.label}</span>
       </div>
-      <button
-        className={`invisible ${isActive && "visible"}
-        group-hover:visible rounded-sm hover:bg-primary-300 text-lg cursor-pointer`}
-        onClick={(event) => {
-          event.stopPropagation()
-          closeFile(item.id)
-        }}
-      >
-        <IoClose />
-      </button>
+
+      {item.type !== "graph" && (
+        <button
+          className={`invisible ${isActive && "visible"}
+          group-hover:visible rounded-sm hover:bg-primary-300 text-lg cursor-pointer`}
+          onClick={(event) => {
+            event.stopPropagation()
+            closeFile(item.id)
+          }}
+        >
+          <IoClose />
+        </button>
+      )}
     </div>
   )
 }
