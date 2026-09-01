@@ -18,7 +18,7 @@ export default function TextSection({ section, setNextSectionId }) {
 
   return (
     <div 
-      className="rounded-sm border border-primary-300 p-3"
+      className="rounded-sm py-3"
       dangerouslySetInnerHTML={{ __html: text }}
     >
       

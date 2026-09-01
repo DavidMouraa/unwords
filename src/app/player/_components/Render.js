@@ -26,7 +26,7 @@ export default function Render() {
   }, [nextSectionId, playerContentDisplayed])
 
   return (
-    <div className="flex flex-col gap-5 max-w-200 w-full text-secondary-500">
+    <div className="flex flex-col max-w-200 w-full text-secondary-500 text-xl">
       {playerContentDisplayed.map((section) => (
         <RenderSections 
           key={section.id} 
