@@ -1,34 +1,22 @@
 import { useState } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
-import Player from "../player/Player"
+import QueryBuilder from "../queryBuilder/QueryBuilder"
 
-export default function Modal({ children, title, description, overlayClass, contentClass, triggerClass }) {
-  const [open, setOpen] = useState(false)
+export default function Modal({ children }) {
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <Dialog.Root 
-      open={open} 
-      onOpenChange={setOpen}
-    >
-      <Dialog.Trigger
-        className={triggerClass}
-      >
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger className="text-white">
         {children}
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay 
-          className={overlayClass}
-        >
-          <Dialog.Content 
-            className={contentClass}
-          >
-            <div className="hidden">
-              <Dialog.Title>{title}</Dialog.Title>
-              <Dialog.Description>{description}</Dialog.Description>
-            </div>
-            <Player />
-          </Dialog.Content>
-        </Dialog.Overlay>
+        <Dialog.Overlay className="fixed inset-0 w-screen h-screen bg-black/90" />
+        <Dialog.Content className="fixed inset-0 top-1/2 left-1/2 -translate-1/2 flex justify-center w-200 h-200 bg-primary-400">
+          <Dialog.Title className="hidden">Modal Title</Dialog.Title>
+
+          <QueryBuilder />
+        </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   )

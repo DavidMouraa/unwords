@@ -7,7 +7,7 @@ import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
-import FileExplorer from "./_components/fileExplorer/FileExplorer";
+import PrimarySidebar from "./_components/primarySidebar/PrimarySidebar";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
@@ -27,7 +27,7 @@ export default function Home() {
       </Panel>
 
       <Panel className="[grid-area:primary-sidebar]">
-        <FileExplorer />
+        <PrimarySidebar />
       </Panel>
 
       <Panel className="[grid-area:tabbar] overflow-x-auto no-scrollbar">
