@@ -83,6 +83,10 @@ export default function FileExplorerItem({
   }, [])
 
   if (item.type === "graph") return null
+
+  useEffect(() => {
+    console.log(isActiveFile)
+  }, [isActiveFile])
   
   return (
     <ContextMenu
@@ -93,7 +97,7 @@ export default function FileExplorerItem({
         className={`flex flex-col justify-center`}
       >
         <div 
-          className={`flex h-7 p-2 ${!isRenaming ? "hover:bg-primary-600" : "bg-primary-400"}  hover:text-white cursor-pointer`}
+          className={`flex h-7 p-2 ${!isRenaming ? "hover:bg-primary-600" : "bg-primary-400"} ${isActiveFile ? "bg-primary-400" : ""}  hover:text-white cursor-pointer`}
           draggable={true}
           onClick={onClick}
           onDragStart={onDragStart}

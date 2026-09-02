@@ -1,6 +1,6 @@
-import ContextMenu from "@/app/_components/contextMenu/ContextMenu"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import FileExplorerItemRenderer from "./FileExplorerItemRederer"
+import SidebarSection from "../SidebarSection"
 
 export default function FileExplorer() {
   const { 
@@ -28,33 +28,22 @@ export default function FileExplorer() {
   }
 
   return (
-    <ContextMenu
-      itemKeys={contextMenuOptionsKeys}
+    <SidebarSection
+      label={"Projeto"}
+      contextMenuOptionsKeys={contextMenuOptionsKeys}
+      onClick={onClick}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
     >
-      <div 
-        className={`flex flex-col h-full text-sm text-secondary-500`}
-        onClick={onClick}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-      > 
-        <div 
-          className="flex items-center gap-1.5 px-2 py-1 border-y border-primary-600 font-bold uppercase"
-        >
-          Projeto
-        </div>
-        <div>
-          <div
-          >
-            {rootItems.map((item) => (
-              <FileExplorerItemRenderer
-                key={item.id}
-                item={item}
-                layer={0}
-              />
-            ))}
-          </div>
-        </div>
+      <div>
+        {rootItems.map((item) => (
+          <FileExplorerItemRenderer
+            key={item.id}
+            item={item}
+            layer={0}
+          />
+        ))}
       </div>
-    </ContextMenu>
+    </SidebarSection>
   )
 }
