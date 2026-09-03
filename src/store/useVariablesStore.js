@@ -12,7 +12,7 @@ const initialVariables = {
 }
 
 const useVariableStore = create(immer((set) => ({
-  variables: {},
+  variables: initialVariables,
 
   addVariable: (newVariable) => set((state) => {
     state.variables = {...variables, [state.id]: newVariable}

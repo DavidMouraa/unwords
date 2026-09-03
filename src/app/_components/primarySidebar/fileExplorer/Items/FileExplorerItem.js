@@ -2,6 +2,7 @@ import useFileManagerStore from "@/store/useFileManagerStore";
 import usePrimarySidebarStore from "@/store/usePrimarySidebar";
 import { useEffect, useRef } from "react";
 import ContextMenu from "../../../contextMenu/ContextMenu";
+import ExplorerItem from "../../ExplorerItem";
 
 export default function FileExplorerItem({ 
     children,
@@ -96,44 +97,19 @@ export default function FileExplorerItem({
       <div
         className={`flex flex-col justify-center`}
       >
-        <div 
-          className={`flex h-7 p-2 ${!isRenaming ? "hover:bg-primary-600" : "bg-primary-400"} ${isActiveFile ? "bg-primary-400" : ""}  hover:text-white cursor-pointer`}
+        <ExplorerItem 
+          Icon={Icon} 
           draggable={true}
           onClick={onClick}
           onDragStart={onDragStart}
           onDragOver={onDragOver}
-          onDrop={onDrop}
           onDragEnd={onDragEnd}
-        >
-          {indentGuides.map((_, index) => (
-            <div 
-              key={index}
-              className={`h-full border-l w-2 ml-1 border-primary-300`}
-            />
-          ))}
-          <div className="flex items-center gap-1 w-full">
-            <Icon 
-              className="w-5"
-            />
-
-            {isRenaming ? (
-              <input 
-                ref={inputRef}
-                className="w-full px-1 rounded-sm outline-0 bg-primary-600"
-                type="text"
-                defaultValue={item.label}
-                onClick={(event) => event.stopPropagation()}
-                onKeyDown={handleKeyDown}
-              />
-            ) : (
-              <span 
-                className="truncate"
-              >
-                {item.label}
-              </span>
-            )}
-          </div>
-        </div>
+          onDrop={onDrop}
+          item={item}
+          renameItem={renameItem}
+          contextMenuOptionsKeys={contextMenuOptionsKeys}
+          className={isActiveFile ? "bg-primary-400" : ""}
+        />
 
         {item.type === "folder" && children}
       </div>
