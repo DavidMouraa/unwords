@@ -1,7 +1,7 @@
 import useFileManagerStore from "@/store/useFileManagerStore";
 import usePrimarySidebarStore from "@/store/usePrimarySidebar";
 import { useEffect, useRef } from "react";
-import ContextMenu from "../../../contextMenu/ContextMenu";
+import ContextMenu from "../../../../contextMenu/ContextMenu";
 import ExplorerItem from "../../ExplorerItem";
 
 export default function FileExplorerItem({ 

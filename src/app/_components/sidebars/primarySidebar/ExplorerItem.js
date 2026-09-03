@@ -1,6 +1,6 @@
 import usePrimarySidebarStore from "@/store/usePrimarySidebar";
 import { useEffect, useRef } from "react";
-import ContextMenu from "../contextMenu/ContextMenu";
+import ContextMenu from "../../contextMenu/ContextMenu";
 
 export default function ExplorerItem({ 
     item,

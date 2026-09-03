@@ -7,7 +7,7 @@ import EDITOR_MAP from "./_constants/maps/editorsMap";
 import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
-import PrimarySidebar from "./_components/primarySidebar/PrimarySidebar";
+import PrimarySidebar from "./_components/sidebars/primarySidebar/PrimarySidebar";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()

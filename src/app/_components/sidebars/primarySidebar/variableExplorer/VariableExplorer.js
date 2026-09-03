@@ -1,6 +1,6 @@
 import useVariableStore from "@/store/useVariablesStore";
 import SidebarSection from "../SidebarSection";
-import StringVariableItem from "./items/StringVariableItem";
+import VariableExplorerItemRenderer from "./VariableExplorerItemRenderer";
 
 export default function VariableExplorer() {
   const { variables } = useVariableStore()
@@ -10,9 +10,9 @@ export default function VariableExplorer() {
       label={"Variaveis"}
     >
       {Object.values(variables).map((variable) => ( 
-        <StringVariableItem 
+        <VariableExplorerItemRenderer 
           key={variable.id}
-          variable={variable}
+          item={variable}
         />
       ))}
     </SidebarSection>

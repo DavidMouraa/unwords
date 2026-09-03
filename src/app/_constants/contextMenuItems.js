@@ -3,6 +3,8 @@ import buildItem from "../_utils/buildItem"
 import useFileManagerStore from "@/store/useFileManagerStore"
 import useGraphEditorStore from "@/store/useGraphEditorStore"
 import usePrimarySidebarStore from "@/store/usePrimarySidebar"
+import useVariableStore from "@/store/useVariablesStore"
+import buildVariable from "../_utils/buildVariable"
 
 const { 
   setItems,
@@ -18,6 +20,9 @@ const {
 const {
   setRenamingItemId,
 } = usePrimarySidebarStore.getState()
+const {
+  addVariable,
+} = useVariableStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
   createNode: {
@@ -101,6 +106,20 @@ const CONTEXT_MENU_ITEMS = {
     action: (event, { itemId }) => {
       event.stopPropagation()
       deleteFolder(itemId)
+    }
+  },
+  createVariable: {
+    label: "Nova variável",
+    type: "submenu",
+    subItemsKeys: ["createVariableString", "createVariableNumber"],
+  },
+  createVariableString: {
+    label: "String",
+    type: "default",
+    action: (event) => {
+      const newVariable = buildVariable("string")
+
+      addVariable({})
     }
   },
 }
