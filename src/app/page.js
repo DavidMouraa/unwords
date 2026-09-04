@@ -8,6 +8,7 @@ import { FaFileCircleXmark } from "react-icons/fa6";
 import Panel from "./_components/panels/Panel";
 import ControlMenu from "./_components/controlMenu/ControlMenu";
 import PrimarySidebar from "./_components/sidebars/primarySidebar/PrimarySidebar";
+import SecondarySidebar from "./_components/sidebars/secondarySidebar/SecondarySidebar";
 
 export default function Home() {
   const { items, activeFileId } = useFileManagerStore()
@@ -18,9 +19,9 @@ export default function Home() {
   return (
     <div 
       style={{
-        gridTemplateColumns: `200px 1fr`
+        gridTemplateColumns: `200px 1fr 200px`
       }}
-      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu''primary-sidebar_tabbar''primary-sidebar_editor'] gap-0.5 w-screen h-screen border-2"
+      className="grid grid-rows-[35px_35px_1fr] [grid-template-areas:'control-menu_control-menu_control-menu''primary-sidebar_tabbar_secondary-sidebar''primary-sidebar_editor_secondary-sidebar'] gap-0.5 w-screen h-screen border-2"
     >
       <Panel className="[grid-area:control-menu]">
         <ControlMenu />
@@ -28,6 +29,10 @@ export default function Home() {
 
       <Panel className="[grid-area:primary-sidebar]">
         <PrimarySidebar />
+      </Panel>
+
+      <Panel className="[grid-area:secondary-sidebar]">
+        <SecondarySidebar />
       </Panel>
 
       <Panel className="[grid-area:tabbar] overflow-x-auto no-scrollbar">

@@ -22,6 +22,7 @@ const {
 } = usePrimarySidebarStore.getState()
 const {
   addVariable,
+  deleteVariable,
 } = useVariableStore.getState()
 
 const CONTEXT_MENU_ITEMS = {
@@ -116,12 +117,30 @@ const CONTEXT_MENU_ITEMS = {
   createVariableString: {
     label: "String",
     type: "default",
-    action: (event) => {
+    action: () => {
       const newVariable = buildVariable("string")
 
-      addVariable({})
+      console.log(newVariable)
+      addVariable({[newVariable.id]: newVariable})
     }
   },
+  createVariableNumber: {
+    label: "Number",
+    type: "default",
+    action: () => {
+      const newVariable = buildVariable("number")
+
+
+      addVariable({[newVariable.id]: newVariable})
+    }
+  },
+  deleteVariable: {
+    label: "Deletar",
+    type: "default",
+    action: (event, { itemId }) => {
+      deleteVariable(itemId)
+    }
+  }
 }
 
 export default CONTEXT_MENU_ITEMS

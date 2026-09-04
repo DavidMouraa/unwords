@@ -24,8 +24,12 @@ const useVariableStore = create(immer((set) => ({
   variables: initialVariables,
 
   addVariable: (newVariable) => set((state) => {
-    state.variables = {...variables, [newVariable.id]: newVariable}
-  })
+    state.variables = {...state.variables, newVariable}
+  }),
+
+  deleteVariable: (variableId) => set((state) => {
+    delete state.variables[variableId]
+  }),
 })))
 
 export default useVariableStore

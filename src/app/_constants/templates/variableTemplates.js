@@ -16,3 +16,5 @@ const VARIABLE_TEMPLATES = {
     }
   }
 }
+
+export default VARIABLE_TEMPLATES

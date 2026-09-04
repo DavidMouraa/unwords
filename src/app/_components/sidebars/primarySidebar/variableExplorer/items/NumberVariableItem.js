@@ -1,9 +1,9 @@
-import ExplorerItem from "../../ExplorerItem";
 import { FiHash } from "react-icons/fi";
+import VariableExplorerItem from "./VariableExplorerItem";
 
 export default function NumberVariableItem({ item }) {
   return (
-    <ExplorerItem 
+    <VariableExplorerItem 
       item={item}
       Icon={FiHash}
     />

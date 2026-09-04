@@ -1,9 +1,9 @@
-import ExplorerItem from "../../ExplorerItem";
 import { MdShortText } from "react-icons/md";
+import VariableExplorerItem from "./VariableExplorerItem";
 
 export default function StringVariableItem({ item }) {
   return (
-    <ExplorerItem 
+    <VariableExplorerItem 
       item={item}
       Icon={MdShortText}
     />
