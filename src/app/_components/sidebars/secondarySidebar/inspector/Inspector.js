@@ -1,5 +1,3 @@
-import StringForm from "./forms/StringForm";
-import NumberForm from "./forms/NumberForm";
 import INSPECTOR_FORMS_MAP from "@/app/_constants/maps/InspectorFormsMap";
 import useInspectorStore from "@/store/useInspectorStore";
 import useVariableStore from "@/store/useVariablesStore";

@@ -1,21 +1,21 @@
 import InputField from "../fields/InputField";
-import SelectField from "../fields/SelectField";
 import TextAreaField from "../fields/TextAreaField";
+import VariableSelectField from "../fields/VariableSelectField";
 import Form from "./Form";
 
-export default function StringForm() {
+export default function StringForm({ item }) {
   return (
     <Form>
       <InputField 
         title={"Nome"}
+        defaultValue={item.label}
       />
-      <SelectField
-        title={"Tipo"}
-      >
-        <option>Number</option>
-      </SelectField>
+      <VariableSelectField
+        item={item}
+      />
       <TextAreaField 
         title={"Valor"}
+        defaultValue={item.data.value}
       />
     </Form>
   )

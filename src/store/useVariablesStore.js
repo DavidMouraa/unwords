@@ -1,3 +1,4 @@
+import buildVariable from "@/app/_utils/buildVariable";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -25,6 +26,10 @@ const useVariableStore = create(immer((set) => ({
 
   addVariable: (newVariable) => set((state) => {
     state.variables = {...state.variables, newVariable}
+  }),
+
+  changeVariableType: (variableId, newType) => set((state) => {
+    state.variables[variableId].data = buildVariable(newType).data
   }),
 
   deleteVariable: (variableId) => set((state) => {
