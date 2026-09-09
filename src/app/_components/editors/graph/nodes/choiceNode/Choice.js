@@ -19,8 +19,8 @@ export default function Choice({ nodeId, choice }) {
       >
         <FaMinus />
       </button>
-      <div className="w-full">
-        <span className="w-full truncate">
+      <div className="w-full truncate">
+        <span className="w-full">
           {choice.label}
         </span>
       </div>

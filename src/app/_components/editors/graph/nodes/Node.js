@@ -12,7 +12,7 @@ export default function Node({ children, selected, id, type, data, label, color,
 
   const draggingItem = items[draggingItemId]
   const isDraggingItemSameType = draggingItem?.type === type
-  const isStartTargetId = startTargetId === id 
+  const isStartTargetId = startTargetId === id
   const hasDinamicOutputs = ["choice"].some((nodeType) => nodeType === type)
 
   const contextMenuItemKeys = ["deleteNode"]
