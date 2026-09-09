@@ -1,6 +1,6 @@
 import useVariableStore from "@/store/useVariablesStore";
-import InputField from "../fields/InputField";
 import VariableForm from "./VariableForm";
+import NumberField from "../fields/NumberField";
 
 export default function NumberForm({ item }) {
   const { setVariableValue } = useVariableStore()
@@ -13,7 +13,7 @@ export default function NumberForm({ item }) {
     <VariableForm
       item={item}
     >
-      <InputField 
+      <NumberField
         title={"Valor"}
         defaultValue={item.data.value}
         saveValue={saveValue}

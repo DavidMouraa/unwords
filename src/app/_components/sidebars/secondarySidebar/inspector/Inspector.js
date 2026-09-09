@@ -15,6 +15,7 @@ export default function Inspector() {
   return (
     <div className="p-2 text-white">
       <InspectorForm 
+        key={inspectedId}
         item={inspectedItem}
       />
     </div>

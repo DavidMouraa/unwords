@@ -11,7 +11,7 @@ export default function TextAreaField({ title, defaultValue, saveValue }) {
     >
       <textarea 
         className="p-1 rounded-sm outline-none bg-primary-400 focus:bg-primary-600"
-        defaultValue={defaultValue} 
+        value={defaultValue} 
         onChange={handleChange}
       />
     </Field>
