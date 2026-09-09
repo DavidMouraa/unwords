@@ -1,6 +1,10 @@
 import Field from "./Field";
 
-export default function TextAreaField({ title, defaultValue }) {
+export default function TextAreaField({ title, defaultValue, saveValue }) {
+  function handleChange(event) {
+    saveValue(event.target.value)
+  }
+
   return (
     <Field
       title={title}
@@ -8,6 +12,7 @@ export default function TextAreaField({ title, defaultValue }) {
       <textarea 
         className="p-1 rounded-sm outline-none bg-primary-400 focus:bg-primary-600"
         defaultValue={defaultValue} 
+        onChange={handleChange}
       />
     </Field>
   )

@@ -1,6 +1,5 @@
 const VARIABLE_TEMPLATES = {
   string: {
-    id: null,
     type: "string",
     label: "String",
     data: {
@@ -8,7 +7,6 @@ const VARIABLE_TEMPLATES = {
     }
   },
   number: {
-    id: null,
     type: "number",
     label: "Number",
     data: {

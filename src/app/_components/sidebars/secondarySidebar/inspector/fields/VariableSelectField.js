@@ -1,15 +1,15 @@
 import useVariableStore from "@/store/useVariablesStore";
 import SelectField from "./SelectField";
+import VARIABLE_TEMPLATES from "@/app/_constants/templates/variableTemplates";
 
 export default function VariableSelectField({ item }) {
-  const { variables, changeVariableType } = useVariableStore()
+  const { changeVariableType } = useVariableStore()
   
   let existingTypes = []
   
-  Object.values(variables).forEach((variable) => {
-    if (!existingTypes.includes(variable.type)) {
-      console.log(variable.type)
-      existingTypes.push(variable.type)
+  Object.values(VARIABLE_TEMPLATES).forEach((template) => {
+    if (!existingTypes.includes(template.type)) {
+      existingTypes.push(template.type)
     }
   })
 

@@ -1,22 +1,23 @@
+import useVariableStore from "@/store/useVariablesStore";
 import InputField from "../fields/InputField";
-import SelectField from "../fields/SelectField";
-import VariableSelectField from "../fields/VariableSelectField";
-import Form from "./Form";
+import VariableForm from "./VariableForm";
 
 export default function NumberForm({ item }) {
+  const { setVariableValue } = useVariableStore()
+
+  function saveValue(value) {
+    setVariableValue(item.id, value)
+  }
+
   return (
-    <Form>
-      <InputField 
-        title={"Nome"}
-        defaultValue={item.label}
-      />
-      <VariableSelectField
-        item={item}
-      />
+    <VariableForm
+      item={item}
+    >
       <InputField 
         title={"Valor"}
         defaultValue={item.data.value}
+        saveValue={saveValue}
       />
-    </Form>
+    </VariableForm>
   )
 }

@@ -120,8 +120,7 @@ const CONTEXT_MENU_ITEMS = {
     action: () => {
       const newVariable = buildVariable("string")
 
-      console.log(newVariable)
-      addVariable({[newVariable.id]: newVariable})
+      addVariable(newVariable)
     }
   },
   createVariableNumber: {
@@ -130,8 +129,9 @@ const CONTEXT_MENU_ITEMS = {
     action: () => {
       const newVariable = buildVariable("number")
 
+      console.log(newVariable)
 
-      addVariable({[newVariable.id]: newVariable})
+      addVariable(newVariable)
     }
   },
   deleteVariable: {

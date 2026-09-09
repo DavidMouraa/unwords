@@ -25,11 +25,20 @@ const useVariableStore = create(immer((set) => ({
   variables: initialVariables,
 
   addVariable: (newVariable) => set((state) => {
-    state.variables = {...state.variables, newVariable}
+    state.variables = {...state.variables, [newVariable.id]: newVariable}
+  }),
+
+  renameVariable: (variableId, newLabel) => set((state) => {
+    state.variables[variableId].label = newLabel
   }),
 
   changeVariableType: (variableId, newType) => set((state) => {
+    state.variables[variableId].type = newType
     state.variables[variableId].data = buildVariable(newType).data
+  }),
+
+  setVariableValue: (variableId, newValue) => set((state) => {
+    state.variables[variableId].data.value = newValue
   }),
 
   deleteVariable: (variableId) => set((state) => {
