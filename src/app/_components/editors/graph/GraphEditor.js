@@ -20,11 +20,13 @@ import Edge from "./edges/Edge"
 import StartNode from "./nodes/StartNode"
 import { v4 as uuidv4 } from "uuid"
 import ChoiceNode from "./nodes/choiceNode/ChoiceNode"
+import ConditionalNode from "./nodes/conditionalNode/ConditionalNode"
 
 const nodeTypes = {
   start: StartNode,
   text: TextNode,
   choice: ChoiceNode,
+  conditional: ConditionalNode
 }
 
 const edgeTypes = {

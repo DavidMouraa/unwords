@@ -25,7 +25,7 @@ export default function ChoiceForm({ item }) {
           className="flex gap-1"
         >
           <textarea
-            className="p-1 rounded-sm bg-primary-400 focus:bg-primary-600 outline-none"
+            className="w-full p-1 rounded-sm bg-primary-400 focus:bg-primary-600 outline-none"
             defaultValue={choice.label}
             onChange={(event) => handleChange(event, choice.id)}
           />

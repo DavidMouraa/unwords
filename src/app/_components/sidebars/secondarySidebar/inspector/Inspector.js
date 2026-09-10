@@ -17,10 +17,12 @@ export default function Inspector() {
     variable: variables[inspectedId],
   }[inspectedType]
 
-  console.log(inspectedItem)
+  if (!inspectedItem) return
 
   const InspectorForm = INSPECTOR_FORMS_MAP[inspectedType][inspectedItem.type]
 
+  if (!InspectorForm) return
+  
   return (
     <div className="p-2 text-white">
       <InspectorForm 
