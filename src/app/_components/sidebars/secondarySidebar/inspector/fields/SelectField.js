@@ -10,7 +10,7 @@ export default function SelectField({ children, title, defaultValue, saveValue }
       title={title}
     >
       <select 
-        className="p-1 rounded-sm bg-primary-400 focus:bg-primary-600 outline-none"
+        className="py-1 rounded-sm bg-primary-400 focus:bg-primary-600 outline-none"
         defaultValue={defaultValue}
         onChange={handleChange}
       >
