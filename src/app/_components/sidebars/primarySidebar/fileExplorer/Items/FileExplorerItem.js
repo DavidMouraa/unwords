@@ -84,10 +84,6 @@ export default function FileExplorerItem({
   }, [])
 
   if (item.type === "graph") return null
-
-  useEffect(() => {
-    console.log(isActiveFile)
-  }, [isActiveFile])
   
   return (
     <ContextMenu

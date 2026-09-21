@@ -21,6 +21,9 @@ import StartNode from "./nodes/StartNode"
 import { v4 as uuidv4 } from "uuid"
 import ChoiceNode from "./nodes/choiceNode/ChoiceNode"
 import ConditionalNode from "./nodes/conditionalNode/ConditionalNode"
+import { useEffect } from "react"
+import usePlayerStore from "@/store/usePlayerStore"
+import SECTION_BUILDS_MAP from "@/app/_constants/maps/sectionBuildsMap";
 
 const nodeTypes = {
   start: StartNode,
@@ -34,6 +37,7 @@ const edgeTypes = {
   start: Edge,
 }
 
+
 export default function GraphEditor() {
   const { 
     nodes,
@@ -45,9 +49,10 @@ export default function GraphEditor() {
   } = useGraphEditorStore()
   const { screenToFlowPosition } = useReactFlow()
   const { items, draggingItemId } = useFileManagerStore()
-
+  const { setPlayerContent } = usePlayerStore()
+  
   const contextMenuItemKeys = ["createNode"]
-
+  
   const fitViewOptions = {
     padding: 15,
   }
@@ -110,6 +115,26 @@ export default function GraphEditor() {
       },
     })
   }
+
+  useEffect(() => {
+    function updatePlayerContent() {
+      setPlayerContent(() => {
+        let newContent = {}
+  
+        edges.forEach((edge) => {
+          const node = nodes.find((node) => node.id === edge.target)
+          const builder = SECTION_BUILDS_MAP[node.type]
+          const section = builder(node)
+  
+          newContent = {...newContent, [section.id]: section}
+        })
+  
+        return newContent
+      })
+    }
+
+    updatePlayerContent()
+  }, [nodes, edges])
 
   return (
     <ContextMenu
