@@ -5,7 +5,7 @@ export default function PrimarySidebar() {
   return (
     <div>
       <FileExplorer />
-      <VariableExplorer />
+      {/* <VariableExplorer /> */}
     </div>
   )
 }

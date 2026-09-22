@@ -1,7 +1,6 @@
-import useGraphEditorStore from "@/store/useGraphEditorStore";
 import { FaPlay } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import usePlayerStore from "@/store/usePlayerStore";
+import ImportButton from "./ImportButton";
 
 export default function ControlMenu() {
  
@@ -17,13 +16,19 @@ export default function ControlMenu() {
   }
 
   return (
-    <div className="h-full flex justify-center items-center">
+    <div className="h-full flex justify-between items-center px-1">
+      <ImportButton />
+
       <button
         className="p-1 rounded-sm hover:bg-primary-400 text-secondary-500 hover:text-white cursor-pointer"
         onClick={onClick}
       >
         <FaPlay />
       </button>
+
+      <div>
+
+      </div>
     </div>
   )
 }
