@@ -105,6 +105,7 @@ export default function FileExplorerItem({
           renameItem={renameItem}
           contextMenuOptionsKeys={contextMenuOptionsKeys}
           className={isActiveFile ? "bg-primary-400" : ""}
+          layer={layer}
         />
 
         {item.type === "folder" && children}

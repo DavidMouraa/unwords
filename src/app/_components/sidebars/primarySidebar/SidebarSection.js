@@ -6,11 +6,11 @@ export default function SidebarSection({ children, label, contextMenuOptionsKeys
       itemKeys={contextMenuOptionsKeys}
     >
       <div 
-        className={`flex flex-col text-sm text-secondary-500`}
+        className={`flex flex-col h-full text-sm text-secondary-500`}
         onClick={onClick}
         onDragOver={onDragOver}
         onDrop={onDrop}
-      > 
+      >
         <div 
           className="flex items-center gap-1.5 px-2 py-1 border-b border-primary-600 font-bold uppercase"
         >

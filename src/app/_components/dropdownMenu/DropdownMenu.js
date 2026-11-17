@@ -1,4 +1,5 @@
 import * as DropdownMenuRadix from "@radix-ui/react-dropdown-menu"
+import { Fragment } from "react"
 
 export default function DropdownMenu({ children, items }) {
   return (
@@ -14,11 +15,38 @@ export default function DropdownMenu({ children, items }) {
           sideOffset={5}
           className="rounded-sm p-1 bg-primary-400 text-secondary-500"
         >
-          <button
-            className="hover:bg-primary-600 px-1 rounded-sm"
-          >
-            Salvar
-          </button>
+          <div className="flex flex-col">
+            {items.map((item, index) => (
+              <Fragment
+                key={index}
+              >
+                {item.type === "button" && (
+                  <button
+                    className="flex items-start hover:bg-primary-300 cursor-pointer px-1 rounded-sm"
+                    onClick={item.action}
+                  >
+                    {item.label}
+                  </button>
+                )}
+                {item.type === "file" && (
+                  <>
+                    <label
+                      className="flex items-start hover:bg-primary-300 cursor-pointer px-1 rounded-sm" 
+                      htmlFor="import"
+                    >
+                      {item.label}
+                    </label>
+                    <input 
+                      id="import"
+                      className="hidden"
+                      type="file"
+                      onChange={item.action}
+                    />
+                  </>
+                )}
+              </Fragment>
+            ))}
+          </div>
         </DropdownMenuRadix.Content>
       </DropdownMenuRadix.Portal>
     </DropdownMenuRadix.Root>
