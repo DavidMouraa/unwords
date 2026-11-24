@@ -9,18 +9,39 @@ import downloadJson from "@/app/_utils/downloadJson";
 export default function ControlMenu() {
   const { items, setItems } = useFileManagerStore()
   const { nodes, addNodes, edges, addEdges } = useGraphEditorStore()
-  const { playerContent, setPlayerContent } = usePlayerStore()
+  const { playerContent } = usePlayerStore()
 
   const router = useRouter()
 
   const DropdownMenuItems = [
     {
-      label: "Novo",
+      label: "Novo Projeto",
       type: "button",
       action: () => {
-        addNodes([])
+        addNodes([
+          {
+            id: "start",
+            type: "start",
+            position: { x: 10, y: 0 },
+            draggable: false,
+            deletable: false,
+            connectable: false,
+            selectable: false,
+          }
+        ])
         addEdges([])
-        setItems({})
+        setItems({
+          main: {
+            id: "main",
+            type: "graph",
+            parentId: null,
+            label: "Canvas",
+            data: {
+              nodes: [],
+              edges: [],
+            }
+          }
+        })
       }
     },
     {
