@@ -8,12 +8,25 @@ import downloadJson from "@/app/_utils/downloadJson";
 
 export default function ControlMenu() {
   const { items, setItems } = useFileManagerStore()
-  const { nodes, setNodes, edges, setEdges } = useGraphEditorStore()
+  const { nodes, addNodes, edges, addEdges } = useGraphEditorStore()
   const { playerContent, setPlayerContent } = usePlayerStore()
 
   const router = useRouter()
 
   const DropdownMenuItems = [
+    {
+      label: "Novo",
+      type: "button",
+      action: () => {
+        addNodes([])
+        addEdges([])
+        setItems({})
+      }
+    },
+    {
+      label: "Abrir",
+      type: "file",
+    },
     {
       label: "Salvar",
       type: "button",
@@ -25,13 +38,6 @@ export default function ControlMenu() {
         }
 
         downloadJson(project)
-      },
-    },
-    {
-      label: "Importar",
-      type: "file",
-      action: (event) => {
-        console.log("fdafdfa")
       },
     },
     {

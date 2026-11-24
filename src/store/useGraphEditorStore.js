@@ -21,6 +21,14 @@ const useGraphEditorStore = create(immer((set) => ({
   startTargetId: null,
   clientPos: { x: 0, y: 0 },
   
+  addNodes: (nodes) => set((state) => {
+    state.nodes = nodes
+  }),
+
+  addEdges: (edges) => set((state) => {
+    state.edges = edges
+  }),
+
   setNodes: (node) => set((state) => {
     state.nodes = typeof node === "function" ? node(state.nodes) : [...state.nodes, node]
   }),

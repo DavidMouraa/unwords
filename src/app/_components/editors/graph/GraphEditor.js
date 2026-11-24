@@ -136,6 +136,8 @@ export default function GraphEditor() {
     updatePlayerContent()
   }, [nodes, edges])
 
+  console.log(nodes)
+
   return (
     <ContextMenu
       itemKeys={contextMenuItemKeys}

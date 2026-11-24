@@ -29,7 +29,7 @@ const CONTEXT_MENU_ITEMS = {
   createNode: {
     label: "Nodes",
     type: "submenu",
-    subItemsKeys: ["createTextNode", "createChoiceNode", "createConditionalNode"]
+    subItemsKeys: ["createTextNode", "createChoiceNode"]
   },
   createTextNode: {
     label: "Texto",
