@@ -15,8 +15,6 @@ export default function DropdownMenu({ children, items }) {
     try {
       const text = await file.text()
       const data = JSON.parse(text)
-
-      console.log(data.nodes)
       
       addNodes(data.nodes)
       addEdges(data.edges)

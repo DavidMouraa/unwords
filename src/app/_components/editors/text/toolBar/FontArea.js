@@ -30,8 +30,8 @@ export default function FontArea() {
   })
 
   return (
-    <div className="p-2 text-sm">
-      <div className="flex gap-1">
+    <div className="flex justify-center p-2 text-sm">
+      <div className="w-50 flex justify-between gap-1">
         <Button 
           isActive={isBold}
           onClick={() => editor.chain().focus().toggleBold().run()}
